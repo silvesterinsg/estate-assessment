@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/silvesterchua/Downloads/estate_form.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estate Planning Risk Assessment</title>
+<link href="./Estate Planning Risk Assessment_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0f0d0a;
+    color: #e8e2d9;
+    min-height: 100vh;
+    padding: 3rem 1rem;
+  }
+  .container { max-width: 620px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 3rem; }
+  .logo-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #8a7a6a;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #e8e2d9;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .header p {
+    font-size: 14px;
+    color: #8a7a6a;
+    line-height: 1.7;
+  }
+  .divider { width: 40px; height: 1px; background: #3a3228; margin: 1.5rem auto; }
+  .field-group { margin-bottom: 1.5rem; }
+  .field-group label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a7a6a;
+    margin-bottom: 8px;
+  }
+  .field-group input {
+    width: 100%;
+    background: #1c1814;
+    border: 0.5px solid #3a3228;
+    border-radius: 2px;
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #e8e2d9;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field-group input:focus { border-color: #8a7a6a; }
+  .field-group input::placeholder { color: #4a4438; }
+  .section {
+    background: #1c1814;
+    border: 0.5px solid #3a3228;
+    border-radius: 2px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #e8e2d9;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.5px solid #3a3228;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+  .check-item:hover .check-box { border-color: #8a7a6a; }
+  .check-box {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 0.5px solid #3a3228;
+    border-radius: 2px;
+    background: #0f0d0a;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .check-box.checked {
+    background: #8B1A1A;
+    border-color: #8B1A1A;
+  }
+  .check-box.checked::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-2px);
+    display: block;
+  }
+  .check-label {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #b8b0a6;
+    user-select: none;
+  }
+  .submit-btn {
+    display: block;
+    width: 100%;
+    background: #8B1A1A;
+    color: #f5ede8;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.1rem 2rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: #a82222; }
+  .submit-btn:disabled { background: #3a2020; color: #6a4a4a; cursor: not-allowed; }
+  .status {
+    text-align: center;
+    font-size: 13px;
+    color: #8a7a6a;
+    margin-top: 1rem;
+    min-height: 20px;
+  }
+
+  /* Results page */
+  .results-page { display: none; }
+  .results-page.show { display: block; }
+  .form-page.hide { display: none; }
+  .score-ring {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  .score-ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: #2a2520; stroke-width: 8; }
+  .ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1); }
+  .score-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .score-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a7a6a; margin-top: 2px; }
+  .risk-card {
+    border-radius: 2px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid;
+  }
+  .risk-band { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
+  .risk-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; margin-bottom: 1rem; line-height: 1.2; }
+  .risk-body { font-size: 14px; line-height: 1.75; color: #b8b0a6; }
+  .low { background: #0d1a12; border-color: #2d6a3f; }
+  .low .risk-band { color: #4a9e62; }
+  .low .risk-title { color: #6dc987; }
+  .low .ring-fill { stroke: #4a9e62; }
+  .low .score-num { color: #6dc987; }
+  .moderate { background: #1a1508; border-color: #8B6914; }
+  .moderate .risk-band { color: #c9961a; }
+  .moderate .risk-title { color: #e8b84b; }
+  .moderate .ring-fill { stroke: #c9961a; }
+  .moderate .score-num { color: #e8b84b; }
+  .high { background: #1a0a0a; border-color: #8B1A1A; }
+  .high .risk-band { color: #c93a3a; }
+  .high .risk-title { color: #e87070; }
+  .high .ring-fill { stroke: #c93a3a; }
+  .high .score-num { color: #e87070; }
+  .next-step {
+    background: #1c1814;
+    border: 0.5px solid #3a3228;
+    border-radius: 2px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .next-step-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 0.75rem; }
+  .next-step p { font-size: 14px; line-height: 1.75; color: #b8b0a6; }
+  .cta {
+    display: block;
+    text-align: center;
+    background: #8B1A1A;
+    color: #f5ede8;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .footer { text-align: center; padding-bottom: 3rem; }
+  .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: #e8e2d9; margin-bottom: 4px; }
+  .footer-title { font-size: 11px; color: #8a7a6a; line-height: 1.8; }
+  .fade-in { opacity: 0; transform: translateY(16px); animation: rise 0.7s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.3s; }
+  .fade-in:nth-child(3) { animation-delay: 0.5s; }
+  .fade-in:nth-child(4) { animation-delay: 0.7s; }
+  .fade-in:nth-child(5) { animation-delay: 0.9s; }
+  .fade-in:nth-child(6) { animation-delay: 1.1s; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- FORM PAGE -->
+  <div class="form-page" id="formPage">
+    <div class="header">
+      <div class="logo-line">Precepts Legacy · AIA Singapore</div>
+      <h1>Estate Planning<br>Risk Assessment</h1>
+      <div class="divider"></div>
+      <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Your full name</label>
+      <input type="text" id="clientName" placeholder="e.g. John Tan" required="">
+    </div>
+    <div class="field-group">
+      <label>Your email address</label>
+      <input type="email" id="clientEmail" placeholder="e.g. john@email.com" required="">
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Personal &amp; Family Circumstances</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have no Will</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My marital status has changed recently</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My spouse is unfamiliar with business or financial matters</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am unsure who to appoint to manage my affairs after my passing</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have a newborn in the family</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have young children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I named my young children as beneficiaries to my insurance policies</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have a child with special needs</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">There is strong sibling rivalry among my children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have dependents such as parents or parents-in-law whom I provide for</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Executor, Guardian &amp; Safekeeping</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed executor or trustee</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed guardian</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I need to pass my Will to someone for safekeeping</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Asset &amp; Financial Complexity</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have assets in joint names and need to understand the legal implications</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I engage in active management of investments or trade in a portfolio of stocks</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have overseas assets</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I do not have a schedule of assets that details my assets and liabilities</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My family would need continuity of funds while waiting for grant of probate</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Cross-Border Family &amp; Legal Issues</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are permanent residents or citizens of another jurisdiction</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are married to foreigners</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am domiciled outside Singapore</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a Muslim or from a religious faith where my estate must be divided in a certain manner</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Business &amp; Legacy Planning</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I wish to give a legacy to a charity but am unsure how to achieve this</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I work well with my business partners, but their heirs may be a problem</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am concerned that my business becomes fragmented if divided among my children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a businessman exposed to business risks and liabilities</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have properties or business interests intended to provide for multiple generations</div></div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <!-- RESULTS PAGE -->
+  <div class="results-page" id="resultsPage">
+    <div class="header fade-in">
+      <div class="logo-line">Estate Planning · Risk Assessment</div>
+      <div style="font-family:&#39;Cormorant Garamond&#39;,serif;font-size:15px;font-weight:300;color:#8a7a6a;margin-bottom:4px;">Your results,</div>
+      <div style="font-family:&#39;Cormorant Garamond&#39;,serif;font-size:32px;font-weight:600;color:#e8e2d9;" id="resultName">—</div>
+    </div>
+
+    <div class="score-ring fade-in">
+      <svg viewBox="0 0 150 150">
+        <circle class="ring-bg" cx="75" cy="75" r="62"></circle>
+        <circle class="ring-fill" id="ringArc" cx="75" cy="75" r="62" stroke-dasharray="389.6" stroke-dashoffset="389.6"></circle>
+      </svg>
+      <div class="score-center">
+        <div class="score-num" id="resultScore">0</div>
+        <div class="score-label">out of 27</div>
+      </div>
+    </div>
+
+    <div class="risk-card fade-in" id="riskCard">
+      <div class="risk-band" id="riskBand"></div>
+      <div class="risk-title" id="riskTitle"></div>
+      <div class="risk-body" id="riskBody"></div>
+    </div>
+
+    <div class="next-step fade-in">
+      <div class="next-step-label">Recommended next step</div>
+      <p id="nextStep"></p>
+    </div>
+
+    <a href="mailto:silvesterinsg@gmail.com?subject=Estate%20Planning%20Discovery%20Session%20Request" class="cta fade-in" id="ctaBtn">Request a Discovery Session</a>
+
+    <div class="divider"></div>
+
+    <div class="footer fade-in">
+      <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
+      <div class="footer-title">
+        Estate &amp; Succession Practitioner · Precepts Legacy<br>
+        Wealth Structuring Advisor · Astria Consulting<br>
+        Financial Services Consultant · AIA Singapore
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVKqgO-ficVACz_s24bBt5DG5Z0-3xjsvvd1EpeqgYKrLVgv0_lnYijIsDah9vclOVGg/exec";
+
+  function toggle(el) {
+    var box = el.querySelector('.check-box');
+    box.classList.toggle('checked');
+  }
+
+  function submitForm() {
+    var name = document.getElementById('clientName').value.trim();
+    var email = document.getElementById('clientEmail').value.trim();
+
+    if (!name || !email) {
+      document.getElementById('status').textContent = 'Please enter your name and email.';
+      return;
+    }
+
+    var items = document.querySelectorAll('.check-item');
+    var score = 0;
+    var ticked = [];
+    items.forEach(function(item) {
+      if (item.querySelector('.check-box').classList.contains('checked')) {
+        score++;
+        ticked.push(item.querySelector('.check-label').textContent);
+      }
+    });
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    document.getElementById('status').textContent = 'Please wait...';
+
+    var payload = { name: name, email: email, score: score, ticked: ticked };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function() {
+      showResults(name, score);
+    }).catch(function() {
+      showResults(name, score);
+    });
+  }
+
+  function showResults(name, score) {
+    document.getElementById('formPage').classList.add('hide');
+    document.getElementById('resultsPage').classList.add('show');
+    document.getElementById('resultName').textContent = name;
+    document.getElementById('resultScore').textContent = score;
+
+    var circumference = 389.6;
+    var offset = circumference - (Math.min(score / 27, 1) * circumference);
+    setTimeout(function() {
+      document.getElementById('ringArc').style.strokeDashoffset = offset;
+    }, 400);
+
+    var card = document.getElementById('riskCard');
+    var band = document.getElementById('riskBand');
+    var title = document.getElementById('riskTitle');
+    var body = document.getElementById('riskBody');
+    var next = document.getElementById('nextStep');
+    var cta = document.getElementById('ctaBtn');
+
+    if (score >= 15) {
+      card.classList.add('high');
+      band.textContent = 'Score ' + score + ' · High Risk';
+      title.textContent = 'Your estate affairs need urgent attention.';
+      body.textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
+      next.textContent = 'I\'d strongly recommend we meet as soon as possible for an Estate Planning Discovery session. We\'ll map out your situation, identify the most urgent priorities, and discuss practical solutions — including Wills, Trusts, and insurance-linked structures.';
+      cta.textContent = 'Book an Urgent Discovery Session →';
+    } else if (score >= 7) {
+      card.classList.add('moderate');
+      band.textContent = 'Score ' + score + ' · Moderate Risk';
+      title.textContent = 'There are gaps worth addressing.';
+      body.textContent = 'Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
+      next.textContent = 'A focused Estate Planning Discovery session will surface the specific gaps and outline practical options — whether that\'s updating your Will, establishing a Trust, or reviewing your beneficiary arrangements.';
+      cta.textContent = 'Schedule a Discovery Session →';
+    } else {
+      card.classList.add('low');
+      band.textContent = 'Score ' + score + ' · Low Risk';
+      title.textContent = 'Your planning foundation looks solid.';
+      body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';
+      next.textContent = 'I\'d recommend a brief review every 2–3 years, or whenever there\'s a significant change in your life or financial situation. I\'m happy to do a quick check-in to make sure everything is still aligned.';
+      cta.textContent = 'Request a Check-In →';
+    }
+
+    window.scrollTo(0, 0);
+  }
+</script>
+
+
+</body></html>
