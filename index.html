@@ -16,11 +16,7 @@
   .divider { width: 40px; height: 1px; background: #3a3228; margin: 1.5rem auto; }
   .field-group { margin-bottom: 1.5rem; }
   .field-group label { display: block; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 10px; font-weight: 500; }
-  .field-group input, .field-group select {
-    width: 100%; background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px;
-    padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 17px; color: #e8e2d9;
-    outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none;
-  }
+  .field-group input, .field-group select { width: 100%; background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 17px; color: #e8e2d9; outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
   .field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7a6a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
   .field-group select option { background: #1c1814; color: #e8e2d9; }
   .field-group select optgroup { background: #1c1814; color: #8a7a6a; font-size: 13px; }
@@ -80,194 +76,37 @@
       <div class="divider"></div>
       <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
     </div>
-
-    <div class="field-group">
-      <label>Your Full Name</label>
-      <input type="text" id="clientName" placeholder="e.g. John Tan" required />
-    </div>
-    <div class="field-group">
-      <label>Your Email Address</label>
-      <input type="email" id="clientEmail" placeholder="e.g. john@email.com" required />
-    </div>
+    <div class="field-group"><label>Your Full Name</label><input type="text" id="clientName" placeholder="e.g. John Tan" /></div>
+    <div class="field-group"><label>Your Email Address</label><input type="email" id="clientEmail" placeholder="e.g. john@email.com" /></div>
     <div class="field-group">
       <label>Nationality</label>
       <select id="clientNationality">
         <option value="" disabled selected>Select your nationality</option>
-        <optgroup label="— Southeast Asia —">
-          <option>Singaporean</option>
-          <option>Malaysian</option>
-          <option>Thai</option>
-          <option>Indonesian</option>
-          <option>Filipino</option>
-          <option>Vietnamese</option>
-          <option>Bruneian</option>
-          <option>Cambodian</option>
-          <option>Laotian</option>
-          <option>Myanmarese</option>
-        </optgroup>
-        <optgroup label="— G7 —">
-          <option>American</option>
-          <option>British</option>
-          <option>Canadian</option>
-          <option>French</option>
-          <option>German</option>
-          <option>Italian</option>
-          <option>Japanese</option>
-        </optgroup>
-        <optgroup label="— Europe —">
-          <option>Australian</option>
-          <option>Austrian</option>
-          <option>Belgian</option>
-          <option>Czech</option>
-          <option>Danish</option>
-          <option>Dutch</option>
-          <option>Finnish</option>
-          <option>Greek</option>
-          <option>Hungarian</option>
-          <option>Irish</option>
-          <option>Luxembourger</option>
-          <option>New Zealander</option>
-          <option>Norwegian</option>
-          <option>Polish</option>
-          <option>Portuguese</option>
-          <option>Romanian</option>
-          <option>Spanish</option>
-          <option>Swedish</option>
-          <option>Swiss</option>
-        </optgroup>
-        <optgroup label="— North America —">
-          <option>Mexican</option>
-        </optgroup>
-        <optgroup label="— Middle East —">
-          <option>Emirati</option>
-          <option>Saudi Arabian</option>
-          <option>Qatari</option>
-          <option>Kuwaiti</option>
-          <option>Bahraini</option>
-          <option>Omani</option>
-          <option>Israeli</option>
-        </optgroup>
-        <optgroup label="— East Asia —">
-          <option>Chinese</option>
-          <option>Hong Konger</option>
-          <option>Korean</option>
-          <option>Macanese</option>
-          <option>Taiwanese</option>
-        </optgroup>
-        <optgroup label="— South Asia —">
-          <option>Indian</option>
-          <option>Pakistani</option>
-          <option>Sri Lankan</option>
-          <option>Bangladeshi</option>
-        </optgroup>
-        <optgroup label="— Rest of World —">
-          <option>Argentinian</option>
-          <option>Brazilian</option>
-          <option>Chilean</option>
-          <option>Colombian</option>
-          <option>Egyptian</option>
-          <option>Ghanaian</option>
-          <option>Kenyan</option>
-          <option>Nigerian</option>
-          <option>Russian</option>
-          <option>South African</option>
-          <option>Turkish</option>
-          <option>Ukrainian</option>
-          <option>Other</option>
-        </optgroup>
+        <optgroup label="— Southeast Asia —"><option>Singaporean</option><option>Malaysian</option><option>Thai</option><option>Indonesian</option><option>Filipino</option><option>Vietnamese</option><option>Bruneian</option><option>Cambodian</option><option>Laotian</option><option>Myanmarese</option></optgroup>
+        <optgroup label="— G7 —"><option>American</option><option>British</option><option>Canadian</option><option>French</option><option>German</option><option>Italian</option><option>Japanese</option></optgroup>
+        <optgroup label="— Europe —"><option>Australian</option><option>Austrian</option><option>Belgian</option><option>Czech</option><option>Danish</option><option>Dutch</option><option>Finnish</option><option>Greek</option><option>Hungarian</option><option>Irish</option><option>Luxembourger</option><option>New Zealander</option><option>Norwegian</option><option>Polish</option><option>Portuguese</option><option>Romanian</option><option>Spanish</option><option>Swedish</option><option>Swiss</option></optgroup>
+        <optgroup label="— North America —"><option>Mexican</option></optgroup>
+        <optgroup label="— Middle East —"><option>Emirati</option><option>Saudi Arabian</option><option>Qatari</option><option>Kuwaiti</option><option>Bahraini</option><option>Omani</option><option>Israeli</option></optgroup>
+        <optgroup label="— East Asia —"><option>Chinese</option><option>Hong Konger</option><option>Korean</option><option>Macanese</option><option>Taiwanese</option></optgroup>
+        <optgroup label="— South Asia —"><option>Indian</option><option>Pakistani</option><option>Sri Lankan</option><option>Bangladeshi</option></optgroup>
+        <optgroup label="— Rest of World —"><option>Argentinian</option><option>Brazilian</option><option>Chilean</option><option>Colombian</option><option>Egyptian</option><option>Ghanaian</option><option>Kenyan</option><option>Nigerian</option><option>Russian</option><option>South African</option><option>Turkish</option><option>Ukrainian</option><option>Other</option></optgroup>
       </select>
     </div>
     <div class="field-group">
       <label>Country of Residency</label>
       <select id="clientResidency">
         <option value="" disabled selected>Select your country of residency</option>
-        <optgroup label="— Southeast Asia —">
-          <option>Singapore</option>
-          <option>Malaysia</option>
-          <option>Thailand</option>
-          <option>Indonesia</option>
-          <option>Philippines</option>
-          <option>Vietnam</option>
-          <option>Brunei</option>
-          <option>Cambodia</option>
-          <option>Laos</option>
-          <option>Myanmar</option>
-        </optgroup>
-        <optgroup label="— G7 —">
-          <option>United States</option>
-          <option>United Kingdom</option>
-          <option>Canada</option>
-          <option>France</option>
-          <option>Germany</option>
-          <option>Italy</option>
-          <option>Japan</option>
-        </optgroup>
-        <optgroup label="— Europe —">
-          <option>Australia</option>
-          <option>Austria</option>
-          <option>Belgium</option>
-          <option>Czech Republic</option>
-          <option>Denmark</option>
-          <option>Netherlands</option>
-          <option>Finland</option>
-          <option>Greece</option>
-          <option>Hungary</option>
-          <option>Ireland</option>
-          <option>Luxembourg</option>
-          <option>New Zealand</option>
-          <option>Norway</option>
-          <option>Poland</option>
-          <option>Portugal</option>
-          <option>Romania</option>
-          <option>Spain</option>
-          <option>Sweden</option>
-          <option>Switzerland</option>
-        </optgroup>
-        <optgroup label="— North America —">
-          <option>Mexico</option>
-        </optgroup>
-        <optgroup label="— Middle East —">
-          <option>UAE</option>
-          <option>Saudi Arabia</option>
-          <option>Qatar</option>
-          <option>Kuwait</option>
-          <option>Bahrain</option>
-          <option>Oman</option>
-          <option>Israel</option>
-        </optgroup>
-        <optgroup label="— East Asia —">
-          <option>China</option>
-          <option>Hong Kong</option>
-          <option>South Korea</option>
-          <option>Macau</option>
-          <option>Taiwan</option>
-        </optgroup>
-        <optgroup label="— South Asia —">
-          <option>India</option>
-          <option>Pakistan</option>
-          <option>Sri Lanka</option>
-          <option>Bangladesh</option>
-        </optgroup>
-        <optgroup label="— Rest of World —">
-          <option>Argentina</option>
-          <option>Brazil</option>
-          <option>Chile</option>
-          <option>Colombia</option>
-          <option>Egypt</option>
-          <option>Ghana</option>
-          <option>Kenya</option>
-          <option>Nigeria</option>
-          <option>Russia</option>
-          <option>South Africa</option>
-          <option>Turkey</option>
-          <option>Ukraine</option>
-          <option>Other</option>
-        </optgroup>
+        <optgroup label="— Southeast Asia —"><option>Singapore</option><option>Malaysia</option><option>Thailand</option><option>Indonesia</option><option>Philippines</option><option>Vietnam</option><option>Brunei</option><option>Cambodia</option><option>Laos</option><option>Myanmar</option></optgroup>
+        <optgroup label="— G7 —"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>France</option><option>Germany</option><option>Italy</option><option>Japan</option></optgroup>
+        <optgroup label="— Europe —"><option>Australia</option><option>Austria</option><option>Belgium</option><option>Czech Republic</option><option>Denmark</option><option>Netherlands</option><option>Finland</option><option>Greece</option><option>Hungary</option><option>Ireland</option><option>Luxembourg</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Spain</option><option>Sweden</option><option>Switzerland</option></optgroup>
+        <optgroup label="— North America —"><option>Mexico</option></optgroup>
+        <optgroup label="— Middle East —"><option>UAE</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Israel</option></optgroup>
+        <optgroup label="— East Asia —"><option>China</option><option>Hong Kong</option><option>South Korea</option><option>Macau</option><option>Taiwan</option></optgroup>
+        <optgroup label="— South Asia —"><option>India</option><option>Pakistan</option><option>Sri Lanka</option><option>Bangladesh</option></optgroup>
+        <optgroup label="— Rest of World —"><option>Argentina</option><option>Brazil</option><option>Chile</option><option>Colombia</option><option>Egypt</option><option>Ghana</option><option>Kenya</option><option>Nigeria</option><option>Russia</option><option>South Africa</option><option>Turkey</option><option>Ukraine</option><option>Other</option></optgroup>
       </select>
     </div>
-
     <div class="divider"></div>
-
     <div class="section">
       <div class="section-title">Personal & Family Circumstances</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have no Will</div></div>
@@ -281,14 +120,12 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">There is strong sibling rivalry among my children</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have dependents such as parents or parents-in-law whom I provide for</div></div>
     </div>
-
     <div class="section">
       <div class="section-title">Executor, Guardian & Safekeeping</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed executor or trustee</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed guardian</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I need to pass my Will to someone for safekeeping</div></div>
     </div>
-
     <div class="section">
       <div class="section-title">Asset & Financial Complexity</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have assets in joint names and need to understand the legal implications</div></div>
@@ -297,7 +134,6 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I do not have a schedule of assets that details my assets and liabilities</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My family would need continuity of funds while waiting for grant of probate</div></div>
     </div>
-
     <div class="section">
       <div class="section-title">Cross-Border Family & Legal Issues</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are permanent residents or citizens of another jurisdiction</div></div>
@@ -305,7 +141,6 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am domiciled outside Singapore</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a Muslim or from a religious faith where my estate must be divided in a certain manner</div></div>
     </div>
-
     <div class="section">
       <div class="section-title">Business & Legacy Planning</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I wish to give a legacy to a charity but am unsure how to achieve this</div></div>
@@ -314,12 +149,10 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a businessman exposed to business risks and liabilities</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have properties or business interests intended to provide for multiple generations</div></div>
     </div>
-
     <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
     <div class="status" id="status"></div>
   </div>
 
-  <!-- RESULTS PAGE -->
   <div class="results-page" id="resultsPage">
     <div class="header fade-in">
       <div class="logo-line">Estate Planning · Risk Assessment</div>
@@ -359,36 +192,106 @@
 
   function toggle(el) { el.querySelector('.check-box').classList.toggle('checked'); }
 
+  function getTailoredNextStep(ticked) {
+    var hasNoWill = ticked.some(function(t){ return t.indexOf("no Will") > -1; });
+    var hasMarital = ticked.some(function(t){ return t.indexOf("marital status") > -1; });
+    var hasSpouse = ticked.some(function(t){ return t.indexOf("spouse is unfamiliar") > -1; });
+    var hasExecutor = ticked.some(function(t){ return t.indexOf("executor") > -1; });
+    var hasGuardian = ticked.some(function(t){ return t.indexOf("guardian") > -1; });
+    var hasSafekeeping = ticked.some(function(t){ return t.indexOf("safekeeping") > -1; });
+    var hasYoungChildren = ticked.some(function(t){ return t.indexOf("young children") > -1 || t.indexOf("newborn") > -1; });
+    var hasInsuranceBeneficiary = ticked.some(function(t){ return t.indexOf("beneficiaries to my insurance") > -1; });
+    var hasSpecialNeeds = ticked.some(function(t){ return t.indexOf("special needs") > -1; });
+    var hasSiblingRivalry = ticked.some(function(t){ return t.indexOf("sibling rivalry") > -1; });
+    var hasDependents = ticked.some(function(t){ return t.indexOf("dependents") > -1; });
+    var hasOverseasAssets = ticked.some(function(t){ return t.indexOf("overseas assets") > -1; });
+    var hasJointAssets = ticked.some(function(t){ return t.indexOf("joint names") > -1; });
+    var hasNoAssetSchedule = ticked.some(function(t){ return t.indexOf("schedule of assets") > -1; });
+    var hasProbate = ticked.some(function(t){ return t.indexOf("probate") > -1; });
+    var hasActiveInvesting = ticked.some(function(t){ return t.indexOf("active management") > -1; });
+    var hasCrossBorder = ticked.some(function(t){ return t.indexOf("permanent residents") > -1 || t.indexOf("married to foreigners") > -1 || t.indexOf("domiciled outside") > -1; });
+    var hasReligious = ticked.some(function(t){ return t.indexOf("Muslim") > -1; });
+    var hasBusiness = ticked.some(function(t){ return t.indexOf("business partners") > -1 || t.indexOf("fragmented") > -1 || t.indexOf("businessman") > -1; });
+    var hasLegacy = ticked.some(function(t){ return t.indexOf("charity") > -1 || t.indexOf("multi-generation") > -1 || t.indexOf("long-term resources") > -1; });
+
+    if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I'd still recommend a brief review every 2–3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
+
+    var parts = [];
+
+    if (hasNoWill || hasMarital || hasExecutor || hasSafekeeping) {
+      var w = [];
+      if (hasNoWill) w.push("drafting a Will");
+      if (hasMarital) w.push("updating it to reflect your current marital status");
+      if (hasExecutor) w.push("appointing a new executor or trustee");
+      if (hasSafekeeping) w.push("arranging proper safekeeping");
+      parts.push("The most immediate priority is " + w.join(", ") + ".");
+    }
+
+    if (hasGuardian || hasYoungChildren || hasInsuranceBeneficiary || hasSpecialNeeds) {
+      var c = [];
+      if (hasGuardian) c.push("appointing a suitable guardian");
+      if (hasYoungChildren) c.push("ensuring your young children are properly provided for");
+      if (hasInsuranceBeneficiary) c.push("restructuring your insurance beneficiary nominations — naming minor children directly can cause complications, and a trust is usually the better solution");
+      if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care without affecting their eligibility for government assistance");
+      parts.push("We should also address " + c.join(", ") + ".");
+    }
+
+    if (hasSiblingRivalry || hasSpouse || hasDependents) {
+      var f = [];
+      if (hasSiblingRivalry) f.push("a clear distribution structure to reduce the risk of family disputes");
+      if (hasSpouse) f.push("a plan to ensure your spouse can manage financial matters independently");
+      if (hasDependents) f.push("provisions for your dependents so they are financially protected");
+      parts.push("On the family side, we'll look at " + f.join(" and ") + ".");
+    }
+
+    if (hasOverseasAssets || hasJointAssets || hasNoAssetSchedule || hasProbate || hasActiveInvesting) {
+      var a = [];
+      if (hasOverseasAssets) a.push("structuring your overseas assets properly — each jurisdiction has its own rules on succession");
+      if (hasJointAssets) a.push("clarifying the legal implications of your jointly held assets");
+      if (hasNoAssetSchedule) a.push("preparing a comprehensive asset schedule");
+      if (hasProbate) a.push("putting liquidity solutions in place so your family has access to funds during the probate process");
+      if (hasActiveInvesting) a.push("ensuring your investment portfolio is covered in your estate plan");
+      parts.push("For your assets, we need to look at " + a.join(", ") + ".");
+    }
+
+    if (hasCrossBorder || hasReligious) {
+      var x = [];
+      if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity — a Singapore trust structure is often the most effective solution");
+      if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we'll factor into the structure from the start");
+      parts.push("Importantly, " + x.join(", and ") + ".");
+    }
+
+    if (hasBusiness) parts.push("Your business interests need dedicated attention — we'll look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
+    if (hasLegacy) parts.push("We'll also explore legacy planning options — whether that's a structured charitable giving arrangement or a multi-generational trust to preserve your assets for future generations.");
+
+    parts.push("I'd recommend we set aside time for an Estate Planning Discovery session to work through all of this properly. Please reach out to arrange a time.");
+    return parts.join(" ");
+  }
+
   function submitForm() {
     var name = document.getElementById('clientName').value.trim();
     var email = document.getElementById('clientEmail').value.trim();
     var nationality = document.getElementById('clientNationality').value;
     var residency = document.getElementById('clientResidency').value;
-
     if (!name || !email) { document.getElementById('status').textContent = 'Please enter your name and email address.'; return; }
     if (!nationality) { document.getElementById('status').textContent = 'Please select your nationality.'; return; }
     if (!residency) { document.getElementById('status').textContent = 'Please select your country of residency.'; return; }
-
     var items = document.querySelectorAll('.check-item');
     var score = 0; var ticked = [];
     items.forEach(function(item) {
-      if (item.querySelector('.check-box').classList.contains('checked')) {
-        score++; ticked.push(item.querySelector('.check-label').textContent);
-      }
+      if (item.querySelector('.check-box').classList.contains('checked')) { score++; ticked.push(item.querySelector('.check-label').textContent); }
     });
-
     var btn = document.getElementById('submitBtn');
     btn.disabled = true; btn.textContent = 'Submitting...';
     document.getElementById('status').textContent = 'Please wait...';
-
     fetch(SCRIPT_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, email: email, nationality: nationality, residency: residency, score: score, ticked: ticked })
-    }).then(function() { showResults(name, score); }).catch(function() { showResults(name, score); });
+    }).then(function() { showResults(name, score, ticked); }).catch(function() { showResults(name, score, ticked); });
   }
 
-  function showResults(name, score) {
+  function showResults(name, score, ticked) {
     document.getElementById('formPage').classList.add('hide');
     document.getElementById('resultsPage').classList.add('show');
     document.getElementById('resultName').textContent = name;
@@ -405,20 +308,18 @@
       band.textContent = 'Score ' + score + ' · High Risk';
       title.textContent = 'Your estate affairs need urgent attention.';
       body.textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
-      next.textContent = 'I\'d strongly recommend we meet as soon as possible for an Estate Planning Discovery session. We\'ll map out your situation, identify the most urgent priorities, and discuss practical solutions — including Wills, Trusts, and insurance-linked structures.';
     } else if (score >= 7) {
       card.classList.add('moderate');
       band.textContent = 'Score ' + score + ' · Moderate Risk';
       title.textContent = 'There are gaps worth addressing.';
       body.textContent = 'Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
-      next.textContent = 'A focused Estate Planning Discovery session will surface the specific gaps and outline practical options — whether that\'s updating your Will, establishing a Trust, or reviewing your beneficiary arrangements.';
     } else {
       card.classList.add('low');
       band.textContent = 'Score ' + score + ' · Low Risk';
       title.textContent = 'Your planning foundation looks solid.';
       body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';
-      next.textContent = 'I\'d recommend a brief review every 2–3 years, or whenever there\'s a significant change in your life or financial situation. I\'m happy to do a quick check-in to make sure everything is still aligned.';
     }
+    next.textContent = getTailoredNextStep(ticked);
     window.scrollTo(0, 0);
   }
 </script>
