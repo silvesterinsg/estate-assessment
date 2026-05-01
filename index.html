@@ -58,7 +58,8 @@
   .next-step { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.5rem 2rem; margin-bottom: 2rem; }
   .next-step-label { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 0.75rem; }
   .next-step p { font-size: 17px; line-height: 1.75; color: #b8b0a6; }
-  .cta { display: block; text-align: center; background: #8B1A1A; color: #f5ede8; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.1rem 2rem; text-decoration: none; border-radius: 2px; margin-bottom: 2rem; }
+  .cta { display: block; text-align: center; background: #25D366; color: #fff; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.1rem 2rem; text-decoration: none; border-radius: 2px; margin-bottom: 2rem; }
+  .cta:hover { background: #1ebe5d; }
   .footer { text-align: center; padding-bottom: 3rem; }
   .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #e8e2d9; margin-bottom: 6px; }
   .footer-title { font-size: 14px; color: #8a7a6a; line-height: 1.9; }
@@ -149,7 +150,6 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a businessman exposed to business risks and liabilities</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have properties or business interests intended to provide for multiple generations</div></div>
     </div>
-
     <div class="section">
       <div class="section-title">Other Concerns</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have other concerns that I do not wish to indicate in this form</div></div>
@@ -183,7 +183,7 @@
       <div class="next-step-label">Recommended next step</div>
       <p id="nextStep"></p>
     </div>
-    <a href="mailto:silvesterinsg@gmail.com?subject=Estate Planning Discovery Session Request" class="cta fade-in">Request a Discovery Session</a>
+    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta fade-in" id="ctaBtn">📱 Book a Discovery Session on WhatsApp</a>
     <div class="divider"></div>
     <div class="footer fade-in">
       <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
@@ -218,11 +218,11 @@
     var hasReligious = ticked.some(function(t){ return t.indexOf("Muslim") > -1; });
     var hasBusiness = ticked.some(function(t){ return t.indexOf("business partners") > -1 || t.indexOf("fragmented") > -1 || t.indexOf("businessman") > -1; });
     var hasLegacy = ticked.some(function(t){ return t.indexOf("charity") > -1 || t.indexOf("multi-generation") > -1 || t.indexOf("long-term resources") > -1; });
+    var hasOther = ticked.some(function(t){ return t.indexOf("other concerns") > -1; });
 
     if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I'd still recommend a brief review every 2–3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
 
     var parts = [];
-
     if (hasNoWill || hasMarital || hasExecutor || hasSafekeeping) {
       var w = [];
       if (hasNoWill) w.push("drafting a Will");
@@ -231,7 +231,6 @@
       if (hasSafekeeping) w.push("arranging proper safekeeping");
       parts.push("The most immediate priority is " + w.join(", ") + ".");
     }
-
     if (hasGuardian || hasYoungChildren || hasInsuranceBeneficiary || hasSpecialNeeds) {
       var c = [];
       if (hasGuardian) c.push("appointing a suitable guardian");
@@ -240,7 +239,6 @@
       if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care without affecting their eligibility for government assistance");
       parts.push("We should also address " + c.join(", ") + ".");
     }
-
     if (hasSiblingRivalry || hasSpouse || hasDependents) {
       var f = [];
       if (hasSiblingRivalry) f.push("a clear distribution structure to reduce the risk of family disputes");
@@ -248,7 +246,6 @@
       if (hasDependents) f.push("provisions for your dependents so they are financially protected");
       parts.push("On the family side, we'll look at " + f.join(" and ") + ".");
     }
-
     if (hasOverseasAssets || hasJointAssets || hasNoAssetSchedule || hasProbate || hasActiveInvesting) {
       var a = [];
       if (hasOverseasAssets) a.push("structuring your overseas assets properly — each jurisdiction has its own rules on succession");
@@ -258,17 +255,15 @@
       if (hasActiveInvesting) a.push("ensuring your investment portfolio is covered in your estate plan");
       parts.push("For your assets, we need to look at " + a.join(", ") + ".");
     }
-
     if (hasCrossBorder || hasReligious) {
       var x = [];
       if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity — a Singapore trust structure is often the most effective solution");
       if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we'll factor into the structure from the start");
       parts.push("Importantly, " + x.join(", and ") + ".");
     }
-
     if (hasBusiness) parts.push("Your business interests need dedicated attention — we'll look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
     if (hasLegacy) parts.push("We'll also explore legacy planning options — whether that's a structured charitable giving arrangement or a multi-generational trust to preserve your assets for future generations.");
-
+    if (hasOther) parts.push("I also note that you have concerns you'd prefer to discuss privately — I look forward to hearing more when we meet.");
     parts.push("I'd recommend we set aside time for an Estate Planning Discovery session to work through all of this properly. Please reach out to arrange a time.");
     return parts.join(" ");
   }
