@@ -2,792 +2,364 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Estate Planning with Silvester</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estate Planning Risk Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:'DM Sans',sans-serif;font-size:15px;background:#FAF7F2;color:#1C1410;-webkit-text-size-adjust:100%}
-:root{--gold:#B8962E;--gold-light:#D4AF5A;--gold-pale:#F5EDD6;--gold-border:rgba(184,150,46,0.25);--maroon:#6B1A2A;--maroon-dark:#4A1019;--cream:#FAF7F2;--ink:#1C1410;--ink-mid:#4A3728;--ink-soft:#7A6455;--border:#E8DFD0;--success:#2D7A4A;--error:#B0312A;--radius:8px;--radius-sm:4px}
-.screen{display:none}.screen.active{display:block}
-#appScreen{min-height:100vh;flex-direction:column}
-#appScreen.active{display:flex}
-input[type=text],input[type=password],input[type=number],textarea,select{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;-webkit-appearance:none;appearance:none}
-input:focus,textarea:focus,select:focus{border-color:var(--gold);background:#fff}
-textarea{resize:vertical;min-height:65px;line-height:1.5}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A6455' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
-.fl{display:block;font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:5px}
-.fg{margin-bottom:12px}
-.btn-p{display:block;width:100%;padding:14px;background:var(--maroon);color:var(--gold-light);border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;-webkit-appearance:none;text-align:center}
-.btn-p:active{background:var(--maroon-dark)}
-.btn-d{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;background:transparent;border:1px solid #FECACA;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--error);cursor:pointer;-webkit-appearance:none}
-/* LOGIN */
-.login-bg{min-height:100vh;background:var(--maroon-dark);background-image:radial-gradient(ellipse at 25% 75%,rgba(184,150,46,0.12) 0%,transparent 55%);display:flex;align-items:center;justify-content:center;padding:24px}
-.login-card{background:#fff;border-radius:var(--radius);padding:36px 28px;width:100%;max-width:400px;box-shadow:0 24px 80px rgba(0,0,0,0.4)}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.crest{width:46px;height:46px;min-width:46px;background:var(--maroon);color:var(--gold-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500}
-.crest.sm{width:32px;height:32px;min-width:32px;font-size:17px}
-.brand-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--ink);line-height:1.3}
-.brand-sub{font-size:10px;color:var(--ink-soft);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px}
-.login-intro{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.err-msg{background:#FEF2F2;border:1px solid #FECACA;color:var(--error);padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:14px;display:none}
-.login-footer{margin-top:16px;text-align:center;font-size:12px;color:var(--ink-soft)}
-/* APP SHELL */
-.topbar{background:var(--maroon-dark);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60;width:100%}
-.topbar-brand{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold-light);font-weight:500}
-.topbar-r{display:flex;align-items:center;gap:10px}
-.vtag{font-size:10px;color:rgba(255,255,255,0.3)}
-.hbg{background:none;border:none;color:var(--gold-light);font-size:26px;cursor:pointer;padding:0 4px;line-height:1;-webkit-appearance:none}
-.prog-wrap{background:rgba(0,0,0,0.25);height:3px;width:100%}
-.prog-fill{height:100%;background:var(--gold);transition:width 0.4s ease}
-.autosave{position:fixed;top:54px;right:14px;background:rgba(45,122,74,0.92);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;z-index:65;opacity:0;transition:opacity 0.3s;pointer-events:none}
-.autosave.show{opacity:1}
-/* DRAWER */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:90}
-.overlay.open{display:block}
-.drawer{position:fixed;top:0;left:0;bottom:0;width:78%;max-width:280px;background:var(--maroon-dark);z-index:100;transform:translateX(-100%);transition:transform 0.28s ease;display:flex;flex-direction:column}
-.drawer.open{transform:translateX(0)}
-.dr-top{padding:20px 16px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:center;gap:10px}
-.dr-brand{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold-light);line-height:1.3}
-.dr-nav{flex:1;padding:10px 0;overflow-y:auto}
-.di{padding:13px 16px;color:rgba(255,255,255,0.55);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:10px;border-left:3px solid transparent;transition:all 0.15s}
-.di.active,.di:hover{color:var(--gold-light);background:rgba(184,150,46,0.08);border-left-color:var(--gold)}
-.di .sn{width:20px;height:20px;border-radius:50%;background:rgba(184,150,46,0.15);color:var(--gold-light);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.di.active .sn{background:var(--gold);color:var(--maroon-dark)}
-.di .schk{color:#2D7A4A;font-size:12px;margin-left:auto}
-.dr-foot{padding:16px;border-top:1px solid rgba(184,150,46,0.15)}
-.dc-nm{font-family:'Cormorant Garamond',serif;font-size:15px;color:#fff;margin-bottom:3px}
-.dc-adv{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px}
-.btn-out{width:100%;padding:10px;background:transparent;border:1px solid rgba(184,150,46,0.3);color:var(--gold-light);border-radius:var(--radius-sm);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;-webkit-appearance:none}
-/* MAIN */
-.main{flex:1;padding:18px 16px 100px;width:100%}
-.sec{display:none}.sec.active{display:block}
-.ph{margin-bottom:20px}
-.ph h1{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--ink);margin-bottom:4px}
-.ph p{font-size:13px;color:var(--ink-soft);line-height:1.5}
-.step-badge{display:inline-flex;align-items:center;gap:6px;background:var(--maroon);color:var(--gold-light);padding:4px 10px;border-radius:20px;font-size:11px;letter-spacing:0.05em;margin-bottom:10px}
-/* CARDS */
-.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--maroon);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.card-sub{font-size:12px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5}
-/* DASHBOARD */
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.dc{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 13px;cursor:pointer}
-.dc:active{border-color:var(--gold)}
-.dc.full{grid-column:1/-1}
-.dc.hl{background:var(--maroon);border-color:var(--maroon)}
-.dc.hl .dcl,.dc.hl .dch{color:rgba(255,255,255,0.6)}
-.dc.hl .dcv,.dc.hl .dci{color:var(--gold-light)}
-.dci{font-size:13px;color:var(--gold);margin-bottom:4px}
-.dcl{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
-.dcv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--maroon);margin-bottom:2px}
-.dch{font-size:11px;color:var(--ink-soft)}
-.sbox{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
-.sbox-t{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.alist{display:flex;flex-wrap:wrap;gap:6px}
-.atag{background:var(--gold-pale);border:1px solid var(--gold-border);color:var(--ink-mid);padding:4px 9px;border-radius:var(--radius-sm);font-size:12px;font-weight:500}
-.ndm{color:var(--ink-soft);font-size:13px;font-style:italic}
-/* ACCORDION */
-.ssec{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
-.ssec-h{padding:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;-webkit-tap-highlight-color:transparent}
-.ssec-h:active{background:var(--gold-pale)}
-.ssec-l{display:flex;align-items:center;gap:9px}
-.ssec-icon{font-size:17px}
-.ssec-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--maroon)}
-.ssec-r{display:flex;align-items:center;gap:7px;flex-shrink:0}
-.ssec-stat{font-size:10px;color:var(--ink-soft);white-space:nowrap}
-.ssec-arr{color:var(--gold);font-size:14px;transition:transform 0.3s}
-.ssec.open .ssec-arr{transform:rotate(180deg)}
-.ssec-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
-.ssec.open .ssec-body{display:block}
-.sg-badge{font-size:10px;color:#5a7a9a;background:rgba(90,122,154,0.1);border:1px solid rgba(90,122,154,0.25);padding:2px 5px;border-radius:3px;margin-left:4px}
-/* ASSET ITEMS */
-.agrid{display:flex;flex-direction:column;gap:7px}
-.aitem{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:#fff;-webkit-tap-highlight-color:transparent}
-.aitem.checked{border-color:var(--gold);background:var(--gold-pale)}
-.aitem input[type=checkbox]{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--maroon);cursor:pointer;-webkit-appearance:auto;flex-shrink:0}
-.an{font-weight:500;font-size:14px;color:var(--ink);display:block}
-.as{font-size:11px;color:var(--ink-soft);margin-top:1px;display:block}
-/* ENTRY CARDS */
-.entry-card{background:var(--cream);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px;margin-bottom:10px}
-.entry-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.entry-num{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;color:var(--maroon)}
-.egrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.egrid .fg{margin-bottom:0}
-.egrid .full{grid-column:1/-1}
-.add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-soft);cursor:pointer;margin-top:8px;-webkit-appearance:none}
-.add-btn:active{background:var(--gold-pale);border-color:var(--gold);color:var(--ink)}
-.entry-cmt{margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-/* PLANNING QUESTIONS */
-.pq-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:var(--radius-sm);cursor:pointer;margin-top:10px;-webkit-tap-highlight-color:transparent}
-.pq-toggle-label{font-size:12px;font-weight:500;color:var(--maroon)}
-.pq-toggle-arr{font-size:12px;color:var(--gold);transition:transform 0.25s}
-.pq-toggle.open .pq-toggle-arr{transform:rotate(180deg)}
-.pq-body{display:none;margin-top:8px;background:#fff;border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:12px}
-.pq-body.open{display:block}
-.pq-row{padding:10px 0;border-bottom:1px solid var(--border)}
-.pq-row:last-child{border-bottom:none;padding-bottom:0}
-.pq-q{font-size:13px;color:var(--ink);margin-bottom:8px;line-height:1.5}
-/* CHECKLISTS */
-.clist{display:flex;flex-direction:column;gap:7px;margin-top:8px}
-.crow{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:14px;color:var(--ink-mid);-webkit-tap-highlight-color:transparent}
-.crow.checked{border-color:var(--gold);background:var(--gold-pale)}
-.crow input[type=checkbox],.crow input[type=radio]{width:20px;height:20px;min-width:20px;accent-color:var(--maroon);-webkit-appearance:auto;flex-shrink:0}
-.ii{flex:1;border:none;border-bottom:1px solid var(--border);background:transparent;font-size:14px;padding:2px 4px;outline:none;font-family:'DM Sans',sans-serif;color:var(--ink);min-width:0}
-/* YN BUTTONS */
-.yn-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
-.yn-btn{padding:8px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--cream);font-size:13px;font-weight:500;color:var(--ink-mid);cursor:pointer;-webkit-appearance:none;font-family:'DM Sans',sans-serif}
-.yn-btn.sy{background:var(--maroon);border-color:var(--maroon);color:#fff}
-.yn-btn.sn{background:var(--ink-mid);border-color:var(--ink-mid);color:#fff}
-.yn-btn.so{background:var(--gold);border-color:var(--gold);color:#fff}
-/* WEALTH */
-.wealth-row{display:flex;gap:8px;margin-top:8px;align-items:flex-start}
-.wealth-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;flex:1}
-.w-opt{padding:9px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--ink-mid);cursor:pointer;text-align:center;background:#fff;-webkit-tap-highlight-color:transparent}
-.w-opt.sel{border-color:var(--gold);background:var(--gold-pale);color:var(--ink)}
-.wealth-cur{width:85px;flex-shrink:0;padding:10px 8px}
-/* BENEFICIARIES */
-.ben-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.ben-item{display:flex;align-items:flex-start;gap:8px;padding:10px 11px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:#fff;-webkit-tap-highlight-color:transparent}
-.ben-item.checked{border-color:var(--gold);background:var(--gold-pale)}
-.ben-item input[type=checkbox]{width:18px;height:18px;min-width:18px;margin-top:1px;accent-color:var(--maroon);-webkit-appearance:auto;flex-shrink:0}
-.ben-name{font-weight:500;font-size:13px;color:var(--ink);display:block}
-.ben-sub{font-size:11px;color:var(--ink-soft);display:block;margin-top:1px}
-.consider-box{background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:var(--radius-sm);padding:13px;margin-top:14px}
-.consider-title{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--maroon);margin-bottom:8px}
-.consider-item{font-size:12px;color:var(--ink-mid);line-height:1.5;padding:4px 0;border-bottom:1px solid rgba(184,150,46,0.2)}
-.consider-item:last-child{border-bottom:none}
-/* FAMILY TREE VISUAL */
-.ft-tree{display:flex;flex-direction:column;gap:0;overflow-x:auto;padding:8px 4px}
-.ft-empty{text-align:center;padding:24px 16px;color:var(--ink-soft);font-size:13px;font-style:italic}
-.ft-gen{margin-bottom:0}
-.ft-gen-label{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-soft);text-align:center;padding:6px 0 4px}
-.ft-gen-client .ft-gen-label{color:var(--maroon)}
-.ft-gen-biz .ft-gen-label{color:#5a7a9a}
-.ft-nodes{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:4px 0}
-.ft-nodes-center{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:4px 0}
-.ft-node{display:inline-flex;flex-direction:column;align-items:center;gap:3px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;min-width:70px;max-width:110px;position:relative}
-.ft-node-client{background:var(--maroon);border-color:var(--maroon);color:var(--gold-light)}
-.ft-node-client .ft-node-name{color:var(--gold-light)}
-.ft-node-client .ft-node-icon{font-size:18px}
-.ft-node-gender{font-size:14px;line-height:1}
-.ft-node-name{font-size:12px;font-weight:500;color:var(--ink);text-align:center;word-break:break-word;line-height:1.3}
-.ft-node-rm{position:absolute;top:2px;right:2px;background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:11px;padding:0;line-height:1;opacity:0.5}
-.ft-node-rm:hover{opacity:1;color:var(--error)}
-.ft-connector{height:20px;display:flex;justify-content:center;align-items:center}
-.ft-connector::before{content:'';display:block;width:2px;height:100%;background:var(--border)}
-.ft-rel-group{display:flex;flex-direction:column;align-items:center;gap:4px}
-.ft-rel-label{font-size:10px;color:var(--ink-soft);background:var(--cream);border:1px solid var(--border);padding:2px 7px;border-radius:10px}
-.ft-gen-ancestor .ft-node{border-color:#B8962E44;background:#FFFEF8}
-.ft-gen-desc .ft-node{border-color:#2D7A4A22;background:#F8FFF9}
-.ft-gen-biz .ft-node{border-color:#5a7a9a33;background:#F8FAFF}
-.gm{color:#3B82F6}.gf{color:#EC4899}.go{color:#8B5CF6}
-.ft-add-form{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap;align-items:flex-end}
-.ft-add-form input{flex:1;min-width:100px;padding:9px 12px;font-size:14px}
-.ft-add-form select{padding:9px 10px;font-size:13px}
-.ft-add-form button{padding:10px 14px;background:var(--maroon);color:var(--gold-light);border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0}
-/* APPOINTMENTS */
-.apt-tbl{width:100%;border-collapse:collapse;margin-bottom:10px}
-.apt-tbl td{padding:9px 11px;border:1px solid var(--border);font-size:13px;vertical-align:top}
-.apt-tbl td:first-child{font-size:11px;font-weight:500;color:var(--ink-soft);width:38%;background:var(--cream)}
-.apt-tbl td:last-child{background:#fff}
-.apt-lbl{font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--maroon);margin:14px 0 8px}
-.apt-lbl:first-child{margin-top:0}
-.prec-opt{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:var(--radius-sm);margin-top:7px;font-size:13px;color:var(--ink-mid)}
-.prec-opt input{width:18px;height:18px;accent-color:var(--maroon);-webkit-appearance:auto;flex-shrink:0}
-/* NOTES */
-.nf{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
-.nf label{font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;display:block}
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--maroon-dark);display:flex;border-top:1px solid rgba(184,150,46,0.2);z-index:55;padding-bottom:env(safe-area-inset-bottom,0px)}
-.bni{flex:1;padding:9px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,0.45);cursor:pointer;font-size:10px;border:none;background:none;font-family:'DM Sans',sans-serif;-webkit-appearance:none;-webkit-tap-highlight-color:transparent;position:relative}
-.bni.active{color:var(--gold-light)}
-.bni .ico{font-size:17px;line-height:1}
-.bni .dot{width:5px;height:5px;border-radius:50%;background:var(--success);position:absolute;top:6px;right:calc(50% - 16px);display:none}
-.bni.done .dot{display:block}
-@media(max-width:400px){.ben-grid{grid-template-columns:1fr}.egrid{grid-template-columns:1fr}.egrid .full{grid-column:1}.wealth-opts{grid-template-columns:1fr}}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #0f0d0a; color: #e8e2d9; min-height: 100vh; padding: 3rem 1.25rem; }
+  .container { max-width: 660px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 3rem; }
+  .logo-line { font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 0.2em; color: #8a7a6a; text-transform: uppercase; margin-bottom: 1rem; }
+  .header h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: #e8e2d9; line-height: 1.2; margin-bottom: 1rem; }
+  .header p { font-size: 17px; color: #8a7a6a; line-height: 1.7; }
+  .divider { width: 40px; height: 1px; background: #3a3228; margin: 1.5rem auto; }
+  .field-group { margin-bottom: 1.5rem; }
+  .field-group label { display: block; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 10px; font-weight: 500; }
+  .field-group input, .field-group select { width: 100%; background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 17px; color: #e8e2d9; outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
+  .field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7a6a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+  .field-group select option { background: #1c1814; color: #e8e2d9; }
+  .field-group select optgroup { background: #1c1814; color: #8a7a6a; font-size: 13px; }
+  .field-group input:focus, .field-group select:focus { border-color: #8a7a6a; }
+  .field-group input::placeholder { color: #4a4438; }
+  .field-optional { font-size: 11px; color: #5a4a3a; margin-left: 6px; text-transform: none; letter-spacing: 0; }
+  .section { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.75rem; margin-bottom: 1.25rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #e8e2d9; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid #3a3228; }
+  .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; cursor: pointer; border-bottom: 0.5px solid #2a2520; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover .check-box { border-color: #8a7a6a; }
+  .check-box { width: 22px; height: 22px; min-width: 22px; border: 0.5px solid #3a3228; border-radius: 2px; background: #0f0d0a; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .check-box.checked { background: #8B1A1A; border-color: #8B1A1A; }
+  .check-box.checked::after { content: ''; width: 12px; height: 7px; border-left: 2.5px solid white; border-bottom: 2.5px solid white; transform: rotate(-45deg) translateY(-2px); display: block; }
+  .check-label { font-size: 16px; line-height: 1.6; color: #c8c0b6; user-select: none; }
+  .submit-btn { display: block; width: 100%; background: #8B1A1A; color: #f5ede8; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 1.25rem 2rem; border: none; border-radius: 2px; cursor: pointer; margin-top: 2rem; transition: background 0.2s; }
+  .submit-btn:hover { background: #a82222; }
+  .submit-btn:disabled { background: #3a2020; color: #6a4a4a; cursor: not-allowed; }
+  .status { text-align: center; font-size: 15px; color: #c93a3a; margin-top: 1rem; min-height: 20px; }
+  .results-page { display: none; }
+  .results-page.show { display: block; }
+  .form-page.hide { display: none; }
+  .score-ring { width: 160px; height: 160px; margin: 0 auto 2rem; position: relative; }
+  .score-ring svg { width: 160px; height: 160px; transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: #2a2520; stroke-width: 8; }
+  .ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1); }
+  .score-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+  .score-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 600; line-height: 1; }
+  .score-label { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a7a6a; margin-top: 4px; }
+  .risk-card { border-radius: 2px; padding: 2rem; margin-bottom: 1.5rem; border-left: 3px solid; }
+  .risk-band { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
+  .risk-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; margin-bottom: 1rem; line-height: 1.2; }
+  .risk-body { font-size: 17px; line-height: 1.75; color: #b8b0a6; }
+  .low { background: #0d1a12; border-color: #2d6a3f; }
+  .low .risk-band { color: #4a9e62; } .low .risk-title { color: #6dc987; } .low .ring-fill { stroke: #4a9e62; } .low .score-num { color: #6dc987; }
+  .moderate { background: #1a1508; border-color: #8B6914; }
+  .moderate .risk-band { color: #c9961a; } .moderate .risk-title { color: #e8b84b; } .moderate .ring-fill { stroke: #c9961a; } .moderate .score-num { color: #e8b84b; }
+  .high { background: #1a0a0a; border-color: #8B1A1A; }
+  .high .risk-band { color: #c93a3a; } .high .risk-title { color: #e87070; } .high .ring-fill { stroke: #c93a3a; } .high .score-num { color: #e87070; }
+  .next-step { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.5rem 2rem; margin-bottom: 2rem; }
+  .next-step-label { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 0.75rem; }
+  .next-step p { font-size: 17px; line-height: 1.75; color: #b8b0a6; }
+  .cta { display: block; text-align: center; background: #25D366; color: #fff; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.1rem 2rem; text-decoration: none; border-radius: 2px; margin-bottom: 2rem; }
+  .cta:hover { background: #1ebe5d; }
+  .footer { text-align: center; padding-bottom: 3rem; }
+  .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #e8e2d9; margin-bottom: 6px; }
+  .footer-title { font-size: 14px; color: #8a7a6a; line-height: 1.9; }
+  .fade-in { opacity: 0; transform: translateY(16px); animation: rise 0.7s ease forwards; }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; } .fade-in:nth-child(2) { animation-delay: 0.3s; } .fade-in:nth-child(3) { animation-delay: 0.5s; } .fade-in:nth-child(4) { animation-delay: 0.7s; } .fade-in:nth-child(5) { animation-delay: 0.9s; } .fade-in:nth-child(6) { animation-delay: 1.1s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
-<div id="loginScreen" class="screen active">
-  <div class="login-bg">
-    <div class="login-card">
-      <div class="brand">
-        <div class="crest">S</div>
-        <div><div class="brand-name">Estate Planning with Silvester</div><div class="brand-sub">Client Planning Portal · v1.2</div></div>
-      </div>
-      <p class="login-intro">Your private estate planning depositary. Securely maintained by your advisor.</p>
-      <div class="fg"><label class="fl">Username</label><input type="text" id="lu" placeholder="Enter your username" autocomplete="username"/></div>
-      <div class="fg"><label class="fl">Password</label><input type="password" id="lp" placeholder="Enter your password" autocomplete="current-password"/></div>
-      <div id="lerr" class="err-msg"></div>
-      <button class="btn-p" onclick="doLogin()">Sign In</button>
-      <div class="login-footer">Don't have access? Contact Silvester to get set up.</div>
+<div class="container">
+  <div class="form-page" id="formPage">
+    <div class="header">
+      <div class="logo-line">Precepts Legacy · AIA Singapore</div>
+      <h1>Estate Planning<br>Risk Assessment</h1>
+      <div class="divider"></div>
+      <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
     </div>
+
+    <div class="field-group">
+      <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
+      <input type="text" id="clientLawyer" placeholder="e.g. David Lim" />
+    </div>
+    <div class="field-group">
+      <label>Your Full Name</label>
+      <input type="text" id="clientName" placeholder="e.g. John Tan" />
+    </div>
+    <div class="field-group">
+      <label>Your Email Address</label>
+      <input type="email" id="clientEmail" placeholder="e.g. john@email.com" />
+    </div>
+    <div class="field-group">
+      <label>Nationality</label>
+      <select id="clientNationality">
+        <option value="" disabled selected>Select your nationality</option>
+        <optgroup label="— Southeast Asia —"><option>Singaporean</option><option>Malaysian</option><option>Thai</option><option>Indonesian</option><option>Filipino</option><option>Vietnamese</option><option>Bruneian</option><option>Cambodian</option><option>Laotian</option><option>Myanmarese</option></optgroup>
+        <optgroup label="— G7 —"><option>American</option><option>British</option><option>Canadian</option><option>French</option><option>German</option><option>Italian</option><option>Japanese</option></optgroup>
+        <optgroup label="— Europe —"><option>Australian</option><option>Austrian</option><option>Belgian</option><option>Czech</option><option>Danish</option><option>Dutch</option><option>Finnish</option><option>Greek</option><option>Hungarian</option><option>Irish</option><option>Luxembourger</option><option>New Zealander</option><option>Norwegian</option><option>Polish</option><option>Portuguese</option><option>Romanian</option><option>Spanish</option><option>Swedish</option><option>Swiss</option></optgroup>
+        <optgroup label="— North America —"><option>Mexican</option></optgroup>
+        <optgroup label="— Middle East —"><option>Emirati</option><option>Saudi Arabian</option><option>Qatari</option><option>Kuwaiti</option><option>Bahraini</option><option>Omani</option><option>Israeli</option></optgroup>
+        <optgroup label="— East Asia —"><option>Chinese</option><option>Hong Konger</option><option>Korean</option><option>Macanese</option><option>Taiwanese</option></optgroup>
+        <optgroup label="— South Asia —"><option>Indian</option><option>Pakistani</option><option>Sri Lankan</option><option>Bangladeshi</option></optgroup>
+        <optgroup label="— Rest of World —"><option>Argentinian</option><option>Brazilian</option><option>Chilean</option><option>Colombian</option><option>Egyptian</option><option>Ghanaian</option><option>Kenyan</option><option>Nigerian</option><option>Russian</option><option>South African</option><option>Turkish</option><option>Ukrainian</option><option>Other</option></optgroup>
+      </select>
+    </div>
+    <div class="field-group">
+      <label>Country of Residency</label>
+      <select id="clientResidency">
+        <option value="" disabled selected>Select your country of residency</option>
+        <optgroup label="— Southeast Asia —"><option>Singapore</option><option>Malaysia</option><option>Thailand</option><option>Indonesia</option><option>Philippines</option><option>Vietnam</option><option>Brunei</option><option>Cambodia</option><option>Laos</option><option>Myanmar</option></optgroup>
+        <optgroup label="— G7 —"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>France</option><option>Germany</option><option>Italy</option><option>Japan</option></optgroup>
+        <optgroup label="— Europe —"><option>Australia</option><option>Austria</option><option>Belgium</option><option>Czech Republic</option><option>Denmark</option><option>Netherlands</option><option>Finland</option><option>Greece</option><option>Hungary</option><option>Ireland</option><option>Luxembourg</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Spain</option><option>Sweden</option><option>Switzerland</option></optgroup>
+        <optgroup label="— North America —"><option>Mexico</option></optgroup>
+        <optgroup label="— Middle East —"><option>UAE</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Israel</option></optgroup>
+        <optgroup label="— East Asia —"><option>China</option><option>Hong Kong</option><option>South Korea</option><option>Macau</option><option>Taiwan</option></optgroup>
+        <optgroup label="— South Asia —"><option>India</option><option>Pakistan</option><option>Sri Lanka</option><option>Bangladesh</option></optgroup>
+        <optgroup label="— Rest of World —"><option>Argentina</option><option>Brazil</option><option>Chile</option><option>Colombia</option><option>Egypt</option><option>Ghana</option><option>Kenya</option><option>Nigeria</option><option>Russia</option><option>South Africa</option><option>Turkey</option><option>Ukraine</option><option>Other</option></optgroup>
+      </select>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Personal & Family Circumstances</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have no Will</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My marital status has changed recently</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My spouse is unfamiliar with business or financial matters</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am unsure who to appoint to manage my affairs after my passing</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have a newborn in the family</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have young children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I named my young children as beneficiaries to my insurance policies</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have a child with special needs</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">There is strong sibling rivalry among my children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have dependents such as parents or parents-in-law whom I provide for</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Executor, Guardian & Safekeeping</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed executor or trustee</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed guardian</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I need to pass my Will to someone for safekeeping</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Asset & Financial Complexity</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have assets in joint names and need to understand the legal implications</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I engage in active management of investments or trade in a portfolio of stocks</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have overseas assets</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I do not have a schedule of assets that details my assets and liabilities</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My family would need continuity of funds while waiting for grant of probate</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Cross-Border Family & Legal Issues</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are permanent residents or citizens of another jurisdiction</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are married to foreigners</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am domiciled outside Singapore</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a Muslim or from a religious faith where my estate must be divided in a certain manner</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Business & Legacy Planning</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I wish to give a legacy to a charity but am unsure how to achieve this</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I work well with my business partners, but their heirs may be a problem</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am concerned that my business becomes fragmented if divided among my children</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a businessman exposed to business risks and liabilities</div></div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have properties or business interests intended to provide for multiple generations</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Other Concerns</div>
+      <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have other concerns that I do not wish to indicate in this form</div></div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
+    <div class="status" id="status"></div>
   </div>
-</div>
 
-<!-- APP -->
-<div id="appScreen" class="screen">
-  <div class="topbar">
-    <div class="topbar-brand">Estate Planning with Silvester</div>
-    <div class="topbar-r"><span class="vtag">v1.2</span><button class="hbg" onclick="openD()">☰</button></div>
-  </div>
-  <div class="prog-wrap"><div class="prog-fill" id="progBar" style="width:0%"></div></div>
-  <div class="autosave" id="asMsg">✓ Saved</div>
-  <div class="overlay" id="ov" onclick="closeD()"></div>
-  <div class="drawer" id="dr">
-    <div class="dr-top"><div class="crest sm">S</div><div class="dr-brand">Estate Planning<br>with Silvester</div></div>
-    <div class="dr-nav">
-      <div class="di active" id="di-dash" onclick="goSec('dash')"><span class="sn">◈</span>Dashboard</div>
-      <div class="di" id="di-s1" onclick="goSec('s1')"><span class="sn">1</span>Asset Inventory<span class="schk" id="chk-s1" style="display:none">✓</span></div>
-      <div class="di" id="di-s2" onclick="goSec('s2')"><span class="sn">2</span>Asset Complexity<span class="schk" id="chk-s2" style="display:none">✓</span></div>
-      <div class="di" id="di-s3" onclick="goSec('s3')"><span class="sn">3</span>Beneficiaries<span class="schk" id="chk-s3" style="display:none">✓</span></div>
-      <div class="di" id="di-s4" onclick="goSec('s4')"><span class="sn">4</span>Key Appointments<span class="schk" id="chk-s4" style="display:none">✓</span></div>
+  <div class="results-page" id="resultsPage">
+    <div class="header fade-in">
+      <div class="logo-line">Estate Planning · Risk Assessment</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:#8a7a6a;margin-bottom:6px;">Your results,</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#e8e2d9;" id="resultName">-</div>
     </div>
-    <div class="dr-foot">
-      <div id="dcn" class="dc-nm"></div>
-      <div class="dc-adv">Advisor: <span id="dca"></span></div>
-      <button class="btn-out" onclick="doLogout()">Sign Out</button>
-    </div>
-  </div>
-
-  <div class="main">
-
-    <!-- DASHBOARD -->
-    <div id="sec-dash" class="sec active">
-      <div class="ph"><h1>Welcome, <span id="dn"></span></h1><p>Your estate planning progress at a glance.</p></div>
-      <div class="dgrid">
-        <div class="dc" onclick="goSec('s1')"><div class="dci">📋</div><div class="dcl">Assets</div><div id="dac" class="dcv">—</div><div class="dch">types recorded</div></div>
-        <div class="dc" onclick="goSec('s2')"><div class="dci">◉</div><div class="dcl">Complexity</div><div id="dcc" class="dcv">—</div><div class="dch">sections done</div></div>
-        <div class="dc" onclick="goSec('s3')"><div class="dci">👨‍👩‍👧</div><div class="dcl">Beneficiaries</div><div id="dbc" class="dcv">—</div><div class="dch">identified</div></div>
-        <div class="dc hl" onclick="goSec('s4')"><div class="dci">⚖️</div><div class="dcl">Appointments</div><div id="dappt" class="dcv">—</div><div class="dch">roles filled</div></div>
-        <div class="dc full"><div class="dcl">Overall Progress</div><div id="ds" class="dcv">—</div><div class="dch">completion</div></div>
-      </div>
-      <div class="sbox"><div class="sbox-t">Recorded Assets</div><div id="dal" class="alist"></div></div>
-      <div class="sbox"><div class="sbox-t">Planning Scope</div><div id="dscope" class="ndm">Not yet specified</div></div>
-    </div>
-
-    <!-- STEP 1: ASSET INVENTORY -->
-    <div id="sec-s1" class="sec">
-      <div class="step-badge">📋 Step 1</div>
-      <div class="ph"><h1>Asset Inventory</h1><p>Record all your assets. Planning questions are embedded inside each entry.</p></div>
-      <div class="card">
-        <div class="card-title">What assets do you have?</div>
-        <div class="agrid" id="ach"></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Location & Planning Scope</div>
-        <div class="fg"><label class="fl">Location of assets</label>
-          <div class="clist">
-            <label class="crow"><input type="checkbox" id="lsg"> Singapore</label>
-            <label class="crow"><input type="checkbox" id="los"> Overseas</label>
-            <label class="crow"><input type="checkbox" id="lot"> Others: <input type="text" class="ii" id="lotx" placeholder="specify..." onclick="event.stopPropagation()"/></label>
-          </div>
-        </div>
-        <div class="fg" style="margin-top:12px"><label class="fl">Planning scope</label>
-          <div class="clist">
-            <label class="crow"><input type="radio" name="sc" id="sww" value="Worldwide"> Worldwide — Primary Will</label>
-            <label class="crow"><input type="radio" name="sc" id="ssg" value="Singapore Only"> Singapore Only</label>
-            <label class="crow"><input type="radio" name="sc" id="sot" value="Others"> Others: <input type="text" class="ii" id="sotx" placeholder="specify..." onclick="event.stopPropagation()"/></label>
-          </div>
-        </div>
-        <div class="fg" style="margin-top:12px"><label class="fl">Estimated net worth (optional)</label>
-          <div class="wealth-row">
-            <div class="wealth-opts">
-              <div class="w-opt" onclick="selW(this,'lt1M')">Below 1M</div>
-              <div class="w-opt" onclick="selW(this,'1M-5M')">1M – 5M</div>
-              <div class="w-opt" onclick="selW(this,'5M-20M')">5M – 20M</div>
-              <div class="w-opt" onclick="selW(this,'gt20M')">Above 20M</div>
-            </div>
-            <select id="wealthCur" class="wealth-cur"><option value="">CCY</option><option value="SGD">SGD</option><option value="THB">THB</option><option value="USD">USD</option><option value="IDR">IDR</option><option value="Other">Other</option></select>
-          </div>
-        </div>
-      </div>
-      <div class="ssec" id="ss-property"><div class="ssec-h" onclick="tgSS('property')"><div class="ssec-l"><span class="ssec-icon">🏠</span><span class="ssec-title">Properties</span></div><div class="ssec-r"><span class="ssec-stat" id="st-property">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Record each property separately. Planning questions inside each entry.</div><div id="en-property"></div><button class="add-btn" onclick="addE('property')">+ Add Property</button></div></div>
-      <div class="ssec" id="ss-bank"><div class="ssec-h" onclick="tgSS('bank')"><div class="ssec-l"><span class="ssec-icon">🏦</span><span class="ssec-title">Bank Accounts</span></div><div class="ssec-r"><span class="ssec-stat" id="st-bank">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">All accounts across all countries and currencies.</div><div id="en-bank"></div><button class="add-btn" onclick="addE('bank')">+ Add Bank Account</button></div></div>
-      <div class="ssec" id="ss-joint"><div class="ssec-h" onclick="tgSS('joint')"><div class="ssec-l"><span class="ssec-icon">🤝</span><span class="ssec-title">Joint Accounts</span></div><div class="ssec-r"><span class="ssec-stat" id="st-joint">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Assets or accounts held jointly with another person.</div><div id="en-joint"></div><button class="add-btn" onclick="addE('joint')">+ Add Joint Account</button></div></div>
-      <div class="ssec" id="ss-invest"><div class="ssec-h" onclick="tgSS('invest')"><div class="ssec-l"><span class="ssec-icon">📈</span><span class="ssec-title">Investment Accounts</span></div><div class="ssec-r"><span class="ssec-stat" id="st-invest">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Stocks, bonds, unit trusts, REITs, ETFs, crypto and other investments.</div><div id="en-invest"></div><button class="add-btn" onclick="addE('invest')">+ Add Investment</button></div></div>
-      <div class="ssec" id="ss-insurance"><div class="ssec-h" onclick="tgSS('insurance')"><div class="ssec-l"><span class="ssec-icon">🛡️</span><span class="ssec-title">Life Insurance Policies</span></div><div class="ssec-r"><span class="ssec-stat" id="st-insurance">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">All life, endowment, ILP, and universal life policies.</div><div id="en-insurance"></div><button class="add-btn" onclick="addE('insurance')">+ Add Policy</button></div></div>
-      <div class="ssec" id="ss-business"><div class="ssec-h" onclick="tgSS('business')"><div class="ssec-l"><span class="ssec-icon">🏢</span><span class="ssec-title">Business Interests</span></div><div class="ssec-r"><span class="ssec-stat" id="st-business">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Record each business entity separately.</div><div id="en-business"></div><button class="add-btn" onclick="addE('business')">+ Add Business</button></div></div>
-      <div class="ssec" id="ss-loans"><div class="ssec-h" onclick="tgSS('loans')"><div class="ssec-l"><span class="ssec-icon">💳</span><span class="ssec-title">Loans & Liabilities</span></div><div class="ssec-r"><span class="ssec-stat" id="st-loans">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Mortgages, car loans, personal loans, credit cards, business loans.</div><div id="en-loans"></div><button class="add-btn" onclick="addE('loans')">+ Add Liability</button></div></div>
-      <div class="ssec" id="ss-digital"><div class="ssec-h" onclick="tgSS('digital')"><div class="ssec-l"><span class="ssec-icon">💻</span><span class="ssec-title">Digital Assets</span></div><div class="ssec-r"><span class="ssec-stat" id="st-digital">0 recorded</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body"><div class="card-sub">Cryptocurrency, online businesses, e-wallets, and digital accounts.</div><div id="en-digital"></div><button class="add-btn" onclick="addE('digital')">+ Add Digital Asset</button></div></div>
-      <div class="card"><div class="card-title">Other Assets & Notes</div><div class="fg"><label class="fl">Vehicles, collectibles, IP, safe deposit boxes, etc.</label><textarea id="otherAssets" placeholder="Describe any other assets..."></textarea></div><div class="fg"><label class="fl">Notes for your advisor</label><textarea id="assetNotes" placeholder="Any additional context or instructions..."></textarea></div></div>
-    </div>
-
-    <!-- STEP 2: ASSET COMPLEXITY -->
-    <div id="sec-s2" class="sec">
-      <div class="step-badge">◉ Step 2</div>
-      <div class="ph"><h1>Asset Complexity</h1><p>General planning questions across your estate. Property-specific questions are inside each property entry in Step 1.</p></div>
-      <div class="ssec" id="cx-cpf"><div class="ssec-h" onclick="this.parentElement.classList.toggle('open')"><div class="ssec-l"><span class="ssec-icon">🏦</span><span class="ssec-title">CPF <span class="sg-badge">🇸🇬 SG only</span></span></div><div class="ssec-r"><span class="ssec-stat" id="acs-cpf">Not started</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body" id="cxb-cpf"></div></div>
-      <div class="ssec" id="cx-overseas"><div class="ssec-h" onclick="this.parentElement.classList.toggle('open')"><div class="ssec-l"><span class="ssec-icon">✈️</span><span class="ssec-title">Overseas Assets</span></div><div class="ssec-r"><span class="ssec-stat" id="acs-overseas">Not started</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body" id="cxb-overseas"></div></div>
-      <div class="ssec" id="cx-col"><div class="ssec-h" onclick="this.parentElement.classList.toggle('open')"><div class="ssec-l"><span class="ssec-icon">💎</span><span class="ssec-title">Collectibles & Valuables</span></div><div class="ssec-r"><span class="ssec-stat" id="acs-col">Not started</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body" id="cxb-col"></div></div>
-      <div class="ssec" id="cx-dig"><div class="ssec-h" onclick="this.parentElement.classList.toggle('open')"><div class="ssec-l"><span class="ssec-icon">💻</span><span class="ssec-title">Digital Assets</span></div><div class="ssec-r"><span class="ssec-stat" id="acs-dig">Not started</span><span class="ssec-arr">▾</span></div></div><div class="ssec-body" id="cxb-dig"></div></div>
-    </div>
-
-    <!-- STEP 3: BENEFICIARIES -->
-    <div id="sec-s3" class="sec">
-      <div class="step-badge">👨‍👩‍👧 Step 3</div>
-      <div class="ph"><h1>Identify Beneficiaries</h1><p>Who do you plan to leave your assets to?</p></div>
-      <div class="card">
-        <div class="card-title">Beneficiary Types</div>
-        <div class="card-sub">Check all that apply.</div>
-        <div class="ben-grid" id="benGrid"></div>
-        <div class="fg" style="margin-top:14px"><label class="fl">Any beneficiaries located overseas?</label>
-          <div class="yn-row"><button class="yn-btn" id="bov-y" onclick="selYN('bov','Yes',this)">Yes</button><button class="yn-btn" id="bov-n" onclick="selYN('bov','No',this)">No</button></div>
-        </div>
-        <div class="consider-box">
-          <div class="consider-title">Points to Consider</div>
-          <div class="consider-item">Any dependents needing long-term financial or caregiving support (minors, elderly, special needs)?</div>
-          <div class="consider-item">Any strained relationships or past disputes that could lead to conflict?</div>
-          <div class="consider-item">Anyone financially reliant on you who may not be included in your estate distribution?</div>
-        </div>
-        <div class="nf"><label>Beneficiary notes</label><textarea id="benNotes" placeholder="Any specific wishes, concerns, or considerations..."></textarea></div>
-      </div>
-
-      <!-- FAMILY TREE -->
-      <div class="card">
-        <div class="card-title">Family Tree</div>
-        <div class="card-sub">Map your family across generations. Tap a node to remove. Use the form below to add members.</div>
-        <div id="ftVisual"></div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
-          <label class="fl">Add family member</label>
-          <div class="ft-add-form">
-            <input type="text" id="ftName2" placeholder="Full name" style="min-width:120px"/>
-            <select id="ftRel2" style="width:160px"></select>
-            <select id="ftGen2" style="width:80px"><option value="M">Male ♂</option><option value="F">Female ♀</option><option value="O">Other ⚬</option></select>
-            <button onclick="addFT2()">Add</button>
-          </div>
-        </div>
+    <div class="score-ring fade-in">
+      <svg viewBox="0 0 160 160">
+        <circle class="ring-bg" cx="80" cy="80" r="66"/>
+        <circle class="ring-fill" id="ringArc" cx="80" cy="80" r="66" stroke-dasharray="414.7" stroke-dashoffset="414.7"/>
+      </svg>
+      <div class="score-center">
+        <div class="score-num" id="resultScore">0</div>
+        <div class="score-label">out of 27</div>
       </div>
     </div>
-
-    <!-- STEP 4: KEY APPOINTMENTS -->
-    <div id="sec-s4" class="sec">
-      <div class="step-badge">⚖️ Step 4</div>
-      <div class="ph"><h1>Key Appointments</h1><p>Identify who will carry out your wishes.</p></div>
-      <div class="card">
-        <div class="card-title">4.1 Executor</div>
-        <div class="card-sub">The Executor gathers your assets and ensures your Will instructions are carried out.</div>
-        <div class="fg"><label class="fl">Have you appointed an Executor?</label>
-          <div class="yn-row"><button class="yn-btn" id="ex-y" onclick="selYN('ex','Yes',this)">Yes</button><button class="yn-btn" id="ex-n" onclick="selYN('ex','No',this)">No</button></div>
-        </div>
-        <div class="apt-lbl">Executor #1 — PRIMARY</div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="e1n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="e1r" placeholder="e.g. Spouse, Sibling"/></td></tr></table>
-        <div class="apt-lbl">Executor #2 — SUBSTITUTE</div>
-        <div class="fg"><label class="fl">Role</label><div class="yn-row"><button class="yn-btn" id="esub-j" onclick="selYNM('esub','Jointly',this)">Jointly with Executor #1</button><button class="yn-btn" id="esub-s" onclick="selYNM('esub','Substitute',this)">Substitute</button></div></div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="e2n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="e2r" placeholder="e.g. Sibling, Adult Child"/></td></tr></table>
-        <div class="prec-opt"><input type="checkbox" id="ep1"><label for="ep1" style="font-size:13px;cursor:pointer"><strong>Precepts Trustee Ltd</strong> — Sole Executor & Trustee</label></div>
-        <div class="prec-opt" style="margin-top:6px"><input type="checkbox" id="ep2"><label for="ep2" style="font-size:13px;cursor:pointer"><strong>Precepts Trustee Ltd</strong> — Final Substitute Executor & Trustee</label></div>
-      </div>
-      <div class="card">
-        <div class="card-title">4.2 Trustee</div>
-        <div class="card-sub">The Trustee holds and manages money on behalf of your beneficiary.</div>
-        <div class="fg"><label class="fl">Trustee selection</label>
-          <div class="clist"><label class="crow"><input type="radio" name="tc" id="tc-same" value="same"> Same as appointed Executor(s)</label><label class="crow"><input type="radio" name="tc" id="tc-diff" value="different"> As appointed below</label></div>
-        </div>
-        <div class="fg"><label class="fl">Have you appointed a Trustee?</label>
-          <div class="yn-row"><button class="yn-btn" id="tr-y" onclick="selYN('tr','Yes',this)">Yes</button><button class="yn-btn" id="tr-n" onclick="selYN('tr','No',this)">No</button></div>
-        </div>
-        <div class="apt-lbl">Trustee #1 — PRIMARY</div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="t1n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="t1r" placeholder="e.g. Spouse, Sibling"/></td></tr></table>
-        <div class="apt-lbl">Trustee #2 — SUBSTITUTE</div>
-        <div class="fg"><label class="fl">Role</label><div class="yn-row"><button class="yn-btn" id="tsub-j" onclick="selYNM('tsub','Jointly',this)">Jointly with Trustee #1</button><button class="yn-btn" id="tsub-s" onclick="selYNM('tsub','Substitute',this)">Substitute</button></div></div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="t2n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="t2r" placeholder="e.g. Sibling, Adult Child"/></td></tr></table>
-        <div class="prec-opt"><input type="checkbox" id="tp1"><label for="tp1" style="font-size:13px;cursor:pointer"><strong>Precepts Trustee Ltd</strong> — Trustee</label></div>
-        <div class="prec-opt" style="margin-top:6px"><input type="checkbox" id="tp2"><label for="tp2" style="font-size:13px;cursor:pointer"><strong>Precepts Trustee Ltd</strong> — Final Substitute Trustee</label></div>
-      </div>
-      <div class="card">
-        <div class="card-title">4.3 Guardian (if applicable)</div>
-        <div class="card-sub">A Guardian provides care for your children if both biological parents are unable to.</div>
-        <div class="fg"><label class="fl">Have you appointed a Guardian?</label>
-          <div class="yn-row"><button class="yn-btn" id="gu-y" onclick="selYN('gu','Yes',this)">Yes</button><button class="yn-btn" id="gu-n" onclick="selYN('gu','No',this)">No</button><button class="yn-btn" id="gu-na" onclick="selYN('gu','N/A',this)">Not Applicable</button></div>
-        </div>
-        <div class="apt-lbl">Guardian #1</div>
-        <div class="fg"><label class="fl">When to act</label><div class="yn-row"><button class="yn-btn" id="g1w-sv" onclick="selYNM('g1w','Surviving',this)">Act with surviving parent</button><button class="yn-btn" id="g1w-dm" onclick="selYNM('g1w','Demise',this)">Act on demise of both parents</button></div></div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="g1n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="g1r" placeholder="e.g. Sibling, Trusted Friend"/></td></tr></table>
-        <div class="apt-lbl">Guardian #2 — SUBSTITUTE</div>
-        <div class="fg"><label class="fl">Role</label><div class="yn-row"><button class="yn-btn" id="g2rl-j" onclick="selYNM('g2rl','Jointly',this)">Jointly with Guardian #1</button><button class="yn-btn" id="g2rl-s" onclick="selYNM('g2rl','Substitute',this)">Substitute</button></div></div>
-        <table class="apt-tbl"><tr><td>Full Name</td><td><input type="text" id="g2n" placeholder="Full legal name"/></td></tr><tr><td>Relationship</td><td><input type="text" id="g2r" placeholder="e.g. Sibling, Trusted Friend"/></td></tr></table>
-        <div class="nf"><label>Appointment notes</label><textarea id="apptNotes" placeholder="Any notes about your appointments or considerations..."></textarea></div>
-      </div>
+    <div class="risk-card fade-in" id="riskCard">
+      <div class="risk-band" id="riskBand"></div>
+      <div class="risk-title" id="riskTitle"></div>
+      <div class="risk-body" id="riskBody"></div>
     </div>
-
-  </div><!-- end main -->
-
-  <div class="bnav">
-    <button class="bni active" id="bn-dash" onclick="goSec('dash')"><span class="ico">◈</span>Home</button>
-    <button class="bni" id="bn-s1" onclick="goSec('s1')"><span class="ico">📋</span>Assets<span class="dot"></span></button>
-    <button class="bni" id="bn-s2" onclick="goSec('s2')"><span class="ico">◉</span>Complex<span class="dot"></span></button>
-    <button class="bni" id="bn-s3" onclick="goSec('s3')"><span class="ico">👥</span>People<span class="dot"></span></button>
-    <button class="bni" id="bn-s4" onclick="goSec('s4')"><span class="ico">⚖️</span>Appts<span class="dot"></span></button>
+    <div class="next-step fade-in">
+      <div class="next-step-label">Recommended next step</div>
+      <p id="nextStep"></p>
+    </div>
+    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta fade-in">Book a Discovery Session on WhatsApp</a>
+    <div class="divider"></div>
+    <div class="footer fade-in">
+      <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
+      <div class="footer-title">Estate & Succession Practitioner · Precepts Legacy<br>Wealth Structuring Advisor · Astria Consulting<br>Financial Services Consultant · AIA Singapore</div>
+    </div>
   </div>
 </div>
 
 <script>
-var GAS_URL='https://script.google.com/macros/s/AKfycbx2BScnbDAYx9nfGrLLFyxv7LiHa5o3H8xmcaeWSkQ7LzjE1V7gh04JdcSElnznK-8n/exec';
-var CC=null,SD={a:{},c:{}},AST=null,WV='',YNS={};
-var EN={property:[],bank:[],joint:[],invest:[],insurance:[],business:[],loans:[],digital:[]};
-var PQD={},CQD={};
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYs2Qhtj9iUx60XsnOnnQ4l902bytwIbRdAHsMlHR62871ehgQXdpe_1h8oz0il4AxEw/exec";
 
-// FAMILY TREE
-var FT_GENS=[
-  {id:'ggp',label:'Great-Grandparents',gen:-3},
-  {id:'gp',label:'Grandparents',gen:-2},
-  {id:'parents',label:'Parents',gen:-1},
-  {id:'uncles',label:'Uncles & Aunties',gen:-1},
-  {id:'siblings',label:'Siblings',gen:0},
-  {id:'spouse',label:'Spouse / Partner',gen:0},
-  {id:'children',label:'Children',gen:1},
-  {id:'gc',label:'Grandchildren',gen:2},
-  {id:'ggc',label:'Great-Grandchildren',gen:3},
-  {id:'gggc',label:'Great-Great-Grandchildren',gen:4},
-  {id:'biz',label:'Business Partners',gen:99}
-];
-var FTD2={};
-FT_GENS.forEach(function(g){FTD2[g.id]=[];});
+  function toggle(el) { el.querySelector('.check-box').classList.toggle('checked'); }
 
-var AT=[{k:'property',n:'Property',s:'Family home, rental, land, vacation home'},{k:'vehicles',n:'Vehicles',s:'Cars, boats, motorcycles'},{k:'bankAccounts',n:'Bank Accounts',s:'Savings, fixed deposits, current accounts'},{k:'business',n:'Business Ownership',s:'Sole proprietorship, partnership, shares'},{k:'safeDeposit',n:'Safe Deposit Box',s:'Bank, home, office'},{k:'collectibles',n:'Collectibles & Valuables',s:'Jewellery, art, antiques, gold, watches'},{k:'investments',n:'Investment Accounts',s:'Stocks, bonds, unit trusts, REITs, crypto'},{k:'digital',n:'Digital Assets',s:'Cryptocurrency, online business, e-wallets'},{k:'retirement',n:'Retirement Accounts',s:'CPF, annuities'},{k:'ip',n:'Intellectual Property',s:'Patents, copyrights, trademarks, royalties'},{k:'insurance',n:'Life Insurance Policies',s:'Term, whole life, endowment, ILP, UL'},{k:'others',n:'Others',s:''}];
-var BT=[{k:'spouse',n:'Spouse',s:'Legally married partner'},{k:'children_bio',n:'Children (Biological)',s:'Biological children'},{k:'children_adopted',n:'Children (Adopted/Step)',s:'Adopted or stepchildren'},{k:'parents',n:'Parents',s:'Are they financially dependent on you?'},{k:'siblings',n:'Siblings',s:'Do they require financial support?'},{k:'extended',n:'Extended Family',s:'Nieces, nephews, cousins, etc.'},{k:'legally_entitled',n:'Legally Entitled Person',s:'Whom you do not intend to include'},{k:'charity',n:'Charity / Non-Profit',s:'Which causes matter to you?'},{k:'business_partners',n:'Business Partners',s:'Exit or succession plan in place?'},{k:'friends',n:'Friends or Others',s:'Non-relatives you like to give to'},{k:'special_needs',n:'Special Needs Dependents',s:'Requiring lifelong care or assistance?'},{k:'others',n:'Others',s:''}];
+  function getTailoredNextStep(ticked) {
+    var hasNoWill = ticked.some(function(t){ return t.indexOf("no Will") > -1; });
+    var hasMarital = ticked.some(function(t){ return t.indexOf("marital status") > -1; });
+    var hasSpouse = ticked.some(function(t){ return t.indexOf("spouse is unfamiliar") > -1; });
+    var hasExecutor = ticked.some(function(t){ return t.indexOf("executor") > -1; });
+    var hasGuardian = ticked.some(function(t){ return t.indexOf("guardian") > -1; });
+    var hasSafekeeping = ticked.some(function(t){ return t.indexOf("safekeeping") > -1; });
+    var hasYoungChildren = ticked.some(function(t){ return t.indexOf("young children") > -1 || t.indexOf("newborn") > -1; });
+    var hasInsuranceBeneficiary = ticked.some(function(t){ return t.indexOf("beneficiaries to my insurance") > -1; });
+    var hasSpecialNeeds = ticked.some(function(t){ return t.indexOf("special needs") > -1; });
+    var hasSiblingRivalry = ticked.some(function(t){ return t.indexOf("sibling rivalry") > -1; });
+    var hasDependents = ticked.some(function(t){ return t.indexOf("dependents") > -1; });
+    var hasOverseasAssets = ticked.some(function(t){ return t.indexOf("overseas assets") > -1; });
+    var hasJointAssets = ticked.some(function(t){ return t.indexOf("joint names") > -1; });
+    var hasNoAssetSchedule = ticked.some(function(t){ return t.indexOf("schedule of assets") > -1; });
+    var hasProbate = ticked.some(function(t){ return t.indexOf("probate") > -1; });
+    var hasActiveInvesting = ticked.some(function(t){ return t.indexOf("active management") > -1; });
+    var hasCrossBorder = ticked.some(function(t){ return t.indexOf("permanent residents") > -1 || t.indexOf("married to foreigners") > -1 || t.indexOf("domiciled outside") > -1; });
+    var hasReligious = ticked.some(function(t){ return t.indexOf("Muslim") > -1; });
+    var hasBusiness = ticked.some(function(t){ return t.indexOf("business partners") > -1 || t.indexOf("fragmented") > -1 || t.indexOf("businessman") > -1; });
+    var hasLegacy = ticked.some(function(t){ return t.indexOf("charity") > -1 || t.indexOf("multi-generation") > -1 || t.indexOf("long-term resources") > -1; });
+    var hasOther = ticked.some(function(t){ return t.indexOf("other concerns") > -1; });
 
-var SCH={
-  property:{fields:[{k:'country',l:'Country',t:'text',p:'e.g. Singapore, Thailand'},{k:'type',l:'Property Type',t:'sel',o:['HDB','Private Condo','Landed','Thailand — Condo','Thailand — House/Land','Outside Singapore — Other','Commercial']},{k:'ownership',l:'Ownership Structure',t:'sel',o:['Sole','Joint Tenancy','Tenancy-in-Common','Company-owned','Trust-owned']},{k:'coowner',l:'Co-owner Name',t:'text',p:'Full name (if any)'},{k:'loan',l:'Outstanding Loan',t:'sel',o:['Yes','No']},{k:'value',l:'Estimated Value',t:'num',p:'Amount'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','HKD','Other']}],pq:[{k:'autoTransfer',l:'Does your ownership type allow automatic transfer upon your passing?',o:['Yes','No','Unsure']},{k:'familyHome',l:'Will you like it to remain as a family home?',o:['Yes','No']},{k:'commonDisaster',l:'In a common disaster, who should own this property?',o:['Specify in notes','Unsure']},{k:'maintainMeans',l:'Will your beneficiaries have financial means to maintain this property?',o:['Yes','No','Unsure']},{k:'transferLimit',l:'Are there legal limitations to transferring this property?',o:['Yes','No','Unsure']},{k:'relationshipEffect',l:'Will transferring this property affect relationships between beneficiaries?',o:['Yes','No','Unsure']}]},
-  bank:{fields:[{k:'bank',l:'Bank Name',t:'text',p:'e.g. DBS, UOB, Bangkok Bank'},{k:'type',l:'Account Type',t:'sel',o:['Savings','Current','Fixed Deposit']},{k:'country',l:'Country',t:'text',p:'e.g. Singapore, Thailand'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','HKD','Other']},{k:'ownership',l:'Sole or Joint',t:'sel',o:['Sole','Joint']},{k:'value',l:'Approximate Balance',t:'num',p:'Amount'}],pq:[{k:'beneficiaryAware',l:'Are your beneficiaries aware this account exists?',o:['Yes','No']},{k:'nomination',l:'Have you done a nomination or set a beneficiary for this account?',o:['Yes','No','Not Available']}]},
-  joint:{fields:[{k:'institution',l:'Bank / Institution',t:'text',p:'e.g. DBS, UOB'},{k:'type',l:'Account / Asset Type',t:'sel',o:['Savings Account','Investment Account','Property','Business','Other']},{k:'jointOwner',l:'Joint Owner Name',t:'text',p:'Full name'},{k:'country',l:'Country',t:'text',p:'e.g. Singapore, Thailand'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','HKD','Other']},{k:'contribution',l:'Who Contributed',t:'sel',o:['Myself — Sole contributor','Shared Equally','Partner contributed more','Other']}],pq:[{k:'survivorWish',l:'Would you like to give to the surviving joint owner upon your passing?',o:['Yes','No','Depends']},{k:'conflictRisk',l:'Could this joint ownership create conflict among other beneficiaries?',o:['Yes','No','Unsure']}]},
-  invest:{fields:[{k:'institution',l:'Institution / Platform',t:'text',p:'e.g. Phillip Securities, Endowus, Binance'},{k:'type',l:'Investment Type',t:'sel',o:['Stocks','Bonds','Unit Trusts','REITs','ETFs','Cryptocurrency','Options','Others']},{k:'country',l:'Country / Exchange',t:'text',p:'e.g. Singapore, US, Thailand'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','HKD','Other']},{k:'value',l:'Approximate Value',t:'num',p:'Amount'},{k:'aware',l:'Beneficiaries Aware',t:'sel',o:['Yes','No','Partially']}],pq:[{k:'differentLaw',l:'May this investment be subject to different inheritance laws (e.g. US situs)?',o:['Yes','No','Unsure']},{k:'canManage',l:'Can your beneficiaries manage or liquidate this investment?',o:['Yes','No','Unsure']},{k:'managePref',l:'How would you like this investment handled?',o:['Liquidate','Continue holding','Advisor to decide']}]},
-  insurance:{fields:[{k:'insurer',l:'Insurance Company',t:'text',p:'e.g. AIA, Prudential, Great Eastern'},{k:'type',l:'Policy Type',t:'sel',o:['Term','Whole Life','Endowment','ILP','Universal Life','Group Insurance']},{k:'policy_no',l:'Policy Number',t:'text',p:'Optional'},{k:'sum',l:'Sum Assured / Death Benefit',t:'num',p:'Amount'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','Other']},{k:'nomination',l:'Nomination Done',t:'sel',o:['Yes','No','Partial']},{k:'nominee',l:'Nominee Name',t:'text',p:'Full name of nominee'}],pq:[{k:'throughWill',l:'Do you prefer this payout to be consolidated through your Will?',o:['Yes','No','Unsure']},{k:'trustPayout',l:'Should payout be held in trust (e.g. for minor beneficiaries)?',o:['Yes','No','Unsure']}]},
-  business:{fields:[{k:'name',l:'Business Name',t:'text',p:'Registered company name'},{k:'type',l:'Entity Type',t:'sel',o:['Sole Proprietorship','Partnership','Private Ltd (Pte Ltd)','Public Listed','Thai Co. Ltd','Overseas — Other']},{k:'country',l:'Country of Incorporation',t:'text',p:'e.g. Singapore, Thailand'},{k:'role',l:'Your Role',t:'sel',o:['Sole Owner','Director & Shareholder','Shareholder only','Partner','Silent Partner']},{k:'ownership_pct',l:'Your Ownership %',t:'text',p:'e.g. 100%, 51%'},{k:'coowners',l:'Co-owners / Partners',t:'text',p:'Names and % (if any)'},{k:'value',l:'Estimated Value',t:'num',p:'Amount'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','Other']}],pq:[{k:'successor',l:'Have you identified a successor?',o:['Yes','No','In Progress']},{k:'buySell',l:'Is there a buy-sell or shareholders agreement in place?',o:['Yes','No','In Progress']},{k:'keyPerson',l:'Key employees/partners to inherit shares or ownership?',o:['Yes','No']},{k:'continuity',l:'Preference if you pass away?',o:['Continue operations','Sell / wind up','Family to decide']}]},
-  loans:{fields:[{k:'type',l:'Loan Type',t:'sel',o:['Mortgage','Car Loan','Personal Loan','Credit Card','Business Loan','Student Loan','Other']},{k:'institution',l:'Institution',t:'text',p:'e.g. DBS, OCBC, Bangkok Bank'},{k:'country',l:'Country',t:'text',p:'e.g. Singapore, Thailand'},{k:'outstanding',l:'Outstanding Amount',t:'num',p:'Amount'},{k:'currency',l:'Currency',t:'sel',o:['SGD','THB','USD','IDR','AUD','GBP','EUR','Other']},{k:'covered',l:'Insurance Covering This',t:'sel',o:['Yes','No']}],pq:[{k:'settlement',l:'Have you planned how this liability will be settled upon your passing?',o:['Yes','No','Partially']}]},
-  digital:{fields:[{k:'platform',l:'Platform / Exchange',t:'text',p:'e.g. Coinbase, MetaMask, PayPal'},{k:'type',l:'Asset Type',t:'sel',o:['Cryptocurrency','NFT','Online Business','E-wallet','Social Media Account','Domain/Website','Other']},{k:'value',l:'Approximate Value',t:'num',p:'Amount'},{k:'currency',l:'Currency',t:'sel',o:['SGD','USD','BTC','ETH','THB','Other']},{k:'access',l:'Access Codes Stored',t:'sel',o:['Yes — Securely stored','Yes — Written down','No','In Progress']}],pq:[{k:'beneficiaryAware',l:'Will your beneficiaries know this account exists?',o:['Yes','No','Partially']},{k:'legacyContact',l:'Have you set up a legacy contact or digital executor?',o:['Yes','No','In Progress']}]}
-};
+    if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2 to 3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
 
-var CX_SECTIONS=[
-  {k:'cpf',i:'🏦',t:'CPF',q:[{k:'ch',l:'How would you like your CPF monies to be distributed?',st:1},{k:'cn',l:'Have you done your CPF nomination?',o:['Yes','No']},{k:'cp',l:'Payout preference',o:['Lump Sum','Trust','Unsure']}]},
-  {k:'overseas',i:'✈️',t:'Overseas Assets',q:[{k:'ho',l:'Do you own assets in multiple countries?',o:['Yes','No']},{k:'fh2',l:'Have you checked for forced heirship laws in those countries?',o:['Yes','No','N/A']},{k:'sw',l:'Warrant separate Wills for each country?',o:['Yes','No','Unsure']}]},
-  {k:'col',i:'💎',t:'Collectibles & Valuables',q:[{k:'coh',l:'How will your beneficiaries manage or divide each item?',st:1},{k:'inf',l:'Have you informed the beneficiary or labelled the item?',o:['Yes','No']},{k:'apr',l:'Will your beneficiary appreciate or value the item?',o:['Yes','No','Unsure']}]},
-  {k:'dig',i:'💻',t:'Digital Assets — General',q:[{k:'dh',l:'How will your beneficiaries know your digital accounts exist?',st:1},{k:'ac2',l:'Have you written down access codes or set up legacy contacts?',o:['Yes','No','In Progress']}]}
-];
+    var parts = [];
+    if (hasNoWill || hasMarital || hasExecutor || hasSafekeeping) {
+      var w = [];
+      if (hasNoWill) w.push("drafting a Will");
+      if (hasMarital) w.push("updating it to reflect your current marital status");
+      if (hasExecutor) w.push("appointing a new executor or trustee");
+      if (hasSafekeeping) w.push("arranging proper safekeeping");
+      parts.push("The most immediate priority is " + w.join(", ") + ".");
+    }
+    if (hasGuardian || hasYoungChildren || hasInsuranceBeneficiary || hasSpecialNeeds) {
+      var c = [];
+      if (hasGuardian) c.push("appointing a suitable guardian");
+      if (hasYoungChildren) c.push("ensuring your young children are properly provided for");
+      if (hasInsuranceBeneficiary) c.push("restructuring your insurance beneficiary nominations - naming minor children directly can cause complications, and a trust is usually the better solution");
+      if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care");
+      parts.push("We should also address " + c.join(", ") + ".");
+    }
+    if (hasSiblingRivalry || hasSpouse || hasDependents) {
+      var f = [];
+      if (hasSiblingRivalry) f.push("a clear distribution structure to reduce the risk of family disputes");
+      if (hasSpouse) f.push("a plan to ensure your spouse can manage financial matters independently");
+      if (hasDependents) f.push("provisions for your dependents so they are financially protected");
+      parts.push("On the family side, we will look at " + f.join(" and ") + ".");
+    }
+    if (hasOverseasAssets || hasJointAssets || hasNoAssetSchedule || hasProbate || hasActiveInvesting) {
+      var a = [];
+      if (hasOverseasAssets) a.push("structuring your overseas assets properly - each jurisdiction has its own rules on succession");
+      if (hasJointAssets) a.push("clarifying the legal implications of your jointly held assets");
+      if (hasNoAssetSchedule) a.push("preparing a comprehensive asset schedule");
+      if (hasProbate) a.push("putting liquidity solutions in place so your family has access to funds during probate");
+      if (hasActiveInvesting) a.push("ensuring your investment portfolio is covered in your estate plan");
+      parts.push("For your assets, we need to look at " + a.join(", ") + ".");
+    }
+    if (hasCrossBorder || hasReligious) {
+      var x = [];
+      if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity - a Singapore trust structure is often the most effective solution");
+      if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we will factor into the structure from the start");
+      parts.push("Importantly, " + x.join(", and ") + ".");
+    }
+    if (hasBusiness) parts.push("Your business interests need dedicated attention - we will look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
+    if (hasLegacy) parts.push("We will also explore legacy planning options - whether that is a structured charitable giving arrangement or a multi-generational trust.");
+    if (hasOther) parts.push("I also note that you have concerns you would prefer to discuss privately - I look forward to hearing more when we meet.");
+    parts.push("I would recommend we set aside time for an Estate Planning Discovery session. Please reach out to arrange a time.");
+    return parts.join(" ");
+  }
 
-var ELABELS={property:'Property',bank:'Account',joint:'Joint Account',invest:'Investment',insurance:'Policy',business:'Business',loans:'Liability',digital:'Asset'};
+  function submitForm() {
+    var name = document.getElementById('clientName').value.trim();
+    var email = document.getElementById('clientEmail').value.trim();
+    var lawyer = document.getElementById('clientLawyer').value.trim() || "Not provided";
+    var nationality = document.getElementById('clientNationality').value;
+    var residency = document.getElementById('clientResidency').value;
 
-// JSONP
-var _n=0;
-function api(act,params,cb){
-  var nm='_cb'+(++_n),url=GAS_URL+'?action='+act+'&callback='+nm;
-  Object.keys(params).forEach(function(k){url+='&'+k+'='+encodeURIComponent(params[k]);});
-  window[nm]=function(d){try{document.head.removeChild(document.getElementById(nm));}catch(e){}delete window[nm];if(cb)cb(null,d);};
-  var s=document.createElement('script');s.id=nm;s.src=url;s.onerror=function(){if(cb)cb(new Error('fail'),null);};document.head.appendChild(s);
-}
-
-// LOGIN
-function doLogin(){
-  var u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value,e=document.getElementById('lerr');
-  e.style.display='none';
-  if(!u||!p){e.textContent='Please enter your username and password.';e.style.display='block';return;}
-  e.textContent='Signing in...';e.style.display='block';e.style.background='transparent';e.style.border='none';e.style.color='#7A6455';
-  api('login',{username:u,password:p},function(err,r){
-    e.style.background='';e.style.border='';e.style.color='';
-    if(err||!r){e.textContent='Connection error. Please try again.';e.style.display='block';return;}
-    if(r.success){CC=r;initApp();}
-    else{e.textContent=r.message||'Invalid username or password.';e.style.display='block';}
-  });
-}
-
-function doLogout(){
-  CC=null;SD={a:{},c:{}};EN={property:[],bank:[],joint:[],invest:[],insurance:[],business:[],loans:[],digital:[]};
-  PQD={};CQD={};WV='';YNS={};FT_GENS.forEach(function(g){FTD2[g.id]=[];});
-  document.getElementById('appScreen').classList.remove('active');
-  document.getElementById('loginScreen').classList.add('active');
-  document.getElementById('lu').value='';document.getElementById('lp').value='';closeD();
-}
-
-function initApp(){
-  document.getElementById('loginScreen').classList.remove('active');
-  document.getElementById('appScreen').classList.add('active');
-  document.getElementById('dn').textContent=CC.name;
-  document.getElementById('dcn').textContent=CC.name;
-  document.getElementById('dca').textContent=CC.advisorName;
-  buildAT();buildBT();buildCX();buildFTForm();renderFT2();
-  api('getAssets',{clientId:CC.clientId},function(err,d){if(!err&&d&&d.v){SD.a=d;popA();updD();}});
-  api('getComplexity',{clientId:CC.clientId},function(err,d){if(!err&&d&&d.v){SD.c=d;popC();updD();}});
-  document.addEventListener('change',function(){schedSave();});
-  document.addEventListener('input',function(){schedSave();});
-}
-
-function schedSave(){if(AST)clearTimeout(AST);AST=setTimeout(function(){saveAll(true);},2500);}
-function saveAll(auto){
-  if(!CC)return;
-  api('saveAssets',{clientId:CC.clientId,data:JSON.stringify(gatherA())},function(){if(auto)flashSave();updD();});
-  api('saveComplexity',{clientId:CC.clientId,data:JSON.stringify(gatherC())},function(){});
-}
-function flashSave(){var e=document.getElementById('asMsg');e.classList.add('show');setTimeout(function(){e.classList.remove('show');},2000);}
-
-// NAV
-function openD(){document.getElementById('dr').classList.add('open');document.getElementById('ov').classList.add('open');}
-function closeD(){document.getElementById('dr').classList.remove('open');document.getElementById('ov').classList.remove('open');}
-function goSec(n){
-  ['dash','s1','s2','s3','s4'].forEach(function(x){
-    var s=document.getElementById('sec-'+x);if(s)s.classList.remove('active');
-    var di=document.getElementById('di-'+x);if(di)di.classList.remove('active');
-    var bn=document.getElementById('bn-'+x);if(bn)bn.classList.remove('active');
-  });
-  document.getElementById('sec-'+n).classList.add('active');
-  document.getElementById('di-'+n).classList.add('active');
-  document.getElementById('bn-'+n).classList.add('active');
-  closeD();window.scrollTo(0,0);
-}
-function tgSS(k){document.getElementById('ss-'+k).classList.toggle('open');}
-
-// BUILD
-function buildAT(){document.getElementById('ach').innerHTML=AT.map(function(a){return'<div class="aitem" id="ai-'+a.k+'" onclick="tgA(\''+a.k+'\',this)"><input type="checkbox" id="ac-'+a.k+'" onclick="event.stopPropagation();tgA(\''+a.k+'\',document.getElementById(\'ai-'+a.k+'\'))"><div><span class="an">'+a.n+'</span>'+(a.s?'<span class="as">'+a.s+'</span>':'')+'</div></div>';}).join('');}
-function tgA(k,el){var cb=document.getElementById('ac-'+k);if(event.target!==cb&&event.target.tagName!=='INPUT')cb.checked=!cb.checked;el.classList.toggle('checked',cb.checked);}
-function buildBT(){document.getElementById('benGrid').innerHTML=BT.map(function(b){return'<div class="ben-item" id="bi-'+b.k+'" onclick="tgB(\''+b.k+'\',this)"><input type="checkbox" id="bc-'+b.k+'" onclick="event.stopPropagation();tgB(\''+b.k+'\',document.getElementById(\'bi-'+b.k+'\'))"><div><span class="ben-name">'+b.n+'</span>'+(b.s?'<span class="ben-sub">'+b.s+'</span>':'')+'</div></div>';}).join('');}
-function tgB(k,el){var cb=document.getElementById('bc-'+k);if(event.target!==cb&&event.target.tagName!=='INPUT')cb.checked=!cb.checked;el.classList.toggle('checked',cb.checked);}
-
-// FAMILY TREE
-function buildFTForm(){
-  var sel=document.getElementById('ftRel2');
-  if(!sel)return;
-  sel.innerHTML=FT_GENS.map(function(g){return'<option value="'+g.id+'">'+g.label+'</option>';}).join('');
-  sel.value='children';
-}
-
-function renderFT2(){
-  var wrap=document.getElementById('ftVisual');if(!wrap)return;
-  var hasAny=FT_GENS.some(function(g){return FTD2[g.id]&&FTD2[g.id].length;});
-  if(!hasAny){wrap.innerHTML='<div class="ft-empty">Add family members using the form below to build your family tree.</div>';return;}
-
-  // Group by gen
-  var genOrder=[-3,-2,-1,0,1,2,3,4,99];
-  var byGen={};
-  genOrder.forEach(function(g){byGen[g]=[];});
-  FT_GENS.forEach(function(rel){
-    if(FTD2[rel.id]&&FTD2[rel.id].length) byGen[rel.gen].push(rel);
-  });
-
-  var html='<div class="ft-tree">';
-  genOrder.forEach(function(gen,gi){
-    var rels=byGen[gen];
-    var isClient=gen===0;
-    var hasRels=rels.length>0;
-    if(!hasRels&&!isClient)return;
-
-    var genLabelText=gen===-3?'Great-Grandparents Generation':gen===-2?'Grandparents Generation':gen===-1?'Parents Generation':gen===0?'Your Generation':gen===1?'Children':gen===2?'Grandchildren':gen===3?'Great-Grandchildren':gen===4?'Great-Great-Grandchildren':'Business Partners';
-    var rowCls=gen===0?'ft-gen ft-gen-client':gen<0?'ft-gen ft-gen-ancestor':gen===99?'ft-gen ft-gen-biz':'ft-gen ft-gen-desc';
-
-    // Connector above (except first visible)
-    if(gi>0){html+='<div class="ft-connector"></div>';}
-
-    html+='<div class="'+rowCls+'">';
-    html+='<div class="ft-gen-label">'+genLabelText+'</div>';
-    html+='<div class="ft-nodes">';
-
-    if(isClient){
-      // Client node
-      html+='<div class="ft-node ft-node-client"><span class="ft-node-gender">👤</span><span class="ft-node-name">'+(CC&&CC.name?CC.name.split(' ')[0]:'You')+'</span></div>';
+    if (!name || !email) {
+      document.getElementById('status').textContent = 'Please enter your name and email address.';
+      return;
+    }
+    if (!nationality) {
+      document.getElementById('status').textContent = 'Please select your nationality.';
+      return;
+    }
+    if (!residency) {
+      document.getElementById('status').textContent = 'Please select your country of residency.';
+      return;
     }
 
-    rels.forEach(function(rel){
-      if(rels.length>1){html+='<div class="ft-rel-group"><div class="ft-rel-label">'+rel.label+'</div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">';}
-      (FTD2[rel.id]||[]).forEach(function(p,i){
-        var ic=p.g==='M'?'♂':p.g==='F'?'♀':'⚬';
-        var cls=p.g==='M'?'gm':p.g==='F'?'gf':'go';
-        html+='<div class="ft-node"><span class="ft-node-gender '+cls+'">'+ic+'</span><span class="ft-node-name">'+p.n+'</span><button class="ft-node-rm" onclick="rmFT2(\''+rel.id+'\','+i+')">✕</button></div>';
-      });
-      if(rels.length>1){html+='</div></div>';}
+    var items = document.querySelectorAll('.check-item');
+    var score = 0; var ticked = [];
+    items.forEach(function(item) {
+      if (item.querySelector('.check-box').classList.contains('checked')) {
+        score++;
+        ticked.push(item.querySelector('.check-label').textContent);
+      }
     });
 
-    html+='</div></div>';
-  });
-  html+='</div>';
-  wrap.innerHTML=html;
-}
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    document.getElementById('status').textContent = '';
 
-function addFT2(){
-  var n=document.getElementById('ftName2').value.trim();
-  var r=document.getElementById('ftRel2').value;
-  var g=document.getElementById('ftGen2').value;
-  if(!n)return;
-  if(!FTD2[r])FTD2[r]=[];
-  FTD2[r].push({n:n,g:g});
-  document.getElementById('ftName2').value='';
-  renderFT2();schedSave();
-}
-function rmFT2(relId,idx){FTD2[relId].splice(idx,1);renderFT2();schedSave();}
-
-// ENTRIES
-function addE(t){EN[t].push({});renderE(t);document.getElementById('ss-'+t).classList.add('open');}
-function removeE(t,i){EN[t].splice(i,1);Object.keys(PQD).forEach(function(k){if(k.startsWith(t+'-'+i+'-'))delete PQD[k];});renderE(t);}
-function updE(t,i,k,v){if(EN[t][i])EN[t][i][k]=v;}
-
-function renderE(t){
-  var sch=SCH[t],lbl=ELABELS[t];
-  document.getElementById('en-'+t).innerHTML=EN[t].map(function(ent,i){
-    var fields=sch.fields.map(function(f){
-      var inp=f.t==='sel'
-        ?'<select id="e-'+t+'-'+i+'-'+f.k+'" onchange="updE(\''+t+'\','+i+',\''+f.k+'\',this.value)">'+f.o.map(function(o){return'<option value="'+o+'"'+(ent[f.k]===o?' selected':'')+'>'+o+'</option>';}).join('')+'</select>'
-        :'<input type="'+(f.t==='num'?'number':'text')+'" id="e-'+t+'-'+i+'-'+f.k+'" value="'+(ent[f.k]||'')+'" placeholder="'+(f.p||'')+'" oninput="updE(\''+t+'\','+i+',\''+f.k+'\',this.value)"/>';
-      return'<div class="fg"><label class="fl">'+f.l+'</label>'+inp+'</div>';
-    }).join('');
-
-    var pqHtml='';
-    if(sch.pq&&sch.pq.length){
-      var answered=sch.pq.filter(function(q){return PQD[t+'-'+i+'-'+q.k];}).length;
-      var pqRows=sch.pq.map(function(q){
-        var pqKey=t+'-'+i+'-'+q.k;
-        return'<div class="pq-row"><div class="pq-q">'+q.l+'</div><div class="yn-row">'+q.o.map(function(opt){
-          var id='pq-'+t+'-'+i+'-'+q.k+'-'+opt.replace(/ /g,'_').replace(/\//g,'-').replace(/\./g,'');
-          var active=PQD[pqKey]===opt;
-          return'<button class="yn-btn'+(active?' so':'')+'" id="'+id+'" onclick="selPQ(\''+t+'\','+i+',\''+q.k+'\',\''+opt+'\',this)">'+opt+'</button>';
-        }).join('')+'</div></div>';
-      }).join('');
-      var isOpen=answered>0;
-      pqHtml='<div class="pq-toggle'+(isOpen?' open':'')+'" onclick="tgPQ(this)"><span class="pq-toggle-label">Planning Questions'+(answered>0?' ('+answered+'/'+sch.pq.length+')':'')+'</span><span class="pq-toggle-arr">▾</span></div>'
-        +'<div class="pq-body'+(isOpen?' open':'')+'">'+pqRows
-        +'<div class="nf"><label>Notes for this '+lbl.toLowerCase()+'</label><textarea placeholder="Additional context for your advisor..." oninput="updE(\''+t+'\','+i+',\'pqNotes\',this.value)" style="min-height:50px">'+(ent.pqNotes||'')+'</textarea></div></div>';
-    }
-
-    return'<div class="entry-card"><div class="entry-hdr"><span class="entry-num">'+lbl+' #'+(i+1)+'</span><button class="btn-d" onclick="removeE(\''+t+'\','+i+')">✕ Remove</button></div>'
-      +'<div class="egrid">'+fields+'</div>'
-      +'<div class="entry-cmt"><label class="fl" style="font-size:10px">General notes</label><textarea placeholder="Any notes..." oninput="updE(\''+t+'\','+i+',\'comment\',this.value)" style="min-height:50px">'+(ent.comment||'')+'</textarea></div>'
-      +pqHtml+'</div>';
-  }).join('');
-  document.getElementById('st-'+t).textContent=EN[t].length===0?'0 recorded':EN[t].length+' recorded';
-}
-
-function tgPQ(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open');}
-function selPQ(t,i,qk,val,btn){
-  var pqKey=t+'-'+i+'-'+qk;PQD[pqKey]=val;
-  var sch=SCH[t];var q=sch.pq.find(function(x){return x.k===qk;});
-  q.o.forEach(function(opt){var b=document.getElementById('pq-'+t+'-'+i+'-'+qk+'-'+opt.replace(/ /g,'_').replace(/\//g,'-').replace(/\./g,''));if(b)b.className='yn-btn';});
-  btn.className='yn-btn so';
-  var answered=sch.pq.filter(function(q){return PQD[t+'-'+i+'-'+q.k];}).length;
-  var toggle=btn.closest('.entry-card').querySelector('.pq-toggle-label');
-  if(toggle)toggle.textContent='Planning Questions ('+answered+'/'+sch.pq.length+')';
-  schedSave();
-}
-
-// YN
-function selYN(k,v,btn){
-  YNS[k]=v;
-  document.querySelectorAll('[id^="'+k+'-"]').forEach(function(b){if(b.tagName==='BUTTON')b.className='yn-btn';});
-  btn.className='yn-btn '+(v==='Yes'?'sy':v==='No'?'sn':'so');
-}
-function selYNM(k,v,btn){YNS[k]=v;document.querySelectorAll('[id^="'+k+'-"]').forEach(function(b){if(b.tagName==='BUTTON')b.className='yn-btn';});btn.className='yn-btn so';}
-function selW(el,v){WV=v;document.querySelectorAll('.w-opt').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');}
-
-// COMPLEXITY
-function buildCX(){
-  CX_SECTIONS.forEach(function(sec){
-    var body=document.getElementById('cxb-'+sec.k);if(!body)return;
-    body.innerHTML=sec.q.map(function(q){
-      if(q.st)return'<div style="padding:10px 0;font-size:13px;font-weight:600;color:#4A3728;font-style:italic;border-bottom:1px solid #E8DFD0">'+q.l+'</div>';
-      return'<div class="pq-row"><div class="pq-q">'+q.l+'</div><div class="yn-row">'+q.o.map(function(opt){var id='cq-'+sec.k+'-'+q.k+'-'+opt.replace(/ /g,'_').replace(/\//g,'-');return'<button class="yn-btn" id="'+id+'" onclick="selCQ(\''+sec.k+'\',\''+q.k+'\',\''+opt+'\',this)">'+opt+'</button>';}).join('')+'</div></div>';
-    }).join('')+'<div class="nf"><label>Comments</label><textarea placeholder="Any notes..." style="min-height:50px" oninput="updCmt(\''+sec.k+'\',this.value)"></textarea></div>';
-  });
-}
-function selCQ(sk,qk,val,btn){
-  if(!CQD[sk])CQD[sk]={};CQD[sk][qk]=val;
-  var sec=CX_SECTIONS.find(function(s){return s.k===sk;});
-  sec.q.filter(function(q){return!q.st;}).forEach(function(q){q.o.forEach(function(opt){var b=document.getElementById('cq-'+sk+'-'+q.k+'-'+opt.replace(/ /g,'_').replace(/\//g,'-'));if(b)b.className='yn-btn';});});
-  Object.keys(CQD[sk]).forEach(function(k2){if(k2==='comment')return;var v=CQD[sk][k2];var b=document.getElementById('cq-'+sk+'-'+k2+'-'+v.replace(/ /g,'_').replace(/\//g,'-'));if(b)b.className='yn-btn so';});
-  updAcs(sk);
-}
-function updCmt(sk,v){if(!CQD[sk])CQD[sk]={};CQD[sk].comment=v;}
-function updAcs(sk){
-  var sec=CX_SECTIONS.find(function(s){return s.k===sk;});
-  var qs=sec.q.filter(function(q){return!q.st;});
-  var d=CQD[sk]||{};var ans=qs.filter(function(q){return d[q.k];}).length;
-  var el=document.getElementById('acs-'+sk);if(!el)return;
-  if(ans===0){el.textContent='Not started';el.style.color='';}
-  else if(ans<qs.length){el.textContent=ans+'/'+qs.length+' answered';el.style.color='#B8962E';}
-  else{el.textContent='Complete ✓';el.style.color='#2D7A4A';}
-}
-
-// GATHER
-function gatherA(){
-  var types=AT.filter(function(a){var cb=document.getElementById('ac-'+a.k);return cb&&cb.checked;}).map(function(a){return a.k;});
-  var bens=BT.filter(function(b){var cb=document.getElementById('bc-'+b.k);return cb&&cb.checked;}).map(function(b){return b.k;});
-  var sc=document.querySelector('input[name="sc"]:checked');
-  var entriesCopy={};Object.keys(EN).forEach(function(t){entriesCopy[t]=EN[t].map(function(e){return Object.assign({},e);});});
-  return{v:3,types:types,lsg:document.getElementById('lsg').checked,los:document.getElementById('los').checked,lot:document.getElementById('lot').checked,lotx:document.getElementById('lotx').value||'',sc:sc?sc.value:'',sotx:document.getElementById('sotx').value||'',wealth:WV,wealthCur:document.getElementById('wealthCur').value||'',otherAssets:document.getElementById('otherAssets').value||'',assetNotes:document.getElementById('assetNotes').value||'',entries:entriesCopy,pqData:JSON.parse(JSON.stringify(PQD)),bens:bens,benOverseas:YNS['bov']||'',benNotes:document.getElementById('benNotes').value||'',ft:JSON.parse(JSON.stringify(FTD2)),appt:{ex:YNS['ex']||'',e1n:document.getElementById('e1n').value||'',e1r:document.getElementById('e1r').value||'',esub:YNS['esub']||'',e2n:document.getElementById('e2n').value||'',e2r:document.getElementById('e2r').value||'',ep1:document.getElementById('ep1').checked,ep2:document.getElementById('ep2').checked,tc:(document.querySelector('input[name="tc"]:checked')||{}).value||'',tr:YNS['tr']||'',t1n:document.getElementById('t1n').value||'',t1r:document.getElementById('t1r').value||'',tsub:YNS['tsub']||'',t2n:document.getElementById('t2n').value||'',t2r:document.getElementById('t2r').value||'',tp1:document.getElementById('tp1').checked,tp2:document.getElementById('tp2').checked,gu:YNS['gu']||'',g1w:YNS['g1w']||'',g1n:document.getElementById('g1n').value||'',g1r:document.getElementById('g1r').value||'',g2rl:YNS['g2rl']||'',g2n:document.getElementById('g2n').value||'',g2r:document.getElementById('g2r').value||'',notes:document.getElementById('apptNotes').value||''}};
-}
-function gatherC(){return{v:2,sections:JSON.parse(JSON.stringify(CQD))};}
-
-// POPULATE
-function popA(){
-  var d=SD.a;if(!d||!d.v)return;
-  (d.types||[]).forEach(function(k){var cb=document.getElementById('ac-'+k);if(cb){cb.checked=true;document.getElementById('ai-'+k).classList.add('checked');}});
-  if(d.lsg)document.getElementById('lsg').checked=true;
-  if(d.los)document.getElementById('los').checked=true;
-  if(d.lot)document.getElementById('lot').checked=true;
-  if(d.lotx)document.getElementById('lotx').value=d.lotx;
-  if(d.sc){var sm={'Worldwide':'sww','Singapore Only':'ssg','Others':'sot'};var el=document.getElementById(sm[d.sc]);if(el)el.checked=true;}
-  if(d.sotx)document.getElementById('sotx').value=d.sotx;
-  if(d.wealth){WV=d.wealth;document.querySelectorAll('.w-opt').forEach(function(o){if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'"+d.wealth+"'")>-1)o.classList.add('sel');});}
-  if(d.wealthCur)document.getElementById('wealthCur').value=d.wealthCur;
-  if(d.otherAssets)document.getElementById('otherAssets').value=d.otherAssets;
-  if(d.assetNotes)document.getElementById('assetNotes').value=d.assetNotes;
-  if(d.entries)Object.keys(d.entries).forEach(function(t){if(EN[t]!==undefined)EN[t]=d.entries[t]||[];});
-  if(d.pqData)PQD=d.pqData;
-  Object.keys(EN).forEach(function(t){renderE(t);});
-  if(d.bens)(d.bens||[]).forEach(function(k){var cb=document.getElementById('bc-'+k);if(cb){cb.checked=true;document.getElementById('bi-'+k).classList.add('checked');}});
-  if(d.benNotes)document.getElementById('benNotes').value=d.benNotes;
-  if(d.benOverseas){YNS['bov']=d.benOverseas;var bb=document.getElementById('bov-'+(d.benOverseas==='Yes'?'y':'n'));if(bb)bb.className='yn-btn '+(d.benOverseas==='Yes'?'sy':'sn');}
-  if(d.ft){FT_GENS.forEach(function(g){if(d.ft[g.id])FTD2[g.id]=d.ft[g.id];});renderFT2();}
-  if(d.appt){
-    var a=d.appt;
-    ['e1n','e1r','e2n','e2r','t1n','t1r','t2n','t2r','g1n','g1r','g2n','g2r'].forEach(function(k){var el=document.getElementById(k);if(el&&a[k])el.value=a[k];});
-    if(a.notes)document.getElementById('apptNotes').value=a.notes;
-    ['ep1','ep2','tp1','tp2'].forEach(function(k){if(a[k])document.getElementById(k).checked=true;});
-    if(a.tc){var tc=document.getElementById('tc-'+a.tc);if(tc)tc.checked=true;}
-    var ynMap={ex:'ex',tr:'tr',gu:'gu',esub:'esub',tsub:'tsub',g1w:'g1w',g2rl:'g2rl'};
-    Object.keys(ynMap).forEach(function(ak){
-      var val=a[ak]||'';if(!val)return;YNS[ynMap[ak]]=val;
-      var sfx=val==='Yes'?'-y':val==='No'?'-n':val==='N/A'?'-na':null;
-      if(sfx){var b=document.getElementById(ynMap[ak]+sfx);if(b)b.className='yn-btn '+(val==='Yes'?'sy':val==='No'?'sn':'so');}
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, lawyer: lawyer, nationality: nationality, residency: residency, score: score, ticked: ticked })
+    }).then(function() {
+      showResults(name, score, ticked);
+    }).catch(function() {
+      showResults(name, score, ticked);
     });
   }
-}
-function popC(){
-  var d=SD.c;if(!d||!d.v||!d.sections)return;
-  CQD=d.sections||{};
-  CX_SECTIONS.forEach(function(sec){
-    var sd=CQD[sec.k]||{};
-    sec.q.filter(function(q){return!q.st;}).forEach(function(q){var val=sd[q.k];if(val){var b=document.getElementById('cq-'+sec.k+'-'+q.k+'-'+val.replace(/ /g,'_').replace(/\//g,'-'));if(b)b.className='yn-btn so';}});
-    var body=document.getElementById('cxb-'+sec.k);if(body&&sd.comment){var ta=body.querySelector('textarea');if(ta)ta.value=sd.comment;}
-    updAcs(sec.k);
-  });
-}
 
-// DASHBOARD
-function updD(){
-  var d=SD.a||{};
-  var ac=(d.types||[]).length;document.getElementById('dac').textContent=ac||'—';
-  var bc=(d.bens||[]).length;document.getElementById('dbc').textContent=bc||'—';
-  var a=d.appt||{};var apc=[a.e1n,a.t1n,a.g1n].filter(Boolean).length;document.getElementById('dappt').textContent=apc+'/3';
-  var done=CX_SECTIONS.filter(function(sec){var qs=sec.q.filter(function(q){return!q.st;});var s=CQD[sec.k]||{};return qs.length>0&&qs.every(function(q){return s[q.k];});}).length;
-  document.getElementById('dcc').textContent=done+'/'+CX_SECTIONS.length;
-  var pct=Math.round(((ac>0?1:0)+(bc>0?1:0)+(apc>0?1:0)+(done===CX_SECTIONS.length&&CX_SECTIONS.length>0?1:0))/4*100);
-  document.getElementById('ds').textContent=pct+'%';
-  document.getElementById('progBar').style.width=pct+'%';
-  document.getElementById('dal').innerHTML=ac===0?'<span class="ndm">No assets recorded yet.</span>':(d.types||[]).map(function(k){var a=AT.find(function(x){return x.k===k;});return'<span class="atag">'+(a?a.n:k)+'</span>';}).join('');
-  var sc=d.sc||'';document.getElementById('dscope').textContent=sc||(WV?(WV+' '+(document.getElementById('wealthCur').value||'')).trim():'Not yet specified');
-  document.getElementById('bn-s1').classList.toggle('done',ac>0);
-  document.getElementById('bn-s2').classList.toggle('done',done>0);
-  document.getElementById('bn-s3').classList.toggle('done',bc>0);
-  document.getElementById('bn-s4').classList.toggle('done',apc>0);
-  if(ac>0)document.getElementById('chk-s1').style.display='inline';
-  if(done>0)document.getElementById('chk-s2').style.display='inline';
-  if(bc>0)document.getElementById('chk-s3').style.display='inline';
-  if(apc>0)document.getElementById('chk-s4').style.display='inline';
-}
-
-document.addEventListener('DOMContentLoaded',function(){
-  var lp=document.getElementById('lp');if(lp)lp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
-  var lu=document.getElementById('lu');if(lu)lu.addEventListener('keydown',function(e){if(e.key==='Enter')lp.focus();});
-});
+  function showResults(name, score, ticked) {
+    document.getElementById('formPage').classList.add('hide');
+    document.getElementById('resultsPage').classList.add('show');
+    document.getElementById('resultName').textContent = name;
+    document.getElementById('resultScore').textContent = score;
+    var offset = 414.7 - (Math.min(score / 27, 1) * 414.7);
+    setTimeout(function() { document.getElementById('ringArc').style.strokeDashoffset = offset; }, 400);
+    var card = document.getElementById('riskCard');
+    var band = document.getElementById('riskBand');
+    var title = document.getElementById('riskTitle');
+    var body = document.getElementById('riskBody');
+    var next = document.getElementById('nextStep');
+    if (score >= 15) {
+      card.classList.add('high');
+      band.textContent = 'Score ' + score + ' - High Risk';
+      title.textContent = 'Your estate affairs need urgent attention.';
+      body.textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
+    } else if (score >= 7) {
+      card.classList.add('moderate');
+      band.textContent = 'Score ' + score + ' - Moderate Risk';
+      title.textContent = 'There are gaps worth addressing.';
+      body.textContent = 'Your responses indicate areas that could create complications for your family - in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
+    } else {
+      card.classList.add('low');
+      band.textContent = 'Score ' + score + ' - Low Risk';
+      title.textContent = 'Your planning foundation looks solid.';
+      body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise - life changes can quietly create gaps even in well-structured plans.';
+    }
+    next.textContent = getTailoredNextStep(ticked);
+    window.scrollTo(0, 0);
+  }
 </script>
 </body>
 </html>
