@@ -1,4 +1,3 @@
-<div class="field-group"><label>Your Full Name</label><input type="text" id="clientName" placeholder="e.g. John Tan" /></div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +22,7 @@
   .field-group select optgroup { background: #1c1814; color: #8a7a6a; font-size: 13px; }
   .field-group input:focus, .field-group select:focus { border-color: #8a7a6a; }
   .field-group input::placeholder { color: #4a4438; }
+  .field-optional { font-size: 11px; color: #5a4a3a; margin-left: 6px; text-transform: none; letter-spacing: 0; }
   .section { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.75rem; margin-bottom: 1.25rem; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #e8e2d9; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid #3a3228; }
   .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; cursor: pointer; border-bottom: 0.5px solid #2a2520; }
@@ -35,7 +35,7 @@
   .submit-btn { display: block; width: 100%; background: #8B1A1A; color: #f5ede8; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 1.25rem 2rem; border: none; border-radius: 2px; cursor: pointer; margin-top: 2rem; transition: background 0.2s; }
   .submit-btn:hover { background: #a82222; }
   .submit-btn:disabled { background: #3a2020; color: #6a4a4a; cursor: not-allowed; }
-  .status { text-align: center; font-size: 15px; color: #8a7a6a; margin-top: 1rem; min-height: 20px; }
+  .status { text-align: center; font-size: 15px; color: #c93a3a; margin-top: 1rem; min-height: 20px; }
   .results-page { display: none; }
   .results-page.show { display: block; }
   .form-page.hide { display: none; }
@@ -78,9 +78,19 @@
       <div class="divider"></div>
       <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
     </div>
-    <div class="field-group"><label>Your Lawyer's Name (if any)</label><input type="text" id="clientLawyer" placeholder="e.g. David Lim" /></div>
-    <div class="field-group"><label>Your Full Name</label><input type="text" id="clientName" placeholder="e.g. John Tan" /></div>
-    <div class="field-group"><label>Your Email Address</label><input type="email" id="clientEmail" placeholder="e.g. john@email.com" /></div>
+
+    <div class="field-group">
+      <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
+      <input type="text" id="clientLawyer" placeholder="e.g. David Lim" />
+    </div>
+    <div class="field-group">
+      <label>Your Full Name</label>
+      <input type="text" id="clientName" placeholder="e.g. John Tan" />
+    </div>
+    <div class="field-group">
+      <label>Your Email Address</label>
+      <input type="email" id="clientEmail" placeholder="e.g. john@email.com" />
+    </div>
     <div class="field-group">
       <label>Nationality</label>
       <select id="clientNationality">
@@ -109,7 +119,9 @@
         <optgroup label="— Rest of World —"><option>Argentina</option><option>Brazil</option><option>Chile</option><option>Colombia</option><option>Egypt</option><option>Ghana</option><option>Kenya</option><option>Nigeria</option><option>Russia</option><option>South Africa</option><option>Turkey</option><option>Ukraine</option><option>Other</option></optgroup>
       </select>
     </div>
+
     <div class="divider"></div>
+
     <div class="section">
       <div class="section-title">Personal & Family Circumstances</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have no Will</div></div>
@@ -156,6 +168,7 @@
       <div class="section-title">Other Concerns</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have other concerns that I do not wish to indicate in this form</div></div>
     </div>
+
     <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
     <div class="status" id="status"></div>
   </div>
@@ -164,7 +177,7 @@
     <div class="header fade-in">
       <div class="logo-line">Estate Planning · Risk Assessment</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:#8a7a6a;margin-bottom:6px;">Your results,</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#e8e2d9;" id="resultName">—</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#e8e2d9;" id="resultName">-</div>
     </div>
     <div class="score-ring fade-in">
       <svg viewBox="0 0 160 160">
@@ -185,7 +198,7 @@
       <div class="next-step-label">Recommended next step</div>
       <p id="nextStep"></p>
     </div>
-    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta fade-in" id="ctaBtn">📱 Book a Discovery Session on WhatsApp</a>
+    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta fade-in">Book a Discovery Session on WhatsApp</a>
     <div class="divider"></div>
     <div class="footer fade-in">
       <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
@@ -222,7 +235,7 @@
     var hasLegacy = ticked.some(function(t){ return t.indexOf("charity") > -1 || t.indexOf("multi-generation") > -1 || t.indexOf("long-term resources") > -1; });
     var hasOther = ticked.some(function(t){ return t.indexOf("other concerns") > -1; });
 
-    if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I'd still recommend a brief review every 2–3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
+    if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2 to 3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
 
     var parts = [];
     if (hasNoWill || hasMarital || hasExecutor || hasSafekeeping) {
@@ -237,8 +250,8 @@
       var c = [];
       if (hasGuardian) c.push("appointing a suitable guardian");
       if (hasYoungChildren) c.push("ensuring your young children are properly provided for");
-      if (hasInsuranceBeneficiary) c.push("restructuring your insurance beneficiary nominations — naming minor children directly can cause complications, and a trust is usually the better solution");
-      if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care without affecting their eligibility for government assistance");
+      if (hasInsuranceBeneficiary) c.push("restructuring your insurance beneficiary nominations - naming minor children directly can cause complications, and a trust is usually the better solution");
+      if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care");
       parts.push("We should also address " + c.join(", ") + ".");
     }
     if (hasSiblingRivalry || hasSpouse || hasDependents) {
@@ -246,52 +259,74 @@
       if (hasSiblingRivalry) f.push("a clear distribution structure to reduce the risk of family disputes");
       if (hasSpouse) f.push("a plan to ensure your spouse can manage financial matters independently");
       if (hasDependents) f.push("provisions for your dependents so they are financially protected");
-      parts.push("On the family side, we'll look at " + f.join(" and ") + ".");
+      parts.push("On the family side, we will look at " + f.join(" and ") + ".");
     }
     if (hasOverseasAssets || hasJointAssets || hasNoAssetSchedule || hasProbate || hasActiveInvesting) {
       var a = [];
-      if (hasOverseasAssets) a.push("structuring your overseas assets properly — each jurisdiction has its own rules on succession");
+      if (hasOverseasAssets) a.push("structuring your overseas assets properly - each jurisdiction has its own rules on succession");
       if (hasJointAssets) a.push("clarifying the legal implications of your jointly held assets");
       if (hasNoAssetSchedule) a.push("preparing a comprehensive asset schedule");
-      if (hasProbate) a.push("putting liquidity solutions in place so your family has access to funds during the probate process");
+      if (hasProbate) a.push("putting liquidity solutions in place so your family has access to funds during probate");
       if (hasActiveInvesting) a.push("ensuring your investment portfolio is covered in your estate plan");
       parts.push("For your assets, we need to look at " + a.join(", ") + ".");
     }
     if (hasCrossBorder || hasReligious) {
       var x = [];
-      if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity — a Singapore trust structure is often the most effective solution");
-      if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we'll factor into the structure from the start");
+      if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity - a Singapore trust structure is often the most effective solution");
+      if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we will factor into the structure from the start");
       parts.push("Importantly, " + x.join(", and ") + ".");
     }
-    if (hasBusiness) parts.push("Your business interests need dedicated attention — we'll look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
-    if (hasLegacy) parts.push("We'll also explore legacy planning options — whether that's a structured charitable giving arrangement or a multi-generational trust to preserve your assets for future generations.");
-    if (hasOther) parts.push("I also note that you have concerns you'd prefer to discuss privately — I look forward to hearing more when we meet.");
-    parts.push("I'd recommend we set aside time for an Estate Planning Discovery session to work through all of this properly. Please reach out to arrange a time.");
+    if (hasBusiness) parts.push("Your business interests need dedicated attention - we will look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
+    if (hasLegacy) parts.push("We will also explore legacy planning options - whether that is a structured charitable giving arrangement or a multi-generational trust.");
+    if (hasOther) parts.push("I also note that you have concerns you would prefer to discuss privately - I look forward to hearing more when we meet.");
+    parts.push("I would recommend we set aside time for an Estate Planning Discovery session. Please reach out to arrange a time.");
     return parts.join(" ");
   }
 
   function submitForm() {
     var name = document.getElementById('clientName').value.trim();
-    var lawyer = document.getElementById('clientLawyer').value.trim() || "Not provided";
     var email = document.getElementById('clientEmail').value.trim();
+    var lawyer = document.getElementById('clientLawyer').value.trim() || "Not provided";
     var nationality = document.getElementById('clientNationality').value;
     var residency = document.getElementById('clientResidency').value;
-    if (!name || !email) { document.getElementById('status').textContent = 'Please enter your name and email address.'; return; }
-    if (!nationality) { document.getElementById('status').textContent = 'Please select your nationality.'; return; }
-    if (!residency) { document.getElementById('status').textContent = 'Please select your country of residency.'; return; }
+
+    if (!name || !email) {
+      document.getElementById('status').textContent = 'Please enter your name and email address.';
+      return;
+    }
+    if (!nationality) {
+      document.getElementById('status').textContent = 'Please select your nationality.';
+      return;
+    }
+    if (!residency) {
+      document.getElementById('status').textContent = 'Please select your country of residency.';
+      return;
+    }
+
     var items = document.querySelectorAll('.check-item');
     var score = 0; var ticked = [];
     items.forEach(function(item) {
-      if (item.querySelector('.check-box').classList.contains('checked')) { score++; ticked.push(item.querySelector('.check-label').textContent); }
+      if (item.querySelector('.check-box').classList.contains('checked')) {
+        score++;
+        ticked.push(item.querySelector('.check-label').textContent);
+      }
     });
+
     var btn = document.getElementById('submitBtn');
-    btn.disabled = true; btn.textContent = 'Submitting...';
-    document.getElementById('status').textContent = 'Please wait...';
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    document.getElementById('status').textContent = '';
+
     fetch(SCRIPT_URL, {
-      method: 'POST', mode: 'no-cors',
+      method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, email: email, lawyer: lawyer, nationality: nationality, residency: residency, score: score, ticked: ticked })
-    }).then(function() { showResults(name, score, ticked); }).catch(function() { showResults(name, score, ticked); });
+    }).then(function() {
+      showResults(name, score, ticked);
+    }).catch(function() {
+      showResults(name, score, ticked);
+    });
   }
 
   function showResults(name, score, ticked) {
@@ -308,19 +343,19 @@
     var next = document.getElementById('nextStep');
     if (score >= 15) {
       card.classList.add('high');
-      band.textContent = 'Score ' + score + ' · High Risk';
+      band.textContent = 'Score ' + score + ' - High Risk';
       title.textContent = 'Your estate affairs need urgent attention.';
       body.textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
     } else if (score >= 7) {
       card.classList.add('moderate');
-      band.textContent = 'Score ' + score + ' · Moderate Risk';
+      band.textContent = 'Score ' + score + ' - Moderate Risk';
       title.textContent = 'There are gaps worth addressing.';
-      body.textContent = 'Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
+      body.textContent = 'Your responses indicate areas that could create complications for your family - in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
     } else {
       card.classList.add('low');
-      band.textContent = 'Score ' + score + ' · Low Risk';
+      band.textContent = 'Score ' + score + ' - Low Risk';
       title.textContent = 'Your planning foundation looks solid.';
-      body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';
+      body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise - life changes can quietly create gaps even in well-structured plans.';
     }
     next.textContent = getTailoredNextStep(ticked);
     window.scrollTo(0, 0);
