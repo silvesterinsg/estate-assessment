@@ -1,3 +1,4 @@
+<div class="field-group"><label>Your Full Name</label><input type="text" id="clientName" placeholder="e.g. John Tan" /></div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,6 +78,7 @@
       <div class="divider"></div>
       <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
     </div>
+    <div class="field-group"><label>Your Lawyer's Name (if any)</label><input type="text" id="clientLawyer" placeholder="e.g. David Lim" /></div>
     <div class="field-group"><label>Your Full Name</label><input type="text" id="clientName" placeholder="e.g. John Tan" /></div>
     <div class="field-group"><label>Your Email Address</label><input type="email" id="clientEmail" placeholder="e.g. john@email.com" /></div>
     <div class="field-group">
@@ -270,6 +272,7 @@
 
   function submitForm() {
     var name = document.getElementById('clientName').value.trim();
+    var lawyer = document.getElementById('clientLawyer').value.trim() || "Not provided";
     var email = document.getElementById('clientEmail').value.trim();
     var nationality = document.getElementById('clientNationality').value;
     var residency = document.getElementById('clientResidency').value;
@@ -287,7 +290,7 @@
     fetch(SCRIPT_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, nationality: nationality, residency: residency, score: score, ticked: ticked })
+      body: JSON.stringify({ name: name, email: email, lawyer: lawyer, nationality: nationality, residency: residency, score: score, ticked: ticked })
     }).then(function() { showResults(name, score, ticked); }).catch(function() { showResults(name, score, ticked); });
   }
 
