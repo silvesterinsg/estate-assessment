@@ -105,7 +105,13 @@ html,body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1C1410;min-
     <div class="fields-card">
       <div class="field-group">
         <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
-        <input type="text" id="clientLawyer" placeholder="e.g. David Lim"/>
+        <select id="clientLawyer" onchange="handleLawyerSelect(this)">
+          <option value="">NIL — I don't have a lawyer</option>
+          <option value="__loading__" disabled>Loading lawyers...</option>
+        </select>
+        <div id="lawyerOtherWrap" style="display:none;margin-top:10px">
+          <input type="text" id="lawyerOtherInput" placeholder="Enter your lawyer's name"/>
+        </div>
       </div>
       <div class="field-group">
         <label>Your Full Name</label>
@@ -264,6 +270,36 @@ var DEPOSITARY_GAS='https://script.google.com/macros/s/AKfycbx2BScnbDAYx9nfGrLLF
 var WA_BASE='https://wa.me/6587612976?text=';
 var _dcb=0;
 
+// Load lawyers into dropdown on page load
+function loadLawyers(){
+  var nm='_lw'+(++_dcb);
+  var url=DEPOSITARY_GAS+'?action=getLawyers&callback='+nm;
+  window[nm]=function(d){
+    try{document.head.removeChild(document.getElementById(nm));}catch(e){}
+    delete window[nm];
+    var sel=document.getElementById('clientLawyer');
+    if(!sel)return;
+    var lawyers=(d&&d.lawyers)||[];
+    sel.innerHTML='<option value="">NIL — I don\'t have a lawyer</option>'
+      +lawyers.map(function(l){return'<option value="'+l.name+'">'+l.name+(l.firm?' — '+l.firm:'')+'</option>';}).join('')
+      +'<option value="__other__">Other (specify)</option>';
+  };
+  var s=document.createElement('script');s.id=nm;s.src=url;document.head.appendChild(s);
+}
+
+function handleLawyerSelect(sel){
+  document.getElementById('lawyerOtherWrap').style.display=sel.value==='__other__'?'block':'none';
+}
+
+function getLawyerValue(){
+  var sel=document.getElementById('clientLawyer');
+  if(!sel)return'';
+  if(sel.value==='__other__')return document.getElementById('lawyerOtherInput').value.trim()||'';
+  return sel.value||'';
+}
+
+loadLawyers();
+
 function toggle(el){el.querySelector('.check-box').classList.toggle('checked');}
 
 function getTailoredNextStep(ticked,score){
@@ -349,7 +385,7 @@ function getTailoredNextStep(ticked,score){
 function submitForm(){
   var name=document.getElementById('clientName').value.trim();
   var email=document.getElementById('clientEmail').value.trim();
-  var lawyer=document.getElementById('clientLawyer').value.trim()||"Not provided";
+  var lawyer=getLawyerValue()||'NIL';
   var nationality=document.getElementById('clientNationality').value;
   var residency=document.getElementById('clientResidency').value;
   var st=document.getElementById('status');
@@ -362,12 +398,12 @@ function submitForm(){
   var btn=document.getElementById('submitBtn');
   btn.disabled=true;btn.textContent='Submitting...';st.textContent='';
   // Show results immediately — no need to wait for server
-  showResults(name,score,ticked);
+  showResults(name,score,ticked,lawyer);
   // Send data to server in background
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,lawyer:lawyer,nationality:nationality,residency:residency,score:score,ticked:ticked})}).catch(function(){});
 }
 
-function showResults(name,score,ticked){
+function showResults(name,score,ticked,lawyer){
   document.getElementById('formPage').classList.add('hide');
   document.getElementById('resultsPage').classList.add('show');
   document.getElementById('resultName').textContent=name;
@@ -379,6 +415,13 @@ function showResults(name,score,ticked){
   var card=document.getElementById('riskCard');
   var cta=document.getElementById('ctaBtn');
 
+  var lawyerMsg=lawyer&&lawyer!=='Not provided'?' My lawyer is '+lawyer+'.':"";
+  var waUrl = score >= 15
+    ? WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to talk through my situation with you.")
+    : score >= 4
+    ? WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to arrange a joint session with you and my lawyer.")
+    : WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like a quick chat.");
+
   if(score>=15){
     card.classList.add('high');
     document.getElementById('riskBand').textContent='Score '+score+' — High Risk';
@@ -387,7 +430,6 @@ function showResults(name,score,ticked){
     scoreEl.style.color='#E87070';
     document.getElementById('ringArc').style.stroke='#E87070';
     cta.textContent="Let's talk on WhatsApp";
-    cta.href=WA_BASE+encodeURIComponent("Hi Silvester, I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to talk through my situation.");
     cta.className='cta-btn fade-in';
   } else if(score>=4){
     card.classList.add('moderate');
@@ -397,7 +439,6 @@ function showResults(name,score,ticked){
     scoreEl.style.color='#D4AF5A';
     document.getElementById('ringArc').style.stroke='#B8962E';
     cta.textContent="Let's meet up on WhatsApp";
-    cta.href=WA_BASE+encodeURIComponent("Hi Silvester, I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to arrange a joint session.");
     cta.className='cta-btn fade-in';
   } else {
     card.classList.add('low');
@@ -407,9 +448,10 @@ function showResults(name,score,ticked){
     scoreEl.style.color='#6dc987';
     document.getElementById('ringArc').style.stroke='#4a9e62';
     cta.textContent='Say hello on WhatsApp';
-    cta.href=WA_BASE+encodeURIComponent("Hi Silvester, I just completed the estate planning risk assessment and scored "+score+"/27. I'd like a quick chat.");
     cta.className='cta-btn soft fade-in';
   }
+
+  cta.onclick=function(e){e.preventDefault();window.open(waUrl,'_blank');return false;};
 
   document.getElementById('nextStep').textContent=getTailoredNextStep(ticked,score);
   loadDates();
