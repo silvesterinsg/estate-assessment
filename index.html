@@ -264,6 +264,22 @@ body{padding:0}
 
     <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta-btn fade-in">Book a Discovery Session on WhatsApp</a>
 
+    <!-- DATES BLOCK — loaded dynamically -->
+    <div id="datesBlock" class="fade-in" style="margin-bottom:20px;display:none">
+      <div style="margin-bottom:10px">
+        <div style="background:var(--maroon);color:var(--gold-light);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase">&#127481;&#127469; Silvester in Bangkok</div>
+        <div style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(184,150,46,0.2);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:12px 14px">
+          <div id="bangkokList" style="color:rgba(255,255,255,0.65);line-height:2.2;font-size:14px"></div>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--ink-mid);color:var(--gold-light);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase">&#127480;&#127468; Silvester in Singapore</div>
+        <div style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(184,150,46,0.2);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:12px 14px">
+          <div id="singaporeList" style="color:rgba(255,255,255,0.65);line-height:2.2;font-size:14px"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="footer fade-in">
       <div class="footer-divider"></div>
       <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
@@ -279,6 +295,24 @@ body{padding:0}
 </div><!-- end page-bg -->
 
 <script>
+var DEPOSITARY_GAS='https://script.google.com/macros/s/AKfycbx2BScnbDAYx9nfGrLLFyxv7LiHa5o3H8xmcaeWSkQ7LzjE1V7gh04JdcSElnznK-8n/exec';
+var _dcb=0;
+function loadDates(){
+  var nm='_dc'+(++_dcb);
+  var url=DEPOSITARY_GAS+'?action=getDates&callback='+nm;
+  window[nm]=function(d){
+    try{document.head.removeChild(document.getElementById(nm));}catch(e){}
+    delete window[nm];
+    if(!d)return;
+    var bk=d.bangkok||[];var sg=d.singapore||[];
+    if(!bk.length&&!sg.length)return;
+    document.getElementById('bangkokList').innerHTML=bk.join('<br>');
+    document.getElementById('singaporeList').innerHTML=sg.join('<br>');
+    document.getElementById('datesBlock').style.display='block';
+  };
+  var s=document.createElement('script');s.id=nm;s.src=url;document.head.appendChild(s);
+}
+
 var SCRIPT_URL="https://script.google.com/macros/s/AKfycbyYs2Qhtj9iUx60XsnOnnQ4l902bytwIbRdAHsMlHR62871ehgQXdpe_1h8oz0il4AxEw/exec";
 
 function toggle(el){el.querySelector('.check-box').classList.toggle('checked');}
@@ -350,6 +384,7 @@ function showResults(name,score,ticked){
   else if(score>=7){card.classList.add('moderate');document.getElementById('riskBand').textContent='Score '+score+' — Moderate Risk';document.getElementById('riskTitle').textContent='There are gaps worth addressing.';document.getElementById('riskBody').textContent='Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';scoreEl.style.color='#D4AF5A';document.getElementById('ringArc').style.stroke='#B8962E';}
   else{card.classList.add('low');document.getElementById('riskBand').textContent='Score '+score+' — Low Risk';document.getElementById('riskTitle').textContent='Your planning foundation looks solid.';document.getElementById('riskBody').textContent='Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';scoreEl.style.color='#6dc987';document.getElementById('ringArc').style.stroke='#4a9e62';}
   document.getElementById('nextStep').textContent=getTailoredNextStep(ticked);
+  loadDates();
   window.scrollTo(0,0);
 }
 </script>
