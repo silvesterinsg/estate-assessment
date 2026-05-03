@@ -254,7 +254,7 @@ html,body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1C1410;min-
       <div class="footer-divider"></div>
       <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
       <div class="footer-title">
-        Estate & Succession Practitioner · Precepts Legacy<br>
+        Estate & Succession Practitioner · Precepts Legacy Pte Ltd &amp; Precepts Trustee Ltd<br>
         Wealth Structuring Advisor · Astria Consulting<br>
         Financial Services Consultant · AIA Singapore
       </div>
@@ -419,7 +419,7 @@ function showResults(name,score,ticked,lawyer){
   var waUrl = score >= 15
     ? WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to talk through my situation with you.")
     : score >= 4
-    ? WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to arrange a joint session with you and my lawyer.")
+    ? WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like to arrange a planning session with you and my lawyer.")
     : WA_BASE+encodeURIComponent("Hi Silvester, I am "+name+"."+lawyerMsg+" I just completed the estate planning risk assessment and scored "+score+"/27. I'd like a quick chat.");
 
   if(score>=15){
@@ -438,7 +438,7 @@ function showResults(name,score,ticked,lawyer){
     document.getElementById('riskBody').textContent='Nothing alarming — but your responses point to some areas that could create complications for your family down the road. A joint session with your lawyer and an estate planning specialist is usually enough to get everything on track.';
     scoreEl.style.color='#D4AF5A';
     document.getElementById('ringArc').style.stroke='#B8962E';
-    cta.textContent="Let's meet up on WhatsApp";
+    cta.textContent="Let's arrange a session on WhatsApp";
     cta.className='cta-btn fade-in';
   } else {
     card.classList.add('low');
