@@ -2,75 +2,129 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Estate Planning Risk Assessment</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: #0f0d0a; color: #e8e2d9; min-height: 100vh; padding: 3rem 1.25rem; }
-  .container { max-width: 660px; margin: 0 auto; }
-  .header { text-align: center; margin-bottom: 3rem; }
-  .logo-line { font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 0.2em; color: #8a7a6a; text-transform: uppercase; margin-bottom: 1rem; }
-  .header h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: #e8e2d9; line-height: 1.2; margin-bottom: 1rem; }
-  .header p { font-size: 17px; color: #8a7a6a; line-height: 1.7; }
-  .divider { width: 40px; height: 1px; background: #3a3228; margin: 1.5rem auto; }
-  .field-group { margin-bottom: 1.5rem; }
-  .field-group label { display: block; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 10px; font-weight: 500; }
-  .field-group input, .field-group select { width: 100%; background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 17px; color: #e8e2d9; outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
-  .field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7a6a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
-  .field-group select option { background: #1c1814; color: #e8e2d9; }
-  .field-group select optgroup { background: #1c1814; color: #8a7a6a; font-size: 13px; }
-  .field-group input:focus, .field-group select:focus { border-color: #8a7a6a; }
-  .field-group input::placeholder { color: #4a4438; }
-  .field-optional { font-size: 11px; color: #5a4a3a; margin-left: 6px; text-transform: none; letter-spacing: 0; }
-  .section { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.75rem; margin-bottom: 1.25rem; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #e8e2d9; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid #3a3228; }
-  .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; cursor: pointer; border-bottom: 0.5px solid #2a2520; }
-  .check-item:last-child { border-bottom: none; }
-  .check-item:hover .check-box { border-color: #8a7a6a; }
-  .check-box { width: 22px; height: 22px; min-width: 22px; border: 0.5px solid #3a3228; border-radius: 2px; background: #0f0d0a; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .check-box.checked { background: #8B1A1A; border-color: #8B1A1A; }
-  .check-box.checked::after { content: ''; width: 12px; height: 7px; border-left: 2.5px solid white; border-bottom: 2.5px solid white; transform: rotate(-45deg) translateY(-2px); display: block; }
-  .check-label { font-size: 16px; line-height: 1.6; color: #c8c0b6; user-select: none; }
-  .submit-btn { display: block; width: 100%; background: #8B1A1A; color: #f5ede8; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 1.25rem 2rem; border: none; border-radius: 2px; cursor: pointer; margin-top: 2rem; transition: background 0.2s; }
-  .submit-btn:hover { background: #a82222; }
-  .submit-btn:disabled { background: #3a2020; color: #6a4a4a; cursor: not-allowed; }
-  .status { text-align: center; font-size: 15px; color: #c93a3a; margin-top: 1rem; min-height: 20px; }
-  .results-page { display: none; }
-  .results-page.show { display: block; }
-  .form-page.hide { display: none; }
-  .score-ring { width: 160px; height: 160px; margin: 0 auto 2rem; position: relative; }
-  .score-ring svg { width: 160px; height: 160px; transform: rotate(-90deg); }
-  .ring-bg { fill: none; stroke: #2a2520; stroke-width: 8; }
-  .ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1); }
-  .score-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
-  .score-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 600; line-height: 1; }
-  .score-label { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a7a6a; margin-top: 4px; }
-  .risk-card { border-radius: 2px; padding: 2rem; margin-bottom: 1.5rem; border-left: 3px solid; }
-  .risk-band { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
-  .risk-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; margin-bottom: 1rem; line-height: 1.2; }
-  .risk-body { font-size: 17px; line-height: 1.75; color: #b8b0a6; }
-  .low { background: #0d1a12; border-color: #2d6a3f; }
-  .low .risk-band { color: #4a9e62; } .low .risk-title { color: #6dc987; } .low .ring-fill { stroke: #4a9e62; } .low .score-num { color: #6dc987; }
-  .moderate { background: #1a1508; border-color: #8B6914; }
-  .moderate .risk-band { color: #c9961a; } .moderate .risk-title { color: #e8b84b; } .moderate .ring-fill { stroke: #c9961a; } .moderate .score-num { color: #e8b84b; }
-  .high { background: #1a0a0a; border-color: #8B1A1A; }
-  .high .risk-band { color: #c93a3a; } .high .risk-title { color: #e87070; } .high .ring-fill { stroke: #c93a3a; } .high .score-num { color: #e87070; }
-  .next-step { background: #1c1814; border: 0.5px solid #3a3228; border-radius: 2px; padding: 1.5rem 2rem; margin-bottom: 2rem; }
-  .next-step-label { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a7a6a; margin-bottom: 0.75rem; }
-  .next-step p { font-size: 17px; line-height: 1.75; color: #b8b0a6; }
-  .cta { display: block; text-align: center; background: #25D366; color: #fff; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.1rem 2rem; text-decoration: none; border-radius: 2px; margin-bottom: 2rem; }
-  .cta:hover { background: #1ebe5d; }
-  .footer { text-align: center; padding-bottom: 3rem; }
-  .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #e8e2d9; margin-bottom: 6px; }
-  .footer-title { font-size: 14px; color: #8a7a6a; line-height: 1.9; }
-  .fade-in { opacity: 0; transform: translateY(16px); animation: rise 0.7s ease forwards; }
-  .fade-in:nth-child(1) { animation-delay: 0.1s; } .fade-in:nth-child(2) { animation-delay: 0.3s; } .fade-in:nth-child(3) { animation-delay: 0.5s; } .fade-in:nth-child(4) { animation-delay: 0.7s; } .fade-in:nth-child(5) { animation-delay: 0.9s; } .fade-in:nth-child(6) { animation-delay: 1.1s; }
-  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1C1410;min-height:100vh;-webkit-text-size-adjust:100%}
+:root{
+  --gold:#B8962E;--gold-light:#D4AF5A;--gold-pale:#F5EDD6;--gold-border:rgba(184,150,46,0.25);
+  --maroon:#6B1A2A;--maroon-dark:#4A1019;--maroon-light:#8B2235;
+  --cream:#FAF7F2;--ink:#1C1410;--ink-mid:#4A3728;--ink-soft:#7A6455;
+  --border:#E8DFD0;--success:#2D7A4A;--radius:8px;--radius-sm:4px;
+}
+
+/* ── LAYOUT ── */
+body{padding:0}
+.page-bg{min-height:100vh;background:var(--maroon-dark);background-image:radial-gradient(ellipse at 20% 80%,rgba(184,150,46,0.12) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(184,150,46,0.06) 0%,transparent 50%);padding:32px 16px 60px}
+.container{max-width:640px;margin:0 auto}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:32px;padding:32px 24px}
+.logo-line{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.18em;color:var(--gold-light);text-transform:uppercase;margin-bottom:20px;opacity:0.85}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:500;color:#fff;line-height:1.2;margin-bottom:16px}
+.header p{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.75}
+.divider{width:40px;height:1px;background:rgba(184,150,46,0.4);margin:20px auto}
+
+/* ── FORM FIELDS ── */
+.field-group{margin-bottom:16px}
+.field-group label{display:block;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:7px}
+.field-optional{font-size:10px;color:rgba(255,255,255,0.3);text-transform:none;letter-spacing:0;margin-left:5px}
+.field-group input,.field-group select{
+  width:100%;background:rgba(255,255,255,0.07);border:0.5px solid rgba(184,150,46,0.25);border-radius:var(--radius-sm);
+  padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:#fff;outline:none;
+  transition:border-color 0.2s;appearance:none;-webkit-appearance:none;
+}
+.field-group select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF5A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;
+}
+.field-group select option,.field-group select optgroup{background:#3a2010;color:#e8e2d9}
+.field-group input:focus,.field-group select:focus{border-color:var(--gold-light)}
+.field-group input::placeholder{color:rgba(255,255,255,0.25)}
+.fields-card{background:rgba(255,255,255,0.05);border:0.5px solid rgba(184,150,46,0.2);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+
+/* ── SECTIONS ── */
+.section{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0;margin-bottom:12px;overflow:hidden}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--maroon);padding:16px 18px 14px;border-bottom:1px solid var(--border);background:var(--cream)}
+.check-item{display:flex;align-items:flex-start;gap:13px;padding:13px 18px;cursor:pointer;border-bottom:0.5px solid var(--border);transition:background 0.15s;-webkit-tap-highlight-color:transparent}
+.check-item:last-child{border-bottom:none}
+.check-item:active{background:var(--gold-pale)}
+.check-box{width:22px;height:22px;min-width:22px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fff;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0}
+.check-box.checked{background:var(--maroon);border-color:var(--maroon)}
+.check-box.checked::after{content:'';width:11px;height:6px;border-left:2.5px solid var(--gold-light);border-bottom:2.5px solid var(--gold-light);transform:rotate(-45deg) translateY(-1px);display:block}
+.check-label{font-size:14px;line-height:1.6;color:var(--ink-mid);user-select:none}
+
+/* ── SUBMIT ── */
+.submit-wrap{margin-top:20px}
+.submit-btn{display:block;width:100%;background:var(--maroon);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:16px 24px;border:none;border-radius:var(--radius-sm);cursor:pointer;transition:background 0.2s;-webkit-appearance:none}
+.submit-btn:hover{background:var(--maroon-light)}
+.submit-btn:disabled{background:rgba(107,26,42,0.4);color:rgba(212,175,90,0.4);cursor:not-allowed}
+.status{text-align:center;font-size:14px;color:#E87070;margin-top:12px;min-height:20px}
+
+/* ── RESULTS ── */
+.results-page{display:none}
+.results-page.show{display:block}
+.form-page.hide{display:none}
+
+.results-header{text-align:center;margin-bottom:28px;padding:28px 20px 0}
+.results-logo{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.18em;color:var(--gold-light);text-transform:uppercase;margin-bottom:12px;opacity:0.8}
+.results-greeting{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.results-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;color:#fff}
+
+.score-ring{width:150px;height:150px;margin:24px auto;position:relative}
+.score-ring svg{width:150px;height:150px;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:8}
+.ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)}
+.score-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.score-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;line-height:1;color:#fff}
+.score-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:3px}
+.low .score-num{color:#6dc987}
+.moderate .score-num{color:var(--gold-light)}
+.high .score-num{color:#E87070}
+
+/* Risk cards */
+.risk-card{border-radius:var(--radius);padding:20px 20px;margin-bottom:12px;border-left:3px solid}
+.risk-band{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.risk-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:12px;line-height:1.25;color:#fff}
+.risk-body{font-size:15px;line-height:1.75;color:rgba(255,255,255,0.6)}
+.low{background:rgba(45,122,74,0.12);border-color:#2D7A4A}
+.low .risk-band{color:#6dc987}.low .ring-fill{stroke:#4a9e62}.low .score-num{color:#6dc987}
+.moderate{background:rgba(184,150,46,0.1);border-color:var(--gold)}
+.moderate .risk-band{color:var(--gold-light)}.moderate .ring-fill{stroke:var(--gold)}.moderate .score-num{color:var(--gold-light)}
+.high{background:rgba(107,26,42,0.25);border-color:var(--maroon-light)}
+.high .risk-band{color:#E87070}.high .ring-fill{stroke:#E87070}.high .score-num{color:#E87070}
+
+.next-step-card{background:rgba(255,255,255,0.07);border:0.5px solid rgba(184,150,46,0.2);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px}
+.next-step-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-light);opacity:0.7;margin-bottom:10px}
+.next-step-card p{font-size:15px;line-height:1.75;color:rgba(255,255,255,0.65)}
+
+.cta-btn{display:block;text-align:center;background:#25D366;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:16px 24px;text-decoration:none;border-radius:var(--radius-sm);margin-bottom:20px}
+.cta-btn:hover{background:#1ebe5d}
+
+/* Footer */
+.footer{text-align:center;padding:20px 0 32px}
+.footer-divider{width:40px;height:1px;background:rgba(184,150,46,0.3);margin:0 auto 20px}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--gold-light);margin-bottom:6px}
+.footer-title{font-size:12px;color:rgba(255,255,255,0.4);line-height:2;letter-spacing:0.02em}
+
+/* Animations */
+.fade-in{opacity:0;transform:translateY(14px);animation:rise 0.6s ease forwards}
+.fade-in:nth-child(1){animation-delay:0.05s}
+.fade-in:nth-child(2){animation-delay:0.2s}
+.fade-in:nth-child(3){animation-delay:0.35s}
+.fade-in:nth-child(4){animation-delay:0.5s}
+.fade-in:nth-child(5){animation-delay:0.65s}
+.fade-in:nth-child(6){animation-delay:0.8s}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
+<div class="page-bg">
 <div class="container">
+
+  <!-- FORM PAGE -->
   <div class="form-page" id="formPage">
     <div class="header">
       <div class="logo-line">Estate Planning with Silvester</div>
@@ -79,48 +133,46 @@
       <p>Tick any situation that applies to you.<br>Each item carries one point.</p>
     </div>
 
-    <div class="field-group">
-      <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
-      <input type="text" id="clientLawyer" placeholder="e.g. David Lim" />
+    <div class="fields-card">
+      <div class="field-group">
+        <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
+        <input type="text" id="clientLawyer" placeholder="e.g. David Lim"/>
+      </div>
+      <div class="field-group">
+        <label>Your Full Name</label>
+        <input type="text" id="clientName" placeholder="e.g. John Tan"/>
+      </div>
+      <div class="field-group">
+        <label>Your Email Address</label>
+        <input type="email" id="clientEmail" placeholder="e.g. john@email.com"/>
+      </div>
+      <div class="field-group">
+        <label>Nationality</label>
+        <select id="clientNationality">
+          <option value="" disabled selected>Select your nationality</option>
+          <optgroup label="— Southeast Asia —"><option>Singaporean</option><option>Malaysian</option><option>Thai</option><option>Indonesian</option><option>Filipino</option><option>Vietnamese</option><option>Bruneian</option><option>Cambodian</option><option>Laotian</option><option>Myanmarese</option></optgroup>
+          <optgroup label="— G7 —"><option>American</option><option>British</option><option>Canadian</option><option>French</option><option>German</option><option>Italian</option><option>Japanese</option></optgroup>
+          <optgroup label="— Europe —"><option>Australian</option><option>Austrian</option><option>Belgian</option><option>Czech</option><option>Danish</option><option>Dutch</option><option>Finnish</option><option>Greek</option><option>Hungarian</option><option>Irish</option><option>Luxembourger</option><option>New Zealander</option><option>Norwegian</option><option>Polish</option><option>Portuguese</option><option>Romanian</option><option>Spanish</option><option>Swedish</option><option>Swiss</option></optgroup>
+          <optgroup label="— Middle East —"><option>Emirati</option><option>Saudi Arabian</option><option>Qatari</option><option>Kuwaiti</option><option>Bahraini</option><option>Omani</option><option>Israeli</option></optgroup>
+          <optgroup label="— East Asia —"><option>Chinese</option><option>Hong Konger</option><option>Korean</option><option>Macanese</option><option>Taiwanese</option></optgroup>
+          <optgroup label="— South Asia —"><option>Indian</option><option>Pakistani</option><option>Sri Lankan</option><option>Bangladeshi</option></optgroup>
+          <optgroup label="— Rest of World —"><option>Mexican</option><option>Argentinian</option><option>Brazilian</option><option>Chilean</option><option>Colombian</option><option>Egyptian</option><option>Ghanaian</option><option>Kenyan</option><option>Nigerian</option><option>Russian</option><option>South African</option><option>Turkish</option><option>Ukrainian</option><option>Other</option></optgroup>
+        </select>
+      </div>
+      <div class="field-group" style="margin-bottom:0">
+        <label>Country of Residency</label>
+        <select id="clientResidency">
+          <option value="" disabled selected>Select your country of residency</option>
+          <optgroup label="— Southeast Asia —"><option>Singapore</option><option>Malaysia</option><option>Thailand</option><option>Indonesia</option><option>Philippines</option><option>Vietnam</option><option>Brunei</option><option>Cambodia</option><option>Laos</option><option>Myanmar</option></optgroup>
+          <optgroup label="— G7 —"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>France</option><option>Germany</option><option>Italy</option><option>Japan</option></optgroup>
+          <optgroup label="— Europe —"><option>Australia</option><option>Austria</option><option>Belgium</option><option>Czech Republic</option><option>Denmark</option><option>Netherlands</option><option>Finland</option><option>Greece</option><option>Hungary</option><option>Ireland</option><option>Luxembourg</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Spain</option><option>Sweden</option><option>Switzerland</option></optgroup>
+          <optgroup label="— Middle East —"><option>UAE</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Israel</option></optgroup>
+          <optgroup label="— East Asia —"><option>China</option><option>Hong Kong</option><option>South Korea</option><option>Macau</option><option>Taiwan</option></optgroup>
+          <optgroup label="— South Asia —"><option>India</option><option>Pakistan</option><option>Sri Lanka</option><option>Bangladesh</option></optgroup>
+          <optgroup label="— Rest of World —"><option>Mexico</option><option>Argentina</option><option>Brazil</option><option>Chile</option><option>Colombia</option><option>Egypt</option><option>Ghana</option><option>Kenya</option><option>Nigeria</option><option>Russia</option><option>South Africa</option><option>Turkey</option><option>Ukraine</option><option>Other</option></optgroup>
+        </select>
+      </div>
     </div>
-    <div class="field-group">
-      <label>Your Full Name</label>
-      <input type="text" id="clientName" placeholder="e.g. John Tan" />
-    </div>
-    <div class="field-group">
-      <label>Your Email Address</label>
-      <input type="email" id="clientEmail" placeholder="e.g. john@email.com" />
-    </div>
-    <div class="field-group">
-      <label>Nationality</label>
-      <select id="clientNationality">
-        <option value="" disabled selected>Select your nationality</option>
-        <optgroup label="— Southeast Asia —"><option>Singaporean</option><option>Malaysian</option><option>Thai</option><option>Indonesian</option><option>Filipino</option><option>Vietnamese</option><option>Bruneian</option><option>Cambodian</option><option>Laotian</option><option>Myanmarese</option></optgroup>
-        <optgroup label="— G7 —"><option>American</option><option>British</option><option>Canadian</option><option>French</option><option>German</option><option>Italian</option><option>Japanese</option></optgroup>
-        <optgroup label="— Europe —"><option>Australian</option><option>Austrian</option><option>Belgian</option><option>Czech</option><option>Danish</option><option>Dutch</option><option>Finnish</option><option>Greek</option><option>Hungarian</option><option>Irish</option><option>Luxembourger</option><option>New Zealander</option><option>Norwegian</option><option>Polish</option><option>Portuguese</option><option>Romanian</option><option>Spanish</option><option>Swedish</option><option>Swiss</option></optgroup>
-        <optgroup label="— North America —"><option>Mexican</option></optgroup>
-        <optgroup label="— Middle East —"><option>Emirati</option><option>Saudi Arabian</option><option>Qatari</option><option>Kuwaiti</option><option>Bahraini</option><option>Omani</option><option>Israeli</option></optgroup>
-        <optgroup label="— East Asia —"><option>Chinese</option><option>Hong Konger</option><option>Korean</option><option>Macanese</option><option>Taiwanese</option></optgroup>
-        <optgroup label="— South Asia —"><option>Indian</option><option>Pakistani</option><option>Sri Lankan</option><option>Bangladeshi</option></optgroup>
-        <optgroup label="— Rest of World —"><option>Argentinian</option><option>Brazilian</option><option>Chilean</option><option>Colombian</option><option>Egyptian</option><option>Ghanaian</option><option>Kenyan</option><option>Nigerian</option><option>Russian</option><option>South African</option><option>Turkish</option><option>Ukrainian</option><option>Other</option></optgroup>
-      </select>
-    </div>
-    <div class="field-group">
-      <label>Country of Residency</label>
-      <select id="clientResidency">
-        <option value="" disabled selected>Select your country of residency</option>
-        <optgroup label="— Southeast Asia —"><option>Singapore</option><option>Malaysia</option><option>Thailand</option><option>Indonesia</option><option>Philippines</option><option>Vietnam</option><option>Brunei</option><option>Cambodia</option><option>Laos</option><option>Myanmar</option></optgroup>
-        <optgroup label="— G7 —"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>France</option><option>Germany</option><option>Italy</option><option>Japan</option></optgroup>
-        <optgroup label="— Europe —"><option>Australia</option><option>Austria</option><option>Belgium</option><option>Czech Republic</option><option>Denmark</option><option>Netherlands</option><option>Finland</option><option>Greece</option><option>Hungary</option><option>Ireland</option><option>Luxembourg</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Spain</option><option>Sweden</option><option>Switzerland</option></optgroup>
-        <optgroup label="— North America —"><option>Mexico</option></optgroup>
-        <optgroup label="— Middle East —"><option>UAE</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Israel</option></optgroup>
-        <optgroup label="— East Asia —"><option>China</option><option>Hong Kong</option><option>South Korea</option><option>Macau</option><option>Taiwan</option></optgroup>
-        <optgroup label="— South Asia —"><option>India</option><option>Pakistan</option><option>Sri Lanka</option><option>Bangladesh</option></optgroup>
-        <optgroup label="— Rest of World —"><option>Argentina</option><option>Brazil</option><option>Chile</option><option>Colombia</option><option>Egypt</option><option>Ghana</option><option>Kenya</option><option>Nigeria</option><option>Russia</option><option>South Africa</option><option>Turkey</option><option>Ukraine</option><option>Other</option></optgroup>
-      </select>
-    </div>
-
-    <div class="divider"></div>
 
     <div class="section">
       <div class="section-title">Personal & Family Circumstances</div>
@@ -135,12 +187,14 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">There is strong sibling rivalry among my children</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have dependents such as parents or parents-in-law whom I provide for</div></div>
     </div>
+
     <div class="section">
       <div class="section-title">Executor, Guardian & Safekeeping</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed executor or trustee</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am no longer in touch with my appointed guardian</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I need to pass my Will to someone for safekeeping</div></div>
     </div>
+
     <div class="section">
       <div class="section-title">Asset & Financial Complexity</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have assets in joint names and need to understand the legal implications</div></div>
@@ -149,6 +203,7 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I do not have a schedule of assets that details my assets and liabilities</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">My family would need continuity of funds while waiting for grant of probate</div></div>
     </div>
+
     <div class="section">
       <div class="section-title">Cross-Border Family & Legal Issues</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have family members who are permanent residents or citizens of another jurisdiction</div></div>
@@ -156,6 +211,7 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am domiciled outside Singapore</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a Muslim or from a religious faith where my estate must be divided in a certain manner</div></div>
     </div>
+
     <div class="section">
       <div class="section-title">Business & Legacy Planning</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I wish to give a legacy to a charity but am unsure how to achieve this</div></div>
@@ -164,21 +220,26 @@
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I am a businessman exposed to business risks and liabilities</div></div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have properties or business interests intended to provide for multiple generations</div></div>
     </div>
+
     <div class="section">
       <div class="section-title">Other Concerns</div>
       <div class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-label">I have other concerns that I do not wish to indicate in this form</div></div>
     </div>
 
-    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
-    <div class="status" id="status"></div>
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Assessment</button>
+      <div class="status" id="status"></div>
+    </div>
   </div>
 
+  <!-- RESULTS PAGE -->
   <div class="results-page" id="resultsPage">
-    <div class="header fade-in">
-      <div class="logo-line">Estate Planning · Risk Assessment</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:#8a7a6a;margin-bottom:6px;">Your results,</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#e8e2d9;" id="resultName">-</div>
+    <div class="results-header fade-in">
+      <div class="results-logo">Estate Planning · Risk Assessment</div>
+      <div class="results-greeting">Your results,</div>
+      <div class="results-name" id="resultName"></div>
     </div>
+
     <div class="score-ring fade-in">
       <svg viewBox="0 0 160 160">
         <circle class="ring-bg" cx="80" cy="80" r="66"/>
@@ -189,177 +250,108 @@
         <div class="score-label">out of 27</div>
       </div>
     </div>
+
     <div class="risk-card fade-in" id="riskCard">
       <div class="risk-band" id="riskBand"></div>
       <div class="risk-title" id="riskTitle"></div>
       <div class="risk-body" id="riskBody"></div>
     </div>
-    <div class="next-step fade-in">
+
+    <div class="next-step-card fade-in">
       <div class="next-step-label">Recommended next step</div>
       <p id="nextStep"></p>
     </div>
-    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta fade-in">Book a Discovery Session on WhatsApp</a>
-    <div class="divider"></div>
+
+    <a href="https://wa.me/6587612976?text=Hi%20Silvester%2C%20I%20would%20like%20to%20book%20an%20Estate%20Planning%20Discovery%20Session" class="cta-btn fade-in">Book a Discovery Session on WhatsApp</a>
+
     <div class="footer fade-in">
+      <div class="footer-divider"></div>
       <div class="footer-name">Silvester Chua 蔡文豪 เอ็ด</div>
-      <div class="footer-title">Estate & Succession Practitioner · Precepts Legacy<br>Wealth Structuring Advisor · Astria Consulting<br>Financial Services Consultant · AIA Singapore</div>
+      <div class="footer-title">
+        Estate & Succession Practitioner · Precepts Legacy<br>
+        Wealth Structuring Advisor · Astria Consulting<br>
+        Financial Services Consultant · AIA Singapore
+      </div>
     </div>
   </div>
-</div>
+
+</div><!-- end container -->
+</div><!-- end page-bg -->
 
 <script>
-  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYs2Qhtj9iUx60XsnOnnQ4l902bytwIbRdAHsMlHR62871ehgQXdpe_1h8oz0il4AxEw/exec";
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbyYs2Qhtj9iUx60XsnOnnQ4l902bytwIbRdAHsMlHR62871ehgQXdpe_1h8oz0il4AxEw/exec";
 
-  function toggle(el) { el.querySelector('.check-box').classList.toggle('checked'); }
+function toggle(el){el.querySelector('.check-box').classList.toggle('checked');}
 
-  function getTailoredNextStep(ticked) {
-    var hasNoWill = ticked.some(function(t){ return t.indexOf("no Will") > -1; });
-    var hasMarital = ticked.some(function(t){ return t.indexOf("marital status") > -1; });
-    var hasSpouse = ticked.some(function(t){ return t.indexOf("spouse is unfamiliar") > -1; });
-    var hasExecutor = ticked.some(function(t){ return t.indexOf("executor") > -1; });
-    var hasGuardian = ticked.some(function(t){ return t.indexOf("guardian") > -1; });
-    var hasSafekeeping = ticked.some(function(t){ return t.indexOf("safekeeping") > -1; });
-    var hasYoungChildren = ticked.some(function(t){ return t.indexOf("young children") > -1 || t.indexOf("newborn") > -1; });
-    var hasInsuranceBeneficiary = ticked.some(function(t){ return t.indexOf("beneficiaries to my insurance") > -1; });
-    var hasSpecialNeeds = ticked.some(function(t){ return t.indexOf("special needs") > -1; });
-    var hasSiblingRivalry = ticked.some(function(t){ return t.indexOf("sibling rivalry") > -1; });
-    var hasDependents = ticked.some(function(t){ return t.indexOf("dependents") > -1; });
-    var hasOverseasAssets = ticked.some(function(t){ return t.indexOf("overseas assets") > -1; });
-    var hasJointAssets = ticked.some(function(t){ return t.indexOf("joint names") > -1; });
-    var hasNoAssetSchedule = ticked.some(function(t){ return t.indexOf("schedule of assets") > -1; });
-    var hasProbate = ticked.some(function(t){ return t.indexOf("probate") > -1; });
-    var hasActiveInvesting = ticked.some(function(t){ return t.indexOf("active management") > -1; });
-    var hasCrossBorder = ticked.some(function(t){ return t.indexOf("permanent residents") > -1 || t.indexOf("married to foreigners") > -1 || t.indexOf("domiciled outside") > -1; });
-    var hasReligious = ticked.some(function(t){ return t.indexOf("Muslim") > -1; });
-    var hasBusiness = ticked.some(function(t){ return t.indexOf("business partners") > -1 || t.indexOf("fragmented") > -1 || t.indexOf("businessman") > -1; });
-    var hasLegacy = ticked.some(function(t){ return t.indexOf("charity") > -1 || t.indexOf("multi-generation") > -1 || t.indexOf("long-term resources") > -1; });
-    var hasOther = ticked.some(function(t){ return t.indexOf("other concerns") > -1; });
+function getTailoredNextStep(ticked){
+  var hasNoWill=ticked.some(function(t){return t.indexOf("no Will")>-1;});
+  var hasMarital=ticked.some(function(t){return t.indexOf("marital status")>-1;});
+  var hasSpouse=ticked.some(function(t){return t.indexOf("spouse is unfamiliar")>-1;});
+  var hasExecutor=ticked.some(function(t){return t.indexOf("executor")>-1;});
+  var hasGuardian=ticked.some(function(t){return t.indexOf("guardian")>-1;});
+  var hasSafekeeping=ticked.some(function(t){return t.indexOf("safekeeping")>-1;});
+  var hasYoungChildren=ticked.some(function(t){return t.indexOf("young children")>-1||t.indexOf("newborn")>-1;});
+  var hasInsuranceBeneficiary=ticked.some(function(t){return t.indexOf("beneficiaries to my insurance")>-1;});
+  var hasSpecialNeeds=ticked.some(function(t){return t.indexOf("special needs")>-1;});
+  var hasSiblingRivalry=ticked.some(function(t){return t.indexOf("sibling rivalry")>-1;});
+  var hasDependents=ticked.some(function(t){return t.indexOf("dependents")>-1;});
+  var hasOverseasAssets=ticked.some(function(t){return t.indexOf("overseas assets")>-1;});
+  var hasJointAssets=ticked.some(function(t){return t.indexOf("joint names")>-1;});
+  var hasNoAssetSchedule=ticked.some(function(t){return t.indexOf("schedule of assets")>-1;});
+  var hasProbate=ticked.some(function(t){return t.indexOf("probate")>-1;});
+  var hasActiveInvesting=ticked.some(function(t){return t.indexOf("active management")>-1;});
+  var hasCrossBorder=ticked.some(function(t){return t.indexOf("permanent residents")>-1||t.indexOf("married to foreigners")>-1||t.indexOf("domiciled outside")>-1;});
+  var hasReligious=ticked.some(function(t){return t.indexOf("Muslim")>-1;});
+  var hasBusiness=ticked.some(function(t){return t.indexOf("business partners")>-1||t.indexOf("fragmented")>-1||t.indexOf("businessman")>-1;});
+  var hasLegacy=ticked.some(function(t){return t.indexOf("charity")>-1||t.indexOf("multi-generation")>-1||t.indexOf("long-term resources")>-1;});
+  var hasOther=ticked.some(function(t){return t.indexOf("other concerns")>-1;});
+  if(ticked.length===0)return"Based on your responses, your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2 to 3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
+  var parts=[];
+  if(hasNoWill||hasMarital||hasExecutor||hasSafekeeping){var w=[];if(hasNoWill)w.push("drafting a Will");if(hasMarital)w.push("updating it to reflect your current marital status");if(hasExecutor)w.push("appointing a new executor or trustee");if(hasSafekeeping)w.push("arranging proper safekeeping");parts.push("The most immediate priority is "+w.join(", ")+".");}
+  if(hasGuardian||hasYoungChildren||hasInsuranceBeneficiary||hasSpecialNeeds){var c=[];if(hasGuardian)c.push("appointing a suitable guardian");if(hasYoungChildren)c.push("ensuring your young children are properly provided for");if(hasInsuranceBeneficiary)c.push("restructuring your insurance beneficiary nominations - naming minor children directly can cause complications, and a trust is usually the better solution");if(hasSpecialNeeds)c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care");parts.push("We should also address "+c.join(", ")+".");}
+  if(hasSiblingRivalry||hasSpouse||hasDependents){var f=[];if(hasSiblingRivalry)f.push("a clear distribution structure to reduce the risk of family disputes");if(hasSpouse)f.push("a plan to ensure your spouse can manage financial matters independently");if(hasDependents)f.push("provisions for your dependents so they are financially protected");parts.push("On the family side, we will look at "+f.join(" and ")+".");}
+  if(hasOverseasAssets||hasJointAssets||hasNoAssetSchedule||hasProbate||hasActiveInvesting){var a=[];if(hasOverseasAssets)a.push("structuring your overseas assets properly - each jurisdiction has its own rules on succession");if(hasJointAssets)a.push("clarifying the legal implications of your jointly held assets");if(hasNoAssetSchedule)a.push("preparing a comprehensive asset schedule");if(hasProbate)a.push("putting liquidity solutions in place so your family has access to funds during probate");if(hasActiveInvesting)a.push("ensuring your investment portfolio is covered in your estate plan");parts.push("For your assets, we need to look at "+a.join(", ")+".");}
+  if(hasCrossBorder||hasReligious){var x=[];if(hasCrossBorder)x.push("your cross-border family situation introduces multi-jurisdictional complexity - a Singapore trust structure is often the most effective solution");if(hasReligious)x.push("your estate distribution must comply with religious requirements, which we will factor into the structure from the start");parts.push("Importantly, "+x.join(", and ")+".");}
+  if(hasBusiness)parts.push("Your business interests need dedicated attention - we will look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
+  if(hasLegacy)parts.push("We will also explore legacy planning options - whether that is a structured charitable giving arrangement or a multi-generational trust.");
+  if(hasOther)parts.push("I also note that you have concerns you would prefer to discuss privately - I look forward to hearing more when we meet.");
+  parts.push("I would recommend we set aside time for an Estate Planning Discovery session. Please reach out to arrange a time.");
+  return parts.join(" ");
+}
 
-    if (ticked.length === 0) return "Based on your responses, your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2 to 3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
+function submitForm(){
+  var name=document.getElementById('clientName').value.trim();
+  var email=document.getElementById('clientEmail').value.trim();
+  var lawyer=document.getElementById('clientLawyer').value.trim()||"Not provided";
+  var nationality=document.getElementById('clientNationality').value;
+  var residency=document.getElementById('clientResidency').value;
+  var st=document.getElementById('status');
+  if(!name||!email){st.textContent='Please enter your name and email address.';return;}
+  if(!nationality){st.textContent='Please select your nationality.';return;}
+  if(!residency){st.textContent='Please select your country of residency.';return;}
+  var items=document.querySelectorAll('.check-item');
+  var score=0,ticked=[];
+  items.forEach(function(item){if(item.querySelector('.check-box').classList.contains('checked')){score++;ticked.push(item.querySelector('.check-label').textContent);}});
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='Submitting...';st.textContent='';
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,lawyer:lawyer,nationality:nationality,residency:residency,score:score,ticked:ticked})}).then(function(){showResults(name,score,ticked);}).catch(function(){showResults(name,score,ticked);});
+}
 
-    var parts = [];
-    if (hasNoWill || hasMarital || hasExecutor || hasSafekeeping) {
-      var w = [];
-      if (hasNoWill) w.push("drafting a Will");
-      if (hasMarital) w.push("updating it to reflect your current marital status");
-      if (hasExecutor) w.push("appointing a new executor or trustee");
-      if (hasSafekeeping) w.push("arranging proper safekeeping");
-      parts.push("The most immediate priority is " + w.join(", ") + ".");
-    }
-    if (hasGuardian || hasYoungChildren || hasInsuranceBeneficiary || hasSpecialNeeds) {
-      var c = [];
-      if (hasGuardian) c.push("appointing a suitable guardian");
-      if (hasYoungChildren) c.push("ensuring your young children are properly provided for");
-      if (hasInsuranceBeneficiary) c.push("restructuring your insurance beneficiary nominations - naming minor children directly can cause complications, and a trust is usually the better solution");
-      if (hasSpecialNeeds) c.push("setting up a dedicated Special Needs Trust to protect your child's long-term care");
-      parts.push("We should also address " + c.join(", ") + ".");
-    }
-    if (hasSiblingRivalry || hasSpouse || hasDependents) {
-      var f = [];
-      if (hasSiblingRivalry) f.push("a clear distribution structure to reduce the risk of family disputes");
-      if (hasSpouse) f.push("a plan to ensure your spouse can manage financial matters independently");
-      if (hasDependents) f.push("provisions for your dependents so they are financially protected");
-      parts.push("On the family side, we will look at " + f.join(" and ") + ".");
-    }
-    if (hasOverseasAssets || hasJointAssets || hasNoAssetSchedule || hasProbate || hasActiveInvesting) {
-      var a = [];
-      if (hasOverseasAssets) a.push("structuring your overseas assets properly - each jurisdiction has its own rules on succession");
-      if (hasJointAssets) a.push("clarifying the legal implications of your jointly held assets");
-      if (hasNoAssetSchedule) a.push("preparing a comprehensive asset schedule");
-      if (hasProbate) a.push("putting liquidity solutions in place so your family has access to funds during probate");
-      if (hasActiveInvesting) a.push("ensuring your investment portfolio is covered in your estate plan");
-      parts.push("For your assets, we need to look at " + a.join(", ") + ".");
-    }
-    if (hasCrossBorder || hasReligious) {
-      var x = [];
-      if (hasCrossBorder) x.push("your cross-border family situation introduces multi-jurisdictional complexity - a Singapore trust structure is often the most effective solution");
-      if (hasReligious) x.push("your estate distribution must comply with religious requirements, which we will factor into the structure from the start");
-      parts.push("Importantly, " + x.join(", and ") + ".");
-    }
-    if (hasBusiness) parts.push("Your business interests need dedicated attention - we will look at business continuity structures, buy-sell agreements, and how to ring-fence personal assets from business liabilities.");
-    if (hasLegacy) parts.push("We will also explore legacy planning options - whether that is a structured charitable giving arrangement or a multi-generational trust.");
-    if (hasOther) parts.push("I also note that you have concerns you would prefer to discuss privately - I look forward to hearing more when we meet.");
-    parts.push("I would recommend we set aside time for an Estate Planning Discovery session. Please reach out to arrange a time.");
-    return parts.join(" ");
-  }
-
-  function submitForm() {
-    var name = document.getElementById('clientName').value.trim();
-    var email = document.getElementById('clientEmail').value.trim();
-    var lawyer = document.getElementById('clientLawyer').value.trim() || "Not provided";
-    var nationality = document.getElementById('clientNationality').value;
-    var residency = document.getElementById('clientResidency').value;
-
-    if (!name || !email) {
-      document.getElementById('status').textContent = 'Please enter your name and email address.';
-      return;
-    }
-    if (!nationality) {
-      document.getElementById('status').textContent = 'Please select your nationality.';
-      return;
-    }
-    if (!residency) {
-      document.getElementById('status').textContent = 'Please select your country of residency.';
-      return;
-    }
-
-    var items = document.querySelectorAll('.check-item');
-    var score = 0; var ticked = [];
-    items.forEach(function(item) {
-      if (item.querySelector('.check-box').classList.contains('checked')) {
-        score++;
-        ticked.push(item.querySelector('.check-label').textContent);
-      }
-    });
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
-    document.getElementById('status').textContent = '';
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, lawyer: lawyer, nationality: nationality, residency: residency, score: score, ticked: ticked })
-    }).then(function() {
-      showResults(name, score, ticked);
-    }).catch(function() {
-      showResults(name, score, ticked);
-    });
-  }
-
-  function showResults(name, score, ticked) {
-    document.getElementById('formPage').classList.add('hide');
-    document.getElementById('resultsPage').classList.add('show');
-    document.getElementById('resultName').textContent = name;
-    document.getElementById('resultScore').textContent = score;
-    var offset = 414.7 - (Math.min(score / 27, 1) * 414.7);
-    setTimeout(function() { document.getElementById('ringArc').style.strokeDashoffset = offset; }, 400);
-    var card = document.getElementById('riskCard');
-    var band = document.getElementById('riskBand');
-    var title = document.getElementById('riskTitle');
-    var body = document.getElementById('riskBody');
-    var next = document.getElementById('nextStep');
-    if (score >= 15) {
-      card.classList.add('high');
-      band.textContent = 'Score ' + score + ' - High Risk';
-      title.textContent = 'Your estate affairs need urgent attention.';
-      body.textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
-    } else if (score >= 7) {
-      card.classList.add('moderate');
-      band.textContent = 'Score ' + score + ' - Moderate Risk';
-      title.textContent = 'There are gaps worth addressing.';
-      body.textContent = 'Your responses indicate areas that could create complications for your family - in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';
-    } else {
-      card.classList.add('low');
-      band.textContent = 'Score ' + score + ' - Low Risk';
-      title.textContent = 'Your planning foundation looks solid.';
-      body.textContent = 'Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise - life changes can quietly create gaps even in well-structured plans.';
-    }
-    next.textContent = getTailoredNextStep(ticked);
-    window.scrollTo(0, 0);
-  }
+function showResults(name,score,ticked){
+  document.getElementById('formPage').classList.add('hide');
+  document.getElementById('resultsPage').classList.add('show');
+  document.getElementById('resultName').textContent=name;
+  document.getElementById('resultScore').textContent=score;
+  var offset=414.7-(Math.min(score/27,1)*414.7);
+  setTimeout(function(){document.getElementById('ringArc').style.strokeDashoffset=offset;},400);
+  var card=document.getElementById('riskCard');
+  var scoreEl=document.getElementById('resultScore');
+  if(score>=15){card.classList.add('high');document.getElementById('riskBand').textContent='Score '+score+' — High Risk';document.getElementById('riskTitle').textContent='Your estate affairs need urgent attention.';document.getElementById('riskBody').textContent='Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';scoreEl.style.color='#E87070';document.getElementById('ringArc').style.stroke='#E87070';}
+  else if(score>=7){card.classList.add('moderate');document.getElementById('riskBand').textContent='Score '+score+' — Moderate Risk';document.getElementById('riskTitle').textContent='There are gaps worth addressing.';document.getElementById('riskBody').textContent='Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';scoreEl.style.color='#D4AF5A';document.getElementById('ringArc').style.stroke='#B8962E';}
+  else{card.classList.add('low');document.getElementById('riskBand').textContent='Score '+score+' — Low Risk';document.getElementById('riskTitle').textContent='Your planning foundation looks solid.';document.getElementById('riskBody').textContent='Your responses suggest you have a reasonable estate planning structure in place. That said, estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';scoreEl.style.color='#6dc987';document.getElementById('ringArc').style.stroke='#4a9e62';}
+  document.getElementById('nextStep').textContent=getTailoredNextStep(ticked);
+  window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>
