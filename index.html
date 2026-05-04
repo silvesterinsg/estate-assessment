@@ -432,7 +432,7 @@ function showResults(name,score,ticked,lawyer){
   var lawyerDisplay = (lawyer && lawyer !== 'Not provided') ? lawyer : null;
   var bookingSub = score >= 4
     ? 'A joint consultation with ' + (lawyerDisplay ? lawyerDisplay + ' and Silvester' : 'your lawyer and Silvester') + ' is recommended. Select a city and choose time slots that work for ' + (lawyerDisplay ? lawyerDisplay + ' and yourself' : 'both of you') + '.'
-    : 'You can proceed with your lawyer directly. If you'd like an optional consultation with Silvester, select a time slot below.';
+    : 'You can proceed with your lawyer directly. If you would like an optional consultation with Silvester, select a time slot below.';
   document.getElementById('bookingSub').textContent = bookingSub;
   if(lawyerDisplay) document.getElementById('lawyerNameInSlots').textContent = lawyerDisplay;
   else document.getElementById('lawyerNameInSlots').textContent = 'your lawyer';
