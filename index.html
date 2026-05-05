@@ -57,8 +57,8 @@ body{padding:0}
 .ring-bg{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:8}
 .ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)}
 .score-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-.score-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;line-height:1}
-.score-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:3px}
+.score-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;line-height:1;color:#fff}
+.score-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:3px}
 .risk-card{border-radius:var(--radius);padding:20px;margin-bottom:12px;border-left:3px solid}
 .risk-band{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
 .risk-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:12px;line-height:1.25;color:#fff}
@@ -142,7 +142,7 @@ body{padding:0}
       <div class="field-group">
         <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
         <select id="clientLawyerSelect">
-          <option value="">Loading lawyers...</option>
+          <option value="">Loading lawyers — please wait...</option>
         </select>
         <div id="otherLawyerWrap" style="display:none;margin-top:8px">
           <input type="text" id="clientLawyerOther" placeholder="Please specify your lawyer's name"/>
@@ -352,7 +352,17 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
     sel.addEventListener('change', function(){
       document.getElementById('otherLawyerWrap').style.display = this.value==='Other' ? 'block' : 'none';
     });
+    // Add timeout fallback label
+    sel.style.opacity = '1';
   };
+  // Set a timeout — if lawyers don't load in 8s, show fallback
+  setTimeout(function(){
+    var sel = document.getElementById('clientLawyerSelect');
+    if(sel && sel.options.length <= 1 && sel.options[0] && sel.options[0].text.indexOf('Loading') > -1){
+      sel.innerHTML = '<option value="">None / Not applicable</option><option value="Other">Other (specify)</option>';
+      document.getElementById('otherLawyerWrap').style.display = 'block';
+    }
+  }, 8000);
   var s = document.createElement('script');
   s.src = DEPOSITARY_URL + '?action=getLawyers&callback=' + cb;
   document.head.appendChild(s);
