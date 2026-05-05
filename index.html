@@ -529,7 +529,7 @@ function confirmSlots(){
   var btn = document.getElementById('bookingConfirmBtn');
   btn.disabled=true; btn.textContent='Sending...';
 
-  var slotLabels = _selectedSlots.map(function(s){return s.label;}).join(', ');
+  var slotLabels = _selectedSlots.map(function(s){return s.label;}).join(' | ');
 
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({
     action:'bookingRequest',
