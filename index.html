@@ -142,7 +142,7 @@ body{padding:0}
       <div class="field-group">
         <label>Your Lawyer's Name <span class="field-optional">(if any)</span></label>
         <select id="clientLawyerSelect">
-          <option value="">Loading lawyers...</option>
+          <option value="">Loading...</option>
         </select>
         <div id="otherLawyerWrap" style="display:none;margin-top:8px">
           <input type="text" id="clientLawyerOther" placeholder="Please specify your lawyer's name"/>
@@ -335,10 +335,11 @@ var DEPOSITARY_URL = "https://script.google.com/macros/s/AKfycbx2BScnbDAYx9nfGrL
 var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selectedCity='', _selectedSlots=[];
 
 // ── LAWYER DROPDOWN ──
+// ── LAWYER DROPDOWN — fetches via Risk Assessment script (single URL) ──
 (function loadLawyers(){
   var sel = document.getElementById('clientLawyerSelect');
 
-  function populateLawyers(lawyers) {
+  function populate(lawyers) {
     sel.innerHTML = '<option value="">None / Not applicable</option>';
     if(lawyers && lawyers.length){
       lawyers.forEach(function(l){
@@ -349,32 +350,26 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
       });
     }
     var o2 = document.createElement('option');
-    o2.value = 'Other';
-    o2.textContent = 'Other (specify)';
+    o2.value = 'Other'; o2.textContent = 'Other (specify)';
     sel.appendChild(o2);
     sel.addEventListener('change', function(){
       document.getElementById('otherLawyerWrap').style.display = this.value === 'Other' ? 'block' : 'none';
     });
   }
 
-  // Fallback after 5 seconds if script doesn't load
-  var fallbackTimer = setTimeout(function(){
-    if(sel.options.length <= 1){
-      populateLawyers([]);
-    }
-  }, 5000);
+  // Fallback if no response in 6 seconds
+  var timer = setTimeout(function(){
+    if(sel.options.length <= 1) populate([]);
+  }, 6000);
 
   var cb = 'cb_lawyers_' + Date.now();
   window[cb] = function(r){
-    clearTimeout(fallbackTimer);
-    populateLawyers(r && r.lawyers ? r.lawyers : []);
+    clearTimeout(timer);
+    populate(r && r.lawyers ? r.lawyers : []);
   };
   var s = document.createElement('script');
-  s.src = DEPOSITARY_URL + '?action=getLawyers&callback=' + cb;
-  s.onerror = function(){
-    clearTimeout(fallbackTimer);
-    populateLawyers([]);
-  };
+  s.src = SCRIPT_URL + '?action=getLawyers&callback=' + cb;
+  s.onerror = function(){ clearTimeout(timer); populate([]); };
   document.head.appendChild(s);
 })();
 
