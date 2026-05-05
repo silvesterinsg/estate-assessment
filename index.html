@@ -502,8 +502,9 @@ function loadSlots(city){
     _slotCache[city] = r; // cache result
     renderSlots(r, city);
   };
-  };
-  // render logic extracted below
+  var s = document.createElement('script');
+  s.src = SCRIPT_URL + '?action=getAvailableSlots&city=' + encodeURIComponent(city) + '&callback=' + cb;
+  document.head.appendChild(s);
 }
 
 function renderSlots(r, city) {
@@ -542,9 +543,6 @@ function renderSlots(r, city) {
       list.appendChild(d);
     });
     document.getElementById('slotsNote').style.display='block';
-  var s = document.createElement('script');
-  s.src = SCRIPT_URL + '?action=getAvailableSlots&city=' + encodeURIComponent(city) + '&callback=' + cb;
-  document.head.appendChild(s);
 }
 
 function toggleSlot(btn, value, dayLabel){
