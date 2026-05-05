@@ -336,12 +336,12 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
 
 // ── LAWYER DROPDOWN ──
 (function loadLawyers(){
-  var cb = 'cb_lawyers_' + Date.now();
-  window[cb] = function(r){
-    var sel = document.getElementById('clientLawyerSelect');
+  var sel = document.getElementById('clientLawyerSelect');
+
+  function populateLawyers(lawyers) {
     sel.innerHTML = '<option value="">None / Not applicable</option>';
-    if(r && r.lawyers && r.lawyers.length){
-      r.lawyers.forEach(function(l){
+    if(lawyers && lawyers.length){
+      lawyers.forEach(function(l){
         var o = document.createElement('option');
         o.value = l.name;
         o.textContent = l.name + (l.firm ? ' — ' + l.firm : '');
@@ -355,9 +355,26 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
     sel.addEventListener('change', function(){
       document.getElementById('otherLawyerWrap').style.display = this.value === 'Other' ? 'block' : 'none';
     });
+  }
+
+  // Fallback after 5 seconds if script doesn't load
+  var fallbackTimer = setTimeout(function(){
+    if(sel.options.length <= 1){
+      populateLawyers([]);
+    }
+  }, 5000);
+
+  var cb = 'cb_lawyers_' + Date.now();
+  window[cb] = function(r){
+    clearTimeout(fallbackTimer);
+    populateLawyers(r && r.lawyers ? r.lawyers : []);
   };
   var s = document.createElement('script');
   s.src = DEPOSITARY_URL + '?action=getLawyers&callback=' + cb;
+  s.onerror = function(){
+    clearTimeout(fallbackTimer);
+    populateLawyers([]);
+  };
   document.head.appendChild(s);
 })();
 
