@@ -343,14 +343,17 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
     if(r && r.lawyers && r.lawyers.length){
       r.lawyers.forEach(function(l){
         var o = document.createElement('option');
-        o.value = l.name; o.textContent = l.name + (l.firm ? ' — ' + l.firm : '');
+        o.value = l.name;
+        o.textContent = l.name + (l.firm ? ' — ' + l.firm : '');
         sel.appendChild(o);
       });
     }
-    var o2 = document.createElement('option'); o2.value='Other'; o2.textContent='Other (specify)';
+    var o2 = document.createElement('option');
+    o2.value = 'Other';
+    o2.textContent = 'Other (specify)';
     sel.appendChild(o2);
     sel.addEventListener('change', function(){
-      document.getElementById('otherLawyerWrap').style.display = this.value==='Other' ? 'block' : 'none';
+      document.getElementById('otherLawyerWrap').style.display = this.value === 'Other' ? 'block' : 'none';
     });
   };
   var s = document.createElement('script');
@@ -358,7 +361,7 @@ var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selected
   document.head.appendChild(s);
 })();
 
-function toggle(el){el.querySelector('.check-box').classList.toggle('checked');}
+function toggle(el){ el.querySelector('.check-box').classList.toggle('checked'); }
 
 function getLawyerValue(){
   var sel = document.getElementById('clientLawyerSelect');
@@ -374,22 +377,22 @@ function openWA(){
 }
 
 function getTailoredNextStep(ticked){
-  var hasNoWill=ticked.some(function(t){return t.indexOf("no Will")>-1;});
-  var hasOverseas=ticked.some(function(t){return t.indexOf("overseas assets")>-1;});
-  var hasBusiness=ticked.some(function(t){return t.indexOf("business partners")>-1||t.indexOf("fragmented")>-1||t.indexOf("businessman")>-1;});
-  var hasCross=ticked.some(function(t){return t.indexOf("permanent residents")>-1||t.indexOf("married to foreigners")>-1||t.indexOf("domiciled outside")>-1;});
-  var hasYoung=ticked.some(function(t){return t.indexOf("young children")>-1||t.indexOf("newborn")>-1;});
-  var hasSpecial=ticked.some(function(t){return t.indexOf("special needs")>-1;});
-  var hasOther=ticked.some(function(t){return t.indexOf("other concerns")>-1;});
-  if(ticked.length===0) return "Your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2–3 years to ensure your arrangements continue to reflect your current wishes and circumstances.";
-  var parts=[];
-  if(hasNoWill) parts.push("The most immediate priority is drafting a Will.");
-  if(hasYoung||hasSpecial) parts.push("We should ensure your children are properly provided for" + (hasSpecial?" — including a Special Needs Trust":"") + ".");
-  if(hasOverseas||hasCross) parts.push("Your cross-border situation adds complexity — a Singapore trust structure is often the most effective solution.");
-  if(hasBusiness) parts.push("Your business interests need dedicated attention — buy-sell agreements, continuity structures, and asset ring-fencing.");
-  if(hasOther) parts.push("I note you have concerns you'd prefer to discuss privately — I look forward to hearing more.");
-  parts.push("Please select a convenient time slot below to arrange a face-to-face consultation.");
-  return parts.join(" ");
+  var hasNoWill = ticked.some(function(t){ return t.indexOf('no Will') > -1; });
+  var hasOverseas = ticked.some(function(t){ return t.indexOf('overseas assets') > -1; });
+  var hasBusiness = ticked.some(function(t){ return t.indexOf('business partners') > -1 || t.indexOf('fragmented') > -1 || t.indexOf('businessman') > -1; });
+  var hasCross = ticked.some(function(t){ return t.indexOf('permanent residents') > -1 || t.indexOf('married to foreigners') > -1 || t.indexOf('domiciled outside') > -1; });
+  var hasYoung = ticked.some(function(t){ return t.indexOf('young children') > -1 || t.indexOf('newborn') > -1; });
+  var hasSpecial = ticked.some(function(t){ return t.indexOf('special needs') > -1; });
+  var hasOther = ticked.some(function(t){ return t.indexOf('other concerns') > -1; });
+  if(ticked.length === 0) return 'Your estate affairs appear to be in reasonable order. I would still recommend a brief review every 2-3 years to ensure your arrangements continue to reflect your current wishes.';
+  var parts = [];
+  if(hasNoWill) parts.push('The most immediate priority is drafting a Will.');
+  if(hasYoung || hasSpecial) parts.push('We should ensure your children are properly provided for' + (hasSpecial ? ' — including a Special Needs Trust' : '') + '.');
+  if(hasOverseas || hasCross) parts.push('Your cross-border situation adds complexity — a Singapore trust structure is often the most effective solution.');
+  if(hasBusiness) parts.push('Your business interests need dedicated attention — buy-sell agreements, continuity structures, and asset ring-fencing.');
+  if(hasOther) parts.push('I note you have concerns you would prefer to discuss privately — I look forward to hearing more.');
+  parts.push('Please select a convenient time slot below to arrange a face-to-face consultation.');
+  return parts.join(' ');
 }
 
 function submitForm(){
@@ -399,40 +402,60 @@ function submitForm(){
   var nationality = document.getElementById('clientNationality').value;
   var residency = document.getElementById('clientResidency').value;
   var st = document.getElementById('status');
-  if(!name||!email){st.textContent='Please enter your name and email address.';return;}
-  if(!nationality){st.textContent='Please select your nationality.';return;}
-  if(!residency){st.textContent='Please select your country of residency.';return;}
+  if(!name || !email){ st.textContent = 'Please enter your name and email address.'; return; }
+  if(!nationality){ st.textContent = 'Please select your nationality.'; return; }
+  if(!residency){ st.textContent = 'Please select your country of residency.'; return; }
   var items = document.querySelectorAll('.check-item');
-  var score=0, ticked=[];
-  items.forEach(function(item){if(item.querySelector('.check-box').classList.contains('checked')){score++;ticked.push(item.querySelector('.check-label').textContent);}});
-  _clientName=name; _clientEmail=email; _clientLawyer=lawyer; _clientScore=score;
+  var score = 0, ticked = [];
+  items.forEach(function(item){
+    if(item.querySelector('.check-box').classList.contains('checked')){
+      score++;
+      ticked.push(item.querySelector('.check-label').textContent);
+    }
+  });
+  _clientName = name; _clientEmail = email; _clientLawyer = lawyer; _clientScore = score;
   var btn = document.getElementById('submitBtn');
-  btn.disabled=true; btn.textContent='Submitting...'; st.textContent='';
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,lawyer:lawyer,nationality:nationality,residency:residency,score:score,ticked:ticked})})
-    .then(function(){showResults(name,score,ticked,lawyer);})
-    .catch(function(){showResults(name,score,ticked,lawyer);});
+  btn.disabled = true; btn.textContent = 'Submitting...'; st.textContent = '';
+  fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({name:name, email:email, lawyer:lawyer, nationality:nationality, residency:residency, score:score, ticked:ticked})
+  }).then(function(){ showResults(name, score, ticked, lawyer); })
+    .catch(function(){ showResults(name, score, ticked, lawyer); });
 }
 
-function showResults(name,score,ticked,lawyer){
+function showResults(name, score, ticked, lawyer){
   document.getElementById('formPage').classList.add('hide');
   var rp = document.getElementById('resultsPage');
   rp.classList.add('show');
-  // Force all fade-in children visible in case animation doesn't fire
   setTimeout(function(){
     var fadeEls = rp.querySelectorAll('.fade-in');
     fadeEls.forEach(function(el){ el.style.opacity='1'; el.style.transform='none'; });
   }, 1500);
-  document.getElementById('resultName').textContent=name;
-  document.getElementById('resultScore').textContent=score;
-  var offset=414.7-(Math.min(score/27,1)*414.7);
-  setTimeout(function(){document.getElementById('ringArc').style.strokeDashoffset=offset;},400);
-  var card=document.getElementById('riskCard');
-  if(score>=15){card.classList.add('high');document.getElementById('riskBand').textContent='Score '+score+' — High Risk';document.getElementById('riskTitle').textContent='Your estate affairs need urgent attention.';document.getElementById('riskBody').textContent='Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';}
-  else if(score>=4){card.classList.add('moderate');document.getElementById('riskBand').textContent='Score '+score+' — Some Gaps to Address';document.getElementById('riskTitle').textContent='There are gaps worth addressing.';document.getElementById('riskBody').textContent='Your responses indicate areas that could create complications for your family — in how your assets are distributed, who has authority to act, or how cross-border situations are handled.';}
-  else{card.classList.add('low');document.getElementById('riskBand').textContent='Score '+score+' — Looking Good';document.getElementById('riskTitle').textContent='Your planning foundation looks solid.';document.getElementById('riskBody').textContent='Your responses suggest you have a reasonable estate planning structure in place. Estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';}
-  document.getElementById('nextStep').textContent=getTailoredNextStep(ticked);
 
-  // Set booking sub-text based on risk + lawyer
+  document.getElementById('resultName').textContent = name;
+  document.getElementById('resultScore').textContent = score;
+  var offset = 414.7 - (Math.min(score/27, 1) * 414.7);
+  setTimeout(function(){ document.getElementById('ringArc').style.strokeDashoffset = offset; }, 400);
+
+  var card = document.getElementById('riskCard');
+  if(score >= 15){
+    card.classList.add('high');
+    document.getElementById('riskBand').textContent = 'Score ' + score + ' — High Risk';
+    document.getElementById('riskTitle').textContent = 'Your estate affairs need urgent attention.';
+    document.getElementById('riskBody').textContent = 'Without a proper structure in place, your family could face delays in accessing funds, disputes over distribution, and unintended legal or tax consequences.';
+  } else if(score >= 4){
+    card.classList.add('moderate');
+    document.getElementById('riskBand').textContent = 'Score ' + score + ' — Some Gaps to Address';
+    document.getElementById('riskTitle').textContent = 'A few things worth sorting out.';
+    document.getElementById('riskBody').textContent = 'Nothing alarming — but your responses point to some areas that could create complications for your family down the road. A joint session with your lawyer and an estate planning specialist is usually enough to get everything on track.';
+  } else {
+    card.classList.add('low');
+    document.getElementById('riskBand').textContent = 'Score ' + score + ' — Looking Good';
+    document.getElementById('riskTitle').textContent = 'Your planning foundation looks solid.';
+    document.getElementById('riskBody').textContent = 'Your responses suggest you have a reasonable estate planning structure in place. Estate planning is not a one-time exercise — life changes can quietly create gaps even in well-structured plans.';
+  }
+
+  document.getElementById('nextStep').textContent = getTailoredNextStep(ticked);
+
   var lawyerDisplay = (lawyer && lawyer !== 'Not provided') ? lawyer : null;
   var bookingSub = score >= 4
     ? 'A joint consultation with ' + (lawyerDisplay ? lawyerDisplay + ' and Silvester' : 'your lawyer and Silvester') + ' is recommended. Select a city and choose time slots that work for ' + (lawyerDisplay ? lawyerDisplay + ' and yourself' : 'both of you') + '.'
@@ -441,65 +464,44 @@ function showResults(name,score,ticked,lawyer){
   if(lawyerDisplay) document.getElementById('lawyerNameInSlots').textContent = lawyerDisplay;
   else document.getElementById('lawyerNameInSlots').textContent = 'your lawyer';
 
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 }
 
 // ── CITY SELECTION ──
 function selectCity(city){
   _selectedCity = city;
   _selectedSlots = [];
-  document.getElementById('btnBKK').classList.toggle('active', city==='Bangkok');
-  document.getElementById('btnSGP').classList.toggle('active', city==='Singapore');
-  document.getElementById('btnOther').classList.toggle('active', city==='Other');
-  document.getElementById('otherCityMsg').classList.toggle('show', city==='Other');
+  document.getElementById('btnBKK').classList.toggle('active', city === 'Bangkok');
+  document.getElementById('btnSGP').classList.toggle('active', city === 'Singapore');
+  document.getElementById('btnOther').classList.toggle('active', city === 'Other');
+  document.getElementById('otherCityMsg').classList.toggle('show', city === 'Other');
   var wrap = document.getElementById('slotsWrap');
-  if(city === 'Other'){wrap.classList.remove('show'); return;}
+  if(city === 'Other'){ wrap.classList.remove('show'); return; }
   wrap.classList.add('show');
-  document.getElementById('slotsList').innerHTML='';
-  document.getElementById('slotsLoading').style.display='block';
-  document.getElementById('slotsNote').style.display='none';
-  document.getElementById('bookingConfirmBtn').disabled=true;
+  document.getElementById('slotsList').innerHTML = '';
+  document.getElementById('slotsLoading').style.display = 'block';
+  document.getElementById('slotsNote').style.display = 'none';
+  document.getElementById('bookingConfirmBtn').disabled = true;
 
-  var tz = city==='Bangkok' ? 'BKT (UTC+7)' : 'SGT (UTC+8)';
+  var tz = city === 'Bangkok' ? 'BKT (UTC+7)' : 'SGT (UTC+8)';
   document.getElementById('slotsIntro').innerHTML =
-    'Below are the time slots Silvester is available in <strong>' + city + '</strong>. Please select 2–3 that work for <strong id="lawyerNameInSlots2">' + (document.getElementById('lawyerNameInSlots').textContent) + '</strong> and yourself. All times in <strong>' + tz + '</strong>.';
+    'Below are the time slots Silvester is available in <strong>' + city + '</strong>. Please select 2-3 that work for <strong>' + document.getElementById('lawyerNameInSlots').textContent + '</strong> and yourself. All times in <strong>' + tz + '</strong>.';
 
   loadSlots(city);
 }
 
-var _slotCache = {}; // cache slots per city to avoid re-fetching
-
-function startLoadingAnimation() {
-  var msgs = [
-    'Checking Silvester\'s calendar...',
-    'Reviewing your travel schedule...',
-    'Filtering available time slots...',
-    'Almost there...'
-  ];
-  var i = 0;
-  var el = document.getElementById('loadingMsg');
-  if (!el) return;
-  el.textContent = msgs[0];
-  return setInterval(function() {
-    i = (i + 1) % msgs.length;
-    if (el) el.textContent = msgs[i];
-  }, 3000);
-}
+var _slotCache = {};
 
 function loadSlots(city){
-  // Serve from cache if available
-  if (_slotCache[city]) {
-    document.getElementById('slotsLoading').style.display='none';
+  if(_slotCache[city]){
+    document.getElementById('slotsLoading').style.display = 'none';
     renderSlots(_slotCache[city], city);
     return;
   }
-
-  var timer = startLoadingAnimation();
   var cb = 'cb_slots_' + Date.now();
   window[cb] = function(r){
-    clearInterval(timer);
-    document.getElementById('slotsLoading').style.display='none';
-    _slotCache[city] = r; // cache result
+    document.getElementById('slotsLoading').style.display = 'none';
+    _slotCache[city] = r;
     renderSlots(r, city);
   };
   var s = document.createElement('script');
@@ -507,80 +509,80 @@ function loadSlots(city){
   document.head.appendChild(s);
 }
 
-function renderSlots(r, city) {
-    var list = document.getElementById('slotsList');
-    list.innerHTML='';
-    if(!r || !r.days || r.days.length===0){
-      list.innerHTML='<div class="no-slots-msg">No upcoming dates in ' + city + ' in the next 30 days. Please contact Silvester directly on WhatsApp.</div>';
-      return;
-    }
-    r.days.forEach(function(day){
-      if(!day.slots || day.slots.length===0) return;
-      var hasAnyFree = day.slots.some(function(s){return !s.busy;});
-      if(!hasAnyFree) return;
-      var d = document.createElement('div');
-      d.className='slot-day';
-      var label = document.createElement('div');
-      label.className='slot-date-label';
-      label.textContent = day.label;
-      d.appendChild(label);
-      var grid = document.createElement('div');
-      grid.className='slot-times';
-      day.slots.forEach(function(slot){
-        var btn = document.createElement('button');
-        btn.className='slot-btn' + (slot.busy?' busy':'');
-        btn.textContent = slot.label;
-        btn.dataset.value = slot.value;
-        if(!slot.busy){
-          btn.onclick = function(){toggleSlot(this, slot.value, day.label);};
-        } else {
-          btn.disabled=true;
-          btn.title='Not available';
-        }
-        grid.appendChild(btn);
-      });
-      d.appendChild(grid);
-      list.appendChild(d);
+function renderSlots(r, city){
+  var list = document.getElementById('slotsList');
+  list.innerHTML = '';
+  if(!r || !r.days || r.days.length === 0){
+    list.innerHTML = '<div class="no-slots-msg">No upcoming dates in ' + city + ' in the next 30 days. Please contact Silvester directly on WhatsApp.</div>';
+    return;
+  }
+  r.days.forEach(function(day){
+    if(!day.slots || day.slots.length === 0) return;
+    var hasAnyFree = day.slots.some(function(s){ return !s.busy; });
+    if(!hasAnyFree) return;
+    var d = document.createElement('div');
+    d.className = 'slot-day';
+    var label = document.createElement('div');
+    label.className = 'slot-date-label';
+    label.textContent = day.label;
+    d.appendChild(label);
+    var grid = document.createElement('div');
+    grid.className = 'slot-times';
+    day.slots.forEach(function(slot){
+      var btn = document.createElement('button');
+      btn.className = 'slot-btn' + (slot.busy ? ' busy' : '');
+      btn.textContent = slot.label;
+      btn.dataset.value = slot.value;
+      if(!slot.busy){
+        btn.onclick = function(){ toggleSlot(this, slot.value, day.label); };
+      } else {
+        btn.disabled = true;
+      }
+      grid.appendChild(btn);
     });
-    document.getElementById('slotsNote').style.display='block';
+    d.appendChild(grid);
+    list.appendChild(d);
+  });
+  document.getElementById('slotsNote').style.display = 'block';
 }
 
 function toggleSlot(btn, value, dayLabel){
-  var idx = _selectedSlots.findIndex(function(s){return s.value===value;});
+  var idx = _selectedSlots.findIndex(function(s){ return s.value === value; });
   if(idx > -1){
-    _selectedSlots.splice(idx,1);
+    _selectedSlots.splice(idx, 1);
     btn.classList.remove('selected');
   } else {
-    if(_selectedSlots.length >= 3){alert('Please select up to 3 time slots.');return;}
-    _selectedSlots.push({value:value, label:dayLabel+' '+btn.textContent});
+    if(_selectedSlots.length >= 3){ alert('Please select up to 3 time slots.'); return; }
+    _selectedSlots.push({value: value, label: dayLabel + ' ' + btn.textContent});
     btn.classList.add('selected');
   }
   document.getElementById('bookingConfirmBtn').disabled = _selectedSlots.length < 2;
   document.getElementById('bookingConfirmBtn').textContent = _selectedSlots.length > 0
-    ? 'Confirm ' + _selectedSlots.length + ' Slot' + (_selectedSlots.length>1?'s':'') + ' →'
+    ? 'Confirm ' + _selectedSlots.length + ' Slot' + (_selectedSlots.length > 1 ? 's' : '') + ' →'
     : 'Confirm Selected Slots';
 }
 
 function confirmSlots(){
-  if(_selectedSlots.length < 2){alert('Please select at least 2 time slots.');return;}
+  if(_selectedSlots.length < 2){ alert('Please select at least 2 time slots.'); return; }
   var btn = document.getElementById('bookingConfirmBtn');
-  btn.disabled=true; btn.textContent='Sending...';
-
-  var slotLabels = _selectedSlots.map(function(s){return s.label;}).join(' | ');
-
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    action:'bookingRequest',
-    name:_clientName, email:_clientEmail, lawyer:_clientLawyer,
-    score:_clientScore, city:_selectedCity, slots:slotLabels
-  })}).then(function(){showBookingDone(slotLabels);}).catch(function(){showBookingDone(slotLabels);});
+  btn.disabled = true; btn.textContent = 'Sending...';
+  var slotLabels = _selectedSlots.map(function(s){ return s.label; }).join(' | ');
+  fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action: 'bookingRequest',
+      name: _clientName, email: _clientEmail, lawyer: _clientLawyer,
+      score: _clientScore, city: _selectedCity, slots: slotLabels
+    })
+  }).then(function(){ showBookingDone(slotLabels); })
+    .catch(function(){ showBookingDone(slotLabels); });
 }
 
 function showBookingDone(slotLabels){
-  document.getElementById('bookingPicker').style.display='none';
+  document.getElementById('bookingPicker').style.display = 'none';
   var done = document.getElementById('bookingDone');
   done.classList.add('show');
   document.getElementById('bookingDoneBody').textContent =
-    'Silvester has received your preferred time slots in ' + _selectedCity + ': ' + slotLabels + '. He will follow up to confirm the appointment with ' + (_clientLawyer !== 'Not provided' ? _clientLawyer : 'your lawyer') + ' and get back to you shortly.';
+    'Silvester has received your preferred time slots in ' + _selectedCity + ': ' + slotLabels.replace(/\s*\|\s*/g, ', ') + '. He will follow up to confirm the appointment with ' + (_clientLawyer !== 'Not provided' ? _clientLawyer : 'your lawyer') + ' and get back to you shortly.';
 }
 </script>
 </body>
