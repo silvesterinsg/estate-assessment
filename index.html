@@ -334,42 +334,29 @@ var DEPOSITARY_URL = "https://script.google.com/macros/s/AKfycbx2BScnbDAYx9nfGrL
 
 var _clientName='', _clientEmail='', _clientLawyer='', _clientScore=0, _selectedCity='', _selectedSlots=[];
 
-// ── LAWYER DROPDOWN ──
-// ── LAWYER DROPDOWN — fetches via Risk Assessment script (single URL) ──
+// -- LAWYER DROPDOWN -- original working version --
+var _dcb = 0;
 (function loadLawyers(){
-  var sel = document.getElementById('clientLawyerSelect');
-
-  function populate(lawyers) {
-    sel.innerHTML = '<option value="">None / Not applicable</option>';
-    if(lawyers && lawyers.length){
-      lawyers.forEach(function(l){
-        var o = document.createElement('option');
-        o.value = l.name;
-        o.textContent = l.name + (l.firm ? ' — ' + l.firm : '');
-        sel.appendChild(o);
-      });
-    }
-    var o2 = document.createElement('option');
-    o2.value = 'Other'; o2.textContent = 'Other (specify)';
-    sel.appendChild(o2);
+  var nm = '_lw' + (++_dcb);
+  var url = DEPOSITARY_URL + '?action=getLawyers&callback=' + nm;
+  window[nm] = function(d){
+    try { document.head.removeChild(document.getElementById(nm)); } catch(e) {}
+    delete window[nm];
+    var sel = document.getElementById('clientLawyerSelect');
+    if(!sel) return;
+    var lawyers = (d && d.lawyers) || [];
+    sel.innerHTML = '<option value="">None / Not applicable</option>'
+      + lawyers.map(function(l){
+          return '<option value="' + l.name + '">' + l.name + (l.firm ? ' -- ' + l.firm : '') + '</option>';
+        }).join('')
+      + '<option value="Other">Other (specify)</option>';
     sel.addEventListener('change', function(){
       document.getElementById('otherLawyerWrap').style.display = this.value === 'Other' ? 'block' : 'none';
     });
-  }
-
-  // Fallback if no response in 6 seconds
-  var timer = setTimeout(function(){
-    if(sel.options.length <= 1) populate([]);
-  }, 6000);
-
-  var cb = 'cb_lawyers_' + Date.now();
-  window[cb] = function(r){
-    clearTimeout(timer);
-    populate(r && r.lawyers ? r.lawyers : []);
   };
   var s = document.createElement('script');
-  s.src = SCRIPT_URL + '?action=getLawyers&callback=' + cb;
-  s.onerror = function(){ clearTimeout(timer); populate([]); };
+  s.id = nm;
+  s.src = url;
   document.head.appendChild(s);
 })();
 
